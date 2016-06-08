@@ -1,0 +1,18 @@
+{
+  "name": "loopin-api",
+  "version": "0.1.0",
+  "author": "loopin devs",
+  "main": "server.js",
+  "description": "loopin-api",
+  "license": "UNLICENSED",
+  "repository": "TBD",
+  "dependencies": {
+    "bcrypt": "^0.8.5",
+    "body-parser": "~1.9.2",
+    "express": "~4.9.8",
+    "jwt-simple": "^0.3.1",
+    "morgan": "~1.5.0",
+    "passport": "^0.3.0",
+    "passport-jwt": "^1.2.1"
+  }
+}
