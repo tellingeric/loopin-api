@@ -5,8 +5,8 @@ var fs = require('fs');
 var morgan = require('morgan');
 var path = require('path');
 var passport = require('passport');
-var dbConfig = require('./config/database');
-var User = require('./app/models/user');
+//var dbConfig = require('./config/database');
+//var User = require('./app/models/user');
 var jwt = require('jwt-simple');
 
 app.use(bodyParser.urlencoded({extended:false}));
