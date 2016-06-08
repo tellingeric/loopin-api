@@ -1,7 +1,9 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var fs = require('fs');
 var morgan = require('morgan');
+var path = require('path');
 var passport = require('passport');
 var dbConfig = require('./config/database');
 var User = require('./app/models/user');
@@ -9,7 +11,17 @@ var jwt = require('jwt-simple');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
-app.use(morgan('dev'));
+
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
+app.use(morgan('combined', {
+    stream: {write: function(str)
+{
+    accessLogStream.write(str);
+    console.log(str);
+}}
+}));
+
 app.use(passport.initialize());
 
 app.all('/*', function(req, res, next) {
