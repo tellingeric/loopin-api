@@ -1,43 +1,37 @@
+var User = require('../models/User');
+
 var users = {
+  getAll: function(req, res){
+    User.find(function(err, users) {
+      if (err) res.send(err);
+      res.json(users);
+    });
 
-  getAll: function(req, res) {
-    res.json(fakeData);
   },
 
-  getOne: function(req, res) {
-    res.json(fakeData[req.params.id]);
+  create: function(req, res){
+    var user = new User();
+    user.username = req.body.username;
+    user.password = "111";
+    user.email = "test@hotmail.com";
+
+    user.save(function(err){
+      if (err) res.send(err);
+      res.json({ message: "user created"});
+    });
+
   },
 
-  create: function(req, res) {
-    var input = req.body;
-    fakeData.push(input); // Spoof a DB call
-    res.json(input);
-  },
-
-  update: function(req, res) {
-    var update = req.body;
-    data[req.params.id] = update; // Spoof a DB call
-    res.json(update);
-  },
-
-  delete: function(req, res) {
-    data.splice(req.params.id, 1); // Spoof a DB call
-    res.json(true);
+  remove: function(req, res){
+    User.remove({
+      _id: req.params.user_id
+    }, function (err, user){
+      if (err) res.send(err);
+      res.json({message: "user deleted"})
+    });
   }
-};
 
-var fakeData = [{
-  name: 'user 1',
-  role: 'admin',
-  id: '1'
-}, {
-  name: 'user 2',
-  role: 'normal',
-  id: '2'
-}, {
-  name: 'user 3',
-  role: 'admin',
-  id: '3'
-}];
+
+};
 
 module.exports = users;
