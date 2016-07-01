@@ -16,17 +16,7 @@ app.use(bodyParser.json());
 
 mongoose.connect(config.database);
 
-var port = 3000;
-var router = express.Router();
-
 app.set('secretCode', config.secret);
-
-
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function(req, res) {
-    //res.json({ message: 'hooray! welcome to our api!' });
-    res.send('Hello World!');
-});
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
@@ -34,6 +24,7 @@ app.use('/', require('./app/routes'));
 
 
 // =============================================================================
-app.listen(port, function() {
-  console.log('Magic happens on port ' + port);
+app.set('port', process.env.PORT || 3000);
+var server = app.listen(app.get('port'), function() {
+  console.log('LoopIn-API on port ' + server.address().port);
 });
