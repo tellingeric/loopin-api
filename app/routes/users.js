@@ -1,8 +1,8 @@
-var User = require('../models/User');
+var UserModel = require('../models/UserModel');
 
-var users = {
+var Users = {
   getAll: function(req, res){
-    User.find(function(err, users) {
+    UserModel.find(function(err, users) {
       if (err) res.send(err);
       res.json(users);
     });
@@ -10,7 +10,7 @@ var users = {
   },
 
   create: function(req, res){
-    var user = new User();
+    var user = new UserModel();
     user.username = req.body.username;
     user.password = "111";
     user.email = "test@hotmail.com";
@@ -23,7 +23,7 @@ var users = {
   },
 
   remove: function(req, res){
-    User.remove({
+    UserModel.remove({
       _id: req.params.user_id
     }, function (err, user){
       if (err) res.send(err);
@@ -31,7 +31,6 @@ var users = {
     });
   }
 
-
 };
 
-module.exports = users;
+module.exports = Users;

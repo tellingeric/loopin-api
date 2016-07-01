@@ -1,8 +1,11 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var jwt = require('jsonwebtoken');
+var config = require('./config');
+var morgan = require('morgan');
 
-var User = require('./app/models/User');
+//var User = require('./app/models/User');
 
 //==============================================
 var app = express();
@@ -11,10 +14,13 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://admin:admin@ds021694.mlab.com:21694/yummyt-test')
+mongoose.connect(config.database);
 
 var port = 3000;
 var router = express.Router();
+
+app.set('secretCode', config.secret);
+
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
