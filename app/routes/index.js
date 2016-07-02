@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var Users = require('./users');
-var Events = require('./events');
-var Vendors = require('./vendors');
+var Events = require('./Events');
+var Vendors = require('./Vendors');
 
 
 router.get('/', function(req, res) {
