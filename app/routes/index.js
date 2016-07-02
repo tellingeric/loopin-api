@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-var Users = require('./users.js');
-var Events = require('./events.js');
-var Vendors = require('./vendors.js');
+var Users = require('./users');
+var Events = require('./events');
+var Vendors = require('./vendors');
 
 
 router.get('/', function(req, res) {
