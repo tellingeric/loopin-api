@@ -15,6 +15,7 @@ var app = express();
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 
 mongoose.connect(config.database);
 
