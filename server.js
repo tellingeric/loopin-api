@@ -7,7 +7,9 @@ var morgan = require('morgan');
 var config = require('./config');
 
 
-//var User = require('./app/models/User');
+var User = require('./app/models/UserModel');
+var Event = require('./app/models/EventModel');
+var Vendor = require('./app/models/VendorModel');
 
 //==============================================
 var app = express();

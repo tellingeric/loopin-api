@@ -13,7 +13,7 @@ var Events = {
     var event = new EventModel();
     event.Name = req.body.Name;
     event.Description = req.body.Description;
-    event.Cancellable = TRUE;
+    event.Cancellable = true;
 
     event.save(function(err){
       if (err) res.send(err);
