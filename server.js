@@ -22,10 +22,7 @@ mongoose.connect(config.database);
 
 app.set('secretCode', config.secret);
 
-// REGISTER OUR ROUTES -------------------------------
-// all of our routes will be prefixed with /api
-app.use('/', require('./app/routes'));
-
+// CORS
 app.all('/*', function(req, res, next) {
   // CORS headers
   res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
@@ -38,6 +35,12 @@ app.all('/*', function(req, res, next) {
     next();
   }
 });
+
+// REGISTER OUR ROUTES -------------------------------
+// all of our routes will be prefixed with /api
+app.use('/', require('./app/routes'));
+
+
 
 
 // =============================================================================
