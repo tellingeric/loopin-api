@@ -6,7 +6,6 @@ var Events = require('./events');
 var Vendors = require('./vendors');
 var Products = require('./products');
 
-
 // USERS
 router.get('/api/users', Users.getAll);
 router.post('/api/users', Users.create);
@@ -19,14 +18,21 @@ router.get('/api/vendors/:vendor_id', Vendors.getOne);
 router.post('/api/vendors/:vendor_id', Vendors.updateOne);
 router.delete('/api/vendors/:vendor_id', Vendors.deleteOne);
 
-
+// PRODUCTS
+router.get('/api/products', Products.getAll);
+router.post('/api/products', Products.createOne);
+router.get('/api/products/:product_id', Products.getOne);
+router.post('/api/products/:product_id', Products.updateOne);
+router.delete('/api/products/:product_id', Products.deleteOne);
 
 // EVENTS
 router.get('/api/events', Events.getAll);
-router.post('/api/events', Events.create);
-router.delete('/api/events/:event_id', Events.remove);
+router.post('/api/events', Events.createOne);
+router.get('/api/events/:event_id', Events.getOne);
+router.post('/api/events/:event_id', Events.updateOne);
+router.delete('/api/events/:event_id', Events.deleteOne);
 
-// global routes
+// GLOBAL ROUTES
 router.get('/', function(req, res) {
     res.send('LoopIn-API');
 });

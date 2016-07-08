@@ -21,29 +21,18 @@ var Vendors = {
     },
 
     getOne: function (req, res) {
-        VendorModel.findById(req.params.vendor_id, function (err, vendor) {
+        VendorModel.findById(req.params.vendor_id, function (err, item) {
             if (err) res.send(err);
-            res.json(vendor);
+            res.json(item);
         });
     },
 
     updateOne: function (req, res) {
-        VendorModel.findById(req.params.vendor_id, function (err, vendor) {
+        VendorModel.findById(req.params.vendor_id, function (err, item) {
             if (err) res.send(err);
-            vendor.name = vonder.name + '_Updated';
-            vendor.address = {
-                street1: "street1",
-                street2: "street2",
-                city: "city",
-                state: "State",
-                zipCode: "11111",
-                country: "US"
-            };
-            vendor.email = "test@gmail.com";
-            vendor.phone = "6316128465";
-            vendor.type = "RESTAURANTS";
+            item.name = item.name + '_Updated';
 
-            vendor.save(function (err) {
+            item.save(function (err) {
                 if (err) res.send(err);
                 res.json({message: "vendor updated"});
             });
@@ -54,10 +43,10 @@ var Vendors = {
     createOne: function (req, res) {
         var rand_name = 'Vendor_' + Math.floor((Math.random() * 1000) + 1);
 
-        var vendor = new VendorModel();
-        vendor.name = rand_name;
+        var item = new VendorModel();
+        item.name = rand_name;
 
-        vendor.address = {
+        item.address = {
             street1: "street1",
             street2: "street2",
             city: "city",
@@ -65,11 +54,11 @@ var Vendors = {
             zipCode: "11111",
             country: "US"
         };
-        vendor.email = "test@gmail.com";
-        vendor.phone = "6316128465";
-        vendor.type = "RESTAURANTS";
+        item.email = "test@gmail.com";
+        item.phone = "6316128465";
+        item.type = "RESTAURANTS";
 
-        vendor.save(function (err) {
+        item.save(function (err) {
             if (err) res.send(err);
             res.json({message: "vendor created"});
         });
@@ -79,7 +68,7 @@ var Vendors = {
     deleteOne: function (req, res) {
         VendorModel.remove({
             _id: req.params.vendor_id
-        }, function (err, vendor) {
+        }, function (err, item) {
             if (err) res.send(err);
             res.json({message: "vendor deleted"})
         });
