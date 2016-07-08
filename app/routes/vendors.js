@@ -13,16 +13,16 @@ var Vendors = {
     var vendor = new VendorModel();
     vendor.Name = req.body.Name;
     vendor.Address = {
-      Street1 : "street1",
-      Street2 : "street2",
-      City : "city",
-      State : "State",
-      ZipCode : "11111",
-      Country : "US"
+      street1 : "street1",
+      street2 : "street2",
+      city : "city",
+      state : "State",
+      zipCode : "11111",
+      country : "US"
     };
     vendor.email = "test@gmail.com";
     vendor.phone = "6316128465";
-    vendor.Type = "RESTAURANTS";
+    vendor.type = "RESTAURANTS";
 
     vendor.save(function(err){
       if (err) res.send(err);

@@ -2,15 +2,22 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var EventSchema = new Schema({
-    Name : String,
-    Description : String,
-    StartDate : Date,
-    EndDate : Date,
-
-    Cancellable : Boolean
-
-
-    //admins : [{user_id : ObjectId, username : String}]
+    name : String,
+    description : String,
+    eventDate : Date,
+    active_from : Date,
+    active_end : Date,
+    cancellable : Boolean,
+    delivery_schedule : [{
+      location : String,
+      arrival : String
+    }],
+    vendor_id : String,
+    products : [{
+      product_id : String,
+      product_vid : String,
+      unitPrice : Number
+    }]
 
 });
 

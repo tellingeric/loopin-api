@@ -11,9 +11,9 @@ var Events = {
 
   create: function(req, res){
     var event = new EventModel();
-    event.Name = req.body.Name;
-    event.Description = req.body.Description;
-    event.Cancellable = true;
+    event.name = req.body.name;
+    event.description = req.body.description;
+    event.cancellable = true;
 
     event.save(function(err){
       if (err) res.send(err);
