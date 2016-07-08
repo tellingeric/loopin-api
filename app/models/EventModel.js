@@ -5,7 +5,7 @@ var Schema = mongoose.Schema,
 var EventSchema = new Schema({
     name : {type: String,requried: true},
     description : String,
-    creator_user_id: ObjectId,
+    creator_user_id: String, //should be an ObjectId, keep it simple for now
     eventDate : Date,
     active_from : Date,
     active_end : Date,
@@ -15,11 +15,12 @@ var EventSchema = new Schema({
       location : String,
       arrival_time : Date
     }],
-    vendor_id: {type: ObjectId, required: true},
+    vendor_id: {type: String, required: true},
     products : [{
-      product_id : ObjectId,
-      product_vid : ObjectId,
-      unitPrice : Number
+      product_id : String,
+      product_vid : String,
+      unitPrice : Number,
+        num_sold: Number
     }]
     },
     {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});

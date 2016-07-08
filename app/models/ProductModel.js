@@ -4,13 +4,13 @@ var Schema = mongoose.Schema,
 
 var ProductSchema = new Schema({
     name: {type: String, required: true},
-    vendor_id: {type: ObjectId, required: true},
-    creator_user_id: {type: ObjectId, required: true},
+    vendor_id: {type: String, required: true},//should be an ObjectId, keep it simple for now
+    creator_user_id: {type: String, required: true},
     details: [{
-        vid: {type: ObjectId, required: true},
+        vid: {type: String, required: true},
         description: String,
         price: Number,
-        creator_user_id: {type: ObjectId, required: true},//assuming saving every change as a 'version'; only needs 'create', no 'update'
+        creator_user_id: {type: String, required: true},//assuming saving every change as a 'version'; only needs 'create', no 'update'
         create_at: Date,
         img_url: String,
         options: [{option_name: String, option_value: String}]
