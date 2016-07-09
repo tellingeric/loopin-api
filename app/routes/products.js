@@ -9,11 +9,7 @@ var Products = {
             limit_doc = req.query.limit || 0,
             skip_doc = req.query.skip || 0;
 
-        ProductModel.find().
-        limit(limit_doc).
-        skip(skip_doc).
-        sort(order+order_by).
-        exec(function (err, items) {
+        ProductModel.find().limit(limit_doc).skip(skip_doc).sort(order + order_by).exec(function (err, items) {
             if (err) res.send(err);
             res.json(items);
         });
@@ -46,7 +42,7 @@ var Products = {
         var item = new ProductModel();
         //all fake data
         item.name = rand_name;
-        item.vendor_id =  req.body.vendor_id;
+        item.vendor_id = req.body.vendor_id;
         item.creator_user_id = req.body.creator_user_id;
         item.details = [{
             description: 'Delicious Poop',
@@ -56,14 +52,14 @@ var Products = {
             img_url: 'http://localhost:3000/somthing.png',
             options: []
         },
-        {
-            description: 'Tasty Pee',
-            price: 5.97,
-            creator_user_id: '577feda0c0d56fab4dbc586e',
-            create_at: Date.now(),
-            img_url: 'http://localhost:3000/somthing.png',
-            options: []
-        }];
+            {
+                description: 'Tasty Pee',
+                price: 5.97,
+                creator_user_id: '577feda0c0d56fab4dbc586e',
+                create_at: Date.now(),
+                img_url: 'http://localhost:3000/somthing.png',
+                options: []
+            }];
 
         item.save(function (err) {
             if (err) res.send(err);
@@ -78,6 +74,13 @@ var Products = {
         }, function (err, item) {
             if (err) res.send(err);
             res.json({message: "product deleted"})
+        });
+    },
+
+    deleteAll: function(req,res) {
+        ProductModel.remove({}, function (err, item) {
+            if (err) res.send(err);
+            res.json({message: "all products deleted"})
         });
     }
 

@@ -40,11 +40,18 @@ router.get('/api/orders/:order_id', Orders.getOne);
 router.post('/api/orders/:order_id', Orders.updateOne);
 router.delete('/api/orders/:order_id', Orders.deleteOne);
 
+//DEBUG ROUTES, MUST REMOVE IN PRODUCTION
+router.delete('/api/vendors', Vendors.deleteAll);
+router.delete('/api/products', Products.deleteAll);
+router.delete('/api/events', Events.deleteAll);
+router.delete('/api/orders', Orders.deleteAll);
+
+
 // GLOBAL ROUTES
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
     res.send('LoopIn-API');
 });
-router.get('*',function (req, res) {
+router.get('*', function (req, res) {
     res.redirect('/');
 });
 

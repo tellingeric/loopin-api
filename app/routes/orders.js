@@ -9,11 +9,7 @@ var Orders = {
             limit_doc = req.query.limit || 0,
             skip_doc = req.query.skip || 0;
 
-        OrderModel.find().
-        limit(limit_doc).
-        skip(skip_doc).
-        sort(order+order_by).
-        exec(function (err, items) {
+        OrderModel.find().limit(limit_doc).skip(skip_doc).sort(order + order_by).exec(function (err, items) {
             if (err) res.send(err);
             res.json(items);
         });
@@ -59,6 +55,13 @@ var Orders = {
         }, function (err, item) {
             if (err) res.send(err);
             res.json({message: "order deleted"})
+        });
+    },
+
+    deleteAll: function(req,res) {
+        OrderModel.remove({}, function (err, item) {
+            if (err) res.send(err);
+            res.json({message: "all orders deleted"})
         });
     }
 };
