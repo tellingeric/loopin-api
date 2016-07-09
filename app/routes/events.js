@@ -39,30 +39,28 @@ var Events = {
     createOne: function (req, res) {
         var rand_name = 'Event_' + Math.floor((Math.random() * 1000) + 1);
 
+        var dummy_img = 'http://i.imgur.com/jHcilUJ.jpg';
+        var dummy_user = 'dummy user id';
+
         var item = new EventModel();
         //all fake data
         item.name = rand_name;
         item.description = 'lap dance';
-        item.creator_user_id = '577feda0c0d56fab4dbc586e';
+        item.creator_user_id = dummy_user;
         item.eventDate = Date.now();
         item.active_from = Date.now();
         item.active_end = Date.now();
         item.cancellable = true;
-        item.img_url = 'http://localhost:3000/somthing.png',
-            item.delivery_schedule = [{
-                location: 'LGA',
-                arrival_time: Date.now()
-            }, {
-                location: 'JFK',
-                arrival_time: Date.now()
-            }];
-        item.vendor_id = '577feda0c0d56fab4dbc586e';
-        item.products = [{
-            product_id: '577feda0c0d56fab4dbc586e',
-            product_vid: '577feda0c0d56fab4dbc586e',
-            unitPrice: 5.97,
-            num_sold: 10
+        item.img_url = dummy_img;
+        item.delivery_schedule = [{
+            location: 'LGA',
+            arrival_time: Date.now()
+        }, {
+            location: 'JFK',
+            arrival_time: Date.now()
         }];
+        item.vendor_id = req.body.vendor_id;
+        item.products = req.body.products;
 
         item.save(function (err) {
             if (err) res.send(err);

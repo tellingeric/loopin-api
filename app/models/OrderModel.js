@@ -8,9 +8,17 @@ var OrderSchema = new Schema({
             unitPrice: Number,
             num_sold: Number
         }],
-        delivery_address: String,
+        delivery_address : {
+            street1 : String,
+            street2 : String,
+            city : String,
+            state : String,
+            zipCode : String,
+            country : String
+        },
         buyer_user_id: {type: String, required: true},
-        order_date: Date
+        order_date: Date,
+        event_id: String //optional, may not be purchased from an event
     },
     {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}});
 

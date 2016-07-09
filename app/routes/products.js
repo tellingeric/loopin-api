@@ -38,26 +38,28 @@ var Products = {
 
     createOne: function (req, res) {
         var rand_name = 'Product_' + Math.floor((Math.random() * 1000) + 1);
+        var dummy_img = 'http://i.imgur.com/6zQAymt.jpg';
+        var dummy_user = 'dummy user id';
 
         var item = new ProductModel();
         //all fake data
         item.name = rand_name;
         item.vendor_id = req.body.vendor_id;
-        item.creator_user_id = req.body.creator_user_id;
+        item.creator_user_id = dummy_user;
         item.details = [{
             description: 'Delicious Poop',
             price: 9.97,
-            creator_user_id: '577feda0c0d56fab4dbc586e',
+            creator_user_id: dummy_user,
             create_at: Date.now(),
-            img_url: 'http://localhost:3000/somthing.png',
+            img_url: dummy_img,
             options: []
         },
             {
                 description: 'Tasty Pee',
                 price: 5.97,
-                creator_user_id: '577feda0c0d56fab4dbc586e',
+                creator_user_id: dummy_user,
                 create_at: Date.now(),
-                img_url: 'http://localhost:3000/somthing.png',
+                img_url: dummy_img,
                 options: []
             }];
 
