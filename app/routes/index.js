@@ -5,6 +5,7 @@ var Users = require('./users');
 var Events = require('./events');
 var Vendors = require('./vendors');
 var Products = require('./products');
+var Orders = require('./orders');
 
 // USERS
 router.get('/api/users', Users.getAll);
@@ -31,6 +32,13 @@ router.post('/api/events', Events.createOne);
 router.get('/api/events/:event_id', Events.getOne);
 router.post('/api/events/:event_id', Events.updateOne);
 router.delete('/api/events/:event_id', Events.deleteOne);
+
+// EVENTS
+router.get('/api/orders', Orders.getAll);
+router.post('/api/orders', Orders.createOne);
+router.get('/api/orders/:order_id', Orders.getOne);
+router.post('/api/orders/:order_id', Orders.updateOne);
+router.delete('/api/orders/:order_id', Orders.deleteOne);
 
 // GLOBAL ROUTES
 router.get('/', function(req, res) {

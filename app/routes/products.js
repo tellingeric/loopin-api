@@ -46,25 +46,23 @@ var Products = {
         var item = new ProductModel();
         //all fake data
         item.name = rand_name;
-        item.vendor_id =  '577feda0c0d56fab4dbc586e';
-        item.creator_user_id = '577feda0c0d56fab4dbc586e';
+        item.vendor_id =  req.body.vendor_id;
+        item.creator_user_id = req.body.creator_user_id;
         item.details = [{
-            vid: '577feda0c0d56fab4dbc586e',
             description: 'Delicious Poop',
             price: 9.97,
             creator_user_id: '577feda0c0d56fab4dbc586e',
             create_at: Date.now(),
             img_url: 'http://localhost:3000/somthing.png',
-            options: [{option_name: 'Hot level', option_value: 'Mild'},{option_name: 'Hot level', option_value: 'Hot'},{option_name: 'Hot level', option_value: 'Inferno'}]
+            options: []
         },
         {
-            vid: '577feda0c0d56fab4dbc586e',
             description: 'Tasty Pee',
             price: 5.97,
             creator_user_id: '577feda0c0d56fab4dbc586e',
             create_at: Date.now(),
             img_url: 'http://localhost:3000/somthing.png',
-            options: [{option_name: 'Hot level', option_value: 'Mild'},{option_name: 'Hot level', option_value: 'Hot'},{option_name: 'Hot level', option_value: 'Inferno'}]
+            options: []
         }];
 
         item.save(function (err) {

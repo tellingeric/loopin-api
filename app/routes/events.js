@@ -5,7 +5,7 @@ var Events = {
 
   getAll: function (req, res) {
     var order_by = req.query.order_by || 'name',
-        order = req.query.order || '',
+        order = req.query.order || '',//''= asc, '-'=desc
         limit_doc = req.query.limit || 0,
         skip_doc = req.query.skip || 0;
 
