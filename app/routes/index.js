@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var jwt = require('jsonwebtoken');
+var passport = require('passport');
 
 var Users = require('./users');
 var Events = require('./events');
@@ -7,10 +9,18 @@ var Vendors = require('./vendors');
 var Products = require('./products');
 var Orders = require('./orders');
 
+
 // USERS
 router.get('/api/users', Users.getAll);
-router.post('/api/users', Users.create);
+router.post('/api/users/register', Users.create);
+router.post('/api/users/auth', Users.auth);
 router.delete('/api/users/:user_id', Users.remove);
+// Protect dashboard route with JWT
+router.get('/api/users/dashboard', passport.authenticate('jwt', { session: false }), 
+	function(req, res) {
+  		res.send('It worked! User id is: ' + req.user._id + '.');
+	}
+);
 
 // VENDORS
 router.get('/api/vendors', Vendors.getAll);

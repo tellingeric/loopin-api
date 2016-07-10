@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var config = require('./config');
+var passport = require('passport');
 
 //==============================================
 var app = express();
@@ -13,6 +14,8 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 mongoose.connect(config.database);
+
+require('../config/passport')(passport);// pass passport for configuration
 
 app.set('secretCode', config.secret);
 
@@ -30,10 +33,12 @@ app.all('/*', function(req, res, next) {
   }
 });
 
+
+app.use(passport.initialize());
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/', require('./app/routes'));
-
 
 
 
