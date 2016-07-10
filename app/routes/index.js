@@ -18,7 +18,7 @@ router.delete('/api/users/:user_id', Users.remove);
 // Protect dashboard route with JWT
 router.get('/api/users/dashboard', passport.authenticate('jwt', { session: false }), 
 	function(req, res) {
-  		res.send('It worked! User id is: ' + req.user._id + '.');
+  		res.send('User id is: ' + req.user._id + '.');
 	}
 );
 
