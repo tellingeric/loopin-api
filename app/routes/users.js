@@ -51,6 +51,12 @@ var Users = {
         });
     },
 
+    logout: function (req, res) {
+        req.logout();
+        req.session.destroy();
+        res.redirect('/');
+    },
+
     getAll: function (req, res) {
         UserModel.find(function (err, users) {
             if (err) res.send(err);

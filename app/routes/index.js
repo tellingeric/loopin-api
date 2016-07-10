@@ -21,6 +21,8 @@ router.get('/api/users/dashboard', passport.authenticate('jwt', { session: false
   		res.send('User id is: ' + req.user._id + '.');
 	}
 );
+//logout
+router.get('/api/users/logout', Users.logout);
 
 // VENDORS
 router.get('/api/vendors', Vendors.getAll);
