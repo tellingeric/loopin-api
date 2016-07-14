@@ -1,3 +1,4 @@
+var mongoose = require('mongoose');
 var ProductModel = require('../models/ProductModel');
 
 var Products = {
@@ -44,7 +45,7 @@ var Products = {
         var item = new ProductModel();
         //all fake data
         item.name = rand_name;
-        item.vendor_id = req.body.vendor_id;
+        item.vendor_id = mongoose.Types.ObjectId(req.body.vendor_id);
         item.creator_user_id = dummy_user;
         item.details = [{
             description: 'Delicious Poop',
@@ -52,7 +53,18 @@ var Products = {
             creator_user_id: dummy_user,
             create_at: Date.now(),
             img_url: dummy_img,
-            options: []
+            options: [
+              {
+                option_name : 'Spicy',
+                option_selections : ['Hot', 'Mild', 'Medium'],
+                multiple: false
+              },
+              {
+                option_name : 'Appetizer',
+                option_selections : ['cat', 'dog', 'cow'],
+                multiple: true
+              }
+            ]
         },
             {
                 description: 'Tasty Pee',
@@ -60,7 +72,18 @@ var Products = {
                 creator_user_id: dummy_user,
                 create_at: Date.now(),
                 img_url: dummy_img,
-                options: []
+                options: [
+                  {
+                    option_name : 'Spicy',
+                    option_selections : ['Hot', 'Mild', 'Medium'],
+                    multiple: false
+                  },
+                  {
+                    option_name : 'Appetizer',
+                    option_selections : ['cat', 'dog', 'cow'],
+                    multiple: true
+                  }
+                ]
             }];
 
         item.save(function (err) {

@@ -18,7 +18,7 @@ var OrderSchema = new Schema({
         },
         buyer_user_id: {type: String, required: true},
         order_date: Date,
-        event_id: String //optional, may not be purchased from an event
+        event_id: { type: Schema.Types.ObjectId, ref: 'Event' } //optional, may not be purchased from an event
     },
     {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}});
 

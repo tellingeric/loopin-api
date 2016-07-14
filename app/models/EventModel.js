@@ -17,13 +17,14 @@ var EventSchema = new Schema({
     }],
     vendor_id: {type: String, required: true},
     products : [{
-      product_id : String,
-      product_vid : String,
-      unitPrice : Number,
+      product_id : { type: Schema.Types.ObjectId, ref: 'Product' },
+      product_vid : { type: Schema.Types.ObjectId, ref: 'Product.details' },
+      unit_price : Number,
         num_sold: Number
     }]
     },
-    {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
+    {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }}
+  );
 
 
 module.exports = mongoose.model('Event', EventSchema);

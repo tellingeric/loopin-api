@@ -1,3 +1,4 @@
+var mongoose = require('mongoose');
 var EventModel = require('../models/EventModel');
 
 var Events = {
@@ -9,7 +10,7 @@ var Events = {
             limit_doc = req.query.limit || 0,
             skip_doc = req.query.skip || 0;
 
-        EventModel.find().limit(limit_doc).skip(skip_doc).sort(order + order_by).exec(function (err, items) {
+        EventModel.find().populate('products.product_id').limit(limit_doc).skip(skip_doc).sort(order + order_by).exec(function (err, items) {
             if (err) res.send(err);
             res.json(items);
         });
@@ -17,7 +18,12 @@ var Events = {
     },
 
     getOne: function (req, res) {
-        EventModel.findById(req.params.event_id, function (err, item) {
+        EventModel.findById(req.params.event_id)
+        .populate({
+            path: 'products.product_id'
+        })
+        .exec(function (err, item) {
+          console.log(item)
             if (err) res.send(err);
             res.json(item);
         });
@@ -61,6 +67,16 @@ var Events = {
         }];
         item.vendor_id = req.body.vendor_id;
         item.products = req.body.products;
+
+
+        // testing data
+
+        // item.products = [{
+        //   product_id: mongoose.Types.ObjectId('5786f9bc133fd7d415db94f3'),
+        //   product_vi: mongoose.Types.ObjectId('5786f9bc133fd7d415db94f7'),
+        //   unit_price: 99.99,
+        //   num_sold: 999
+        // }];
 
         item.save(function (err) {
             if (err) res.send(err);
