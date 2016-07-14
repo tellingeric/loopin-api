@@ -15,12 +15,11 @@ var UserSchema = new Schema({
   },
   token: {
     type: String,
-    unique: false,
+    unique: false
   },
   username: {
     type: String,
-    required: true
-    unique: true,
+    unique: true
   },
   type: {
     type: String,
