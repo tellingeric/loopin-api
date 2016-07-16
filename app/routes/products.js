@@ -55,14 +55,14 @@ var Products = {
             img_url: dummy_img,
             options: [
               {
-                option_name : 'Spicy',
-                option_selections : ['Hot', 'Mild', 'Medium'],
-                multiple: false
+                name : 'Spicy',
+                selections : ['Hot', 'Mild', 'Medium'],
+                isMultiple: false
               },
               {
-                option_name : 'Appetizer',
-                option_selections : ['cat', 'dog', 'cow'],
-                multiple: true
+                name : 'Appetizer',
+                selections : ['cat', 'dog', 'cow'],
+                isMultiple: true
               }
             ]
         },
@@ -74,14 +74,14 @@ var Products = {
                 img_url: dummy_img,
                 options: [
                   {
-                    option_name : 'Spicy',
-                    option_selections : ['Hot', 'Mild', 'Medium'],
-                    multiple: false
+                    name : 'Spicy',
+                    selections : ['Hot', 'Mild', 'Medium'],
+                    isMultiple: false
                   },
                   {
-                    option_name : 'Appetizer',
-                    option_selections : ['cat', 'dog', 'cow'],
-                    multiple: true
+                    name : 'Appetizer',
+                    selections : ['cat', 'dog', 'cow'],
+                    isMultiple: true
                   }
                 ]
             }];
