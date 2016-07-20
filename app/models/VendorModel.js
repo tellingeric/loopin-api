@@ -11,6 +11,10 @@ var VendorSchema = new Schema({
       zipCode : String,
       country : String
     },
+    loc:{
+        type: [Number], //longtitude, latitude
+        index: '2d' //create geospatial index
+    },
     email : String,
     phone : String,
     type : String
