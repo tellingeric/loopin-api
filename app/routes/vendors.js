@@ -7,13 +7,36 @@ var Vendors = {
         var order_by = req.query.order_by || 'name',
             order = req.query.order || '',
             limit_doc = req.query.limit || 0,
-            skip_doc = req.query.skip || 0;
+            skip_doc = req.query.skip || 0,
+            maxDistance = req.query.distance || 99999, //in km
+            coords = [];
 
-        VendorModel.find().limit(limit_doc).skip(skip_doc).sort(order + order_by).exec(function (err, items) {
-            if (err) res.send(err);
-            res.json(items);
-        });
+        coords[0] = req.query.longtitude ||0;
+        coords[1] = req.query.latitude ||0;
 
+        if (order_by === 'loc')
+        {
+            maxDistance /=6371; //radius of Earth
+            VendorModel.find({
+                loc: {
+                    $near: coords,
+                    $maxDistance: maxDistance
+                }
+            }).limit(limit_doc).skip(skip_doc).exec(function(err, items) {
+                if (err) {
+                    return res.send(err);
+                }
+
+                res.json(items);
+            });
+        }
+        else
+        {
+            VendorModel.find().limit(limit_doc).skip(skip_doc).sort(order + order_by).exec(function (err, items) {
+                if (err) res.send(err);
+                res.json(items);
+            });
+        }
     },
 
     getOne: function (req, res) {
