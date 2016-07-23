@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 
 mongoose.connect(config.database);
 
-require('../config/passport')(passport);// pass passport for configuration
+require('./app/config/passport')(passport);// pass passport for configuration
 
 app.set('secretCode', config.secret);
 
