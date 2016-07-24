@@ -1,6 +1,6 @@
 var UserModel = require('../models/UserModel');
 var jwt = require('jsonwebtoken');
-var config = require('../config/database');
+var config = require('./../../config');
 
 
 var Users = {
@@ -19,7 +19,7 @@ var Users = {
           // Attempt to save the user
           user.save(function(err) {
             if (err) {
-              console.log(err);
+              //console.log(err);
               return res.status(400).json({ success: false, message: 'Failed to create user.'});
             }
             res.status(201).json({ success: true, message: 'user created' });
@@ -69,10 +69,10 @@ var Users = {
             
             // if everything is good, save to request for use in other routes 
             req.decoded = decoded;
-            res.status(200).send({ 
-                    success: true,
-                    message: 'Token authenticated successfully!'
-                  });
+            //res.status(200).json({ 
+            //        success: true,
+            //        message: 'Token authenticated successfully!'
+            //      });
             next();
           }
         });

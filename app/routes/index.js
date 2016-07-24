@@ -15,14 +15,7 @@ router.get('/api/users', Users.getAll);
 router.post('/api/users/register', Users.create);
 router.post('/api/users/login', Users.login);
 router.get('/api/users/auth', Users.auth);
-
 router.delete('/api/users/:user_id', Users.remove);
-// Protect dashboard route with JWT
-router.get('/api/users/dashboard', passport.authenticate('jwt', { session: false }), 
-	function(req, res) {
-  		res.send('It worked! User id is: ' + req.user._id + '.');
-	}
-);
 
 // VENDORS
 router.get('/api/vendors', Vendors.getAll);
