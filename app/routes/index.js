@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var passport = require('passport');
+var bodyParser = require('body-parser')
+var jsonParser = bodyParser.json()
 
 var Users = require('./users');
 var Events = require('./events');
@@ -12,10 +14,10 @@ var Orders = require('./orders');
 
 // USERS
 router.get('/api/users', Users.getAll);
-router.post('/api/users/register', Users.create);
-router.post('/api/users/login', Users.login);
-router.get('/api/users/auth', Users.auth);
+router.post('/register', Users.create);
+router.post('/login', Users.login);
 router.delete('/api/users/:user_id', Users.remove);
+router.get('/api/me', jsonParser, Users.getUser);
 
 // VENDORS
 router.get('/api/vendors', Vendors.getAll);
