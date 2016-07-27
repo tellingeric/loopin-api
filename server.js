@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var config = require('./config');
+var passport = require('passport');
 
 //==============================================
 var app = express();
@@ -13,6 +14,8 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 mongoose.connect(config.database);
+
+require('./app/config/passport')(passport);// pass passport for configuration
 
 app.set('secretCode', config.secret);
 
@@ -30,12 +33,17 @@ app.all('/*', function(req, res, next) {
   }
 });
 
+app.use(passport.initialize());
+
+// Auth Middleware - This will check if the token is valid
+// Only the requests that start with /api/* will be checked for the token.
+// Any URL's that do not follow the below pattern should be avoided unless you
+// are sure that authentication is not needed
+app.all('/api/*', [require('./app/middlewares/validateRequest')]);
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/', require('./app/routes'));
-
-
-
 
 // =============================================================================
 app.set('port', process.env.PORT || 3000);
