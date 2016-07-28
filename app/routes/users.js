@@ -19,7 +19,7 @@ var Users = {
           user.save(function(err) {
             if (err) {
               console.log(err);
-              return res.status(400).json({ success: false, message: 'Failed to create user:' + err});
+              return res.status(400).json({ success: false, message: 'Failed to create user:'});
             }
             res.status(201).json({ success: true, message: 'user created' });
           });
