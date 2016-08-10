@@ -40,6 +40,7 @@ router.get('/api/events/:event_id', Events.getOne);
 router.post('/api/events/:event_id', Events.updateOne);
 router.delete('/api/events/:event_id', Events.deleteOne);
 
+
 // ORDERS
 router.get('/api/orders', Orders.getAll);
 router.post('/api/orders', Orders.createOne);
@@ -52,6 +53,8 @@ router.delete('/api/vendors', Vendors.deleteAll);
 router.delete('/api/products', Products.deleteAll);
 router.delete('/api/events', Events.deleteAll);
 router.delete('/api/orders', Orders.deleteAll);
+
+router.post('/api/eventdeliveries', Events.createOneDelivery);
 
 
 // GLOBAL ROUTES
