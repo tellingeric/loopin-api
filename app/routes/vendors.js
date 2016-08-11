@@ -49,7 +49,10 @@ var Vendors = {
     updateOne: function (req, res) {
         VendorModel.findById(req.params.vendor_id, function (err, item) {
             if (err) res.send(err);
-            item.name = item.name + '_Updated';
+
+            for (prop in req.body) {
+                item[prop] = req.body[prop];
+            }
 
             item.save(function (err) {
                 if (err) res.send(err);

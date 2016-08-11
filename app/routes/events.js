@@ -106,7 +106,10 @@ var Events = {
     updateOne: function (req, res) {
         EventModel.findById(req.params.event_id, function (err, item) {
             if (err) res.send(err);
-            item.name = item.name + '_Updated';
+
+            for (prop in req.body) {
+                item[prop] = req.body[prop];
+            }
 
             item.save(function (err) {
                 if (err) res.send(err);
