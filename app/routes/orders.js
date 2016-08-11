@@ -40,6 +40,10 @@ var Orders = {
     },
 
     createOne: function (req, res) {
+        var item = new OrderModel(req.body);
+
+        /*
+        //test dummy data
         var rand_name = 'Order_' + Math.floor((Math.random() * 1000) + 1);
         var dummy_user = 'dummy user id';
 
@@ -56,7 +60,7 @@ var Orders = {
         };
         item.buyer_user_id = dummy_user;
         item.order_date = Date.now();
-        item.event_id = req.body.event_id;
+        item.event_id = req.body.event_id;*/
 
         item.save(function (err) {
             if (err) res.send(err);

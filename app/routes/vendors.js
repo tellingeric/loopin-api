@@ -8,7 +8,7 @@ var Vendors = {
             order = req.query.order || '',
             limit_doc = req.query.limit || 0,
             skip_doc = req.query.skip || 0,
-            maxDistance = req.query.distance || 99999, //in km
+            maxDistance = req.query.distance || 9999999999, //in km
             coords = [];
 
         coords[0] = req.query.longtitude ||0;
@@ -63,6 +63,9 @@ var Vendors = {
     },
 
     createOne: function (req, res) {
+        var item = new VendorModel(req.body);
+
+        /*
         var rand_name = 'Vendor_' + Math.floor((Math.random() * 1000) + 1);
 
         //should move this function to utility
@@ -71,7 +74,7 @@ var Vendors = {
             // .toFixed() returns string, so ' * 1' is a trick to convert to number
         };
 
-        var item = new VendorModel();
+
         item.name = rand_name;
 
         item.address = {
@@ -87,7 +90,7 @@ var Vendors = {
         item.type = "RESTAURANTS";
 
         item.loc = [getRandomInRange(-180,180,10),getRandomInRange(-90,90,10)];
-
+*/
         item.save(function (err) {
             if (err) res.send(err);
             res.json({message: "vendor created"});

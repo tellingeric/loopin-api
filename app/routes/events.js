@@ -11,7 +11,7 @@ var Events = {
             order = req.query.order || '',//''= asc, '-'=desc
             limit_doc = req.query.limit || 0,
             skip_doc = req.query.skip || 0,
-            maxDistance = req.query.distance || 9999999999999, //in km
+            maxDistance = req.query.distance || 9999999999, //in km
             coords = [];
 
         coords[0] = req.query.longtitude ||0;
@@ -120,6 +120,9 @@ var Events = {
     },
 
     createOne: function (req, res) {
+        var item = new EventModel(req.body);
+
+        /*
         var rand_name = 'Event_' + Math.floor((Math.random() * 1000) + 1);
 
         var dummy_img = 'http://i.imgur.com/jHcilUJ.jpg';
@@ -131,7 +134,7 @@ var Events = {
         future.setDate(future.getDate()+365);
 
 
-        var item = new EventModel();
+
         //all fake data
         item.name = rand_name;
         item.description = 'lap dance';
@@ -160,26 +163,17 @@ var Events = {
         //   unit_price: 99.99,
         //   num_sold: 999
         // }];
+        */
 
         item.save(function (err, saved) {
             if (err) res.send(err);
 
-            var now = Date.now();
-            //var time1 = new Date();
-            var future = new Date();
-            future.setDate(future.getDate()+365);
             var delivery = new EventDeliveryScheduleModel();
             delivery.event_id = saved._id;
-            delivery.active_from = now;
-            delivery.active_end = future;
-            delivery.arrival_time = future;
-
-            //should move this function to utility
-            var getRandomInRange = function(from, to, fixed) {
-                return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
-                // .toFixed() returns string, so ' * 1' is a trick to convert to number
-            };
-            delivery.loc = [getRandomInRange(-180,180,10),getRandomInRange(-90,90,10)];
+            delivery.active_from = saved.active_from;
+            delivery.active_end = saved.active_end;
+            delivery.arrival_time = saved.arrival_time;
+            delivery.loc = saved.loc;
 
             delivery.save(function(err) {
                 if (err) res.send(err);
@@ -189,12 +183,14 @@ var Events = {
     },
 
     createOneDelivery: function (req, res) {
+        var delivery = new EventDeliveryScheduleModel(req.body);
+        /*
         var now = Date.now();
         //var time1 = new Date();
         var future = new Date();
         future.setDate(future.getDate()+365);
 
-        var delivery = new EventDeliveryScheduleModel();
+
         //test data
 
 
@@ -209,7 +205,7 @@ var Events = {
             // .toFixed() returns string, so ' * 1' is a trick to convert to number
         };
         delivery.loc = [getRandomInRange(-180,180,10),getRandomInRange(-90,90,10)];
-
+*/
         delivery.save(function(err) {
             if (err) res.send(err);
             res.json({message: "delivery created"});
