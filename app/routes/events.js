@@ -19,7 +19,7 @@ var Events = {
 
         var now = new Date();
 
-        if (order_by === 'loc')
+        if (order_by === 'loc') //note: only returns distinct events with nearest delivery addresses, but does not tell frontend which delivery address is the nearest. Keep the Event schema consistent.
         {
             maxDistance /=6371; //radius of Earth
             EventDeliveryScheduleModel.find({
@@ -29,31 +29,34 @@ var Events = {
                 },
                 active_from : {$lte: now},
                 active_end : {$gte: now}
-            }).limit(limit_doc).skip(skip_doc).populate('event_id').exec(function(err, items) {
+            }).
+            limit(limit_doc).
+            skip(skip_doc).
+            exec(function(err, items) {
                 if (err) {
                     return res.send(err);
                 }
 
-                ProductModel.populate(items, {
-                    path : 'event_id.products.product_id'
-                },function (error, updatedItems) {
+                var event_ids = items.map(function(item){
+                    return item.event_id;
+                });
+
+                EventModel.find().where('_id').in(event_ids).populate('products.product_id').exec(function(err,items){
                     if (err) {
                         return res.send(err);
                     }
-                    updatedItems.forEach(function(item){
-                        item.event_id.products.forEach(function(product){
+
+                    items.forEach(function(item){
+                        item.products.forEach(function(product){
                             var filteredDetail = product.product_id.details.filter(function(detail){
                                 return detail._id.equals(product.product_vid);
                                 });
                             product.product_id.details = filteredDetail.shift();
                         });
                     });
-                    res.json(updatedItems);
-                   
-                });
+                    res.json(items);
 
-
-                
+                });         
             });
         }
         else
