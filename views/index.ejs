@@ -1,30 +1,93 @@
 <!doctype html>
 <html>
-<head>
-    <title>Node Authentication</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/font-awesome\css\font-awesome.min.css">
+  <head>
+      <title>Node Authentication</title>
+      <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
 
-    <style>
-        body         { padding-top:80px; }
-    </style>
-</head>
-<body>
-<div class="container">
+      <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+      <link rel="stylesheet" href="css/mdl/material.min.css">
+      <script src="css/mdl/material.min.js"></script>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    <div class="jumbotron text-center">
-        <h1>Welcome to LoopIn-API</h1>
+      <style>
+          body         { padding-top:80px; }
+      </style>
+  </head>
 
-        <p>Login or Register with:</p>
 
-        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
-        <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
-        <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
-        <a href="/auth/twitter" class="btn btn-info"><span class="fa fa-twitter"></span> Twitter</a>
-        <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google+</a>
+  <!-- <body>
+  <div class="container">
+
+      <div class="jumbotron text-center">
+          <h1>Welcome to LoopIn-API</h1>
+
+          <p>Login or Register with:</p>
+
+          <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
+          <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
+          <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+          <a href="/auth/twitter" class="btn btn-info"><span class="fa fa-twitter"></span> Twitter</a>
+          <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google+</a>
+      </div>
+
+
+  </div>
+  </body> -->
+
+  <!-- Uses a transparent header that draws on top of the layout's background -->
+<style>
+.demo-layout-transparent {
+  background: url('img/website-backgrounds-wood.jpg') center / cover;
+}
+.demo-layout-transparent .mdl-layout__header,
+.demo-layout-transparent .mdl-layout__drawer-button {
+  /* This background is dark, so we set text to white. Use 87% black instead if
+     your background is light. */
+  color: white;
+}
+</style>
+
+<div class="demo-layout-transparent mdl-layout mdl-js-layout">
+  <header class="mdl-layout__header mdl-layout__header--transparent">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">Welcome to LoopIn-API</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation -->
+      <nav class="mdl-navigation">
+        <a href="#" class="mdl-button mdl-js-button mdl-button--light">
+          <span class="fa fa-user"></span> Local Login
+        </a>
+        <a href="#" class="mdl-button mdl-js-button mdl-button--light">
+          <span class="fa fa-user"></span> Local Signup
+        </a>
+        <a href="#" class="mdl-button mdl-js-button mdl-button--light">
+          <span class="fa fa-facebook"></span> Facebook
+        </a>
+        <a href="#" class="mdl-button mdl-js-button mdl-button--light">
+          <span class="fa fa-twitter"></span> Twitter
+        </a>
+        <a href="#" class="mdl-button mdl-js-button mdl-button--light">
+          <span class="fa fa-google-plus"></span> Google+
+        </a>
+      </nav>
     </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">LoopIn-API</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
 
 
+
+
+  </main>
 </div>
-</body>
 </html>
