@@ -59,11 +59,15 @@ router.post('/api/eventdeliveries', Events.createOneDelivery);
 
 // GLOBAL ROUTES
 router.get('/', function (req, res) {
-    res.send('LoopIn-API');
+    // res.send('LoopIn-API');
+
+    res.render('index.ejs');
 });
-router.get('*', function (req, res) {
-    res.redirect('/');
-});
+
+
+// router.get('*', function (req, res) {
+//     res.redirect('/');
+// });
 
 
 module.exports = router;

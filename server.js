@@ -45,6 +45,12 @@ app.all('/api/*', [require('./app/middlewares/validateRequest')]);
 // all of our routes will be prefixed with /api
 app.use('/', require('./app/routes'));
 
+
+// public
+app.set('view engine', 'ejs'); // set up ejs for templating
+// app.use(express.static(__dirname + '/public'));
+app.use(express.static('./public'));
+
 // =============================================================================
 app.set('port', process.env.PORT || 3000);
 var server = app.listen(app.get('port'), function() {
