@@ -47,9 +47,10 @@ app.use('/', require('./app/routes'));
 
 
 // public
-app.set('view engine', 'ejs'); // set up ejs for templating
+// app.set('view engine', 'ejs'); // set up ejs for templating
+
 // app.use(express.static(__dirname + '/public'));
-app.use(express.static('./public'));
+app.use(express.static(__dirname + '/public'));
 
 // =============================================================================
 app.set('port', process.env.PORT || 3000);
