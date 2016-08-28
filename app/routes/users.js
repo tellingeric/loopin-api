@@ -11,7 +11,7 @@ var Users = {
           res.status(400).json({ success: false, message: 'Please enter email and password.' });
         } 
         var user = new UserModel({
-          user_name: req.body.user_name,
+          username: req.body.username,
           email: req.body.email
         });
         if(!req.body.account_type){
