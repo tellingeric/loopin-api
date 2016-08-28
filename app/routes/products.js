@@ -27,7 +27,10 @@ var Products = {
     updateOne: function (req, res) {
         ProductModel.findById(req.params.product_id, function (err, item) {
             if (err) res.send(err);
-            item.name = item.name + '_Updated';
+
+            for (prop in req.body) {
+                item[prop] = req.body[prop];
+            }
 
             item.save(function (err) {
                 if (err) res.send(err);
@@ -38,11 +41,14 @@ var Products = {
     },
 
     createOne: function (req, res) {
+        var item = new ProductModel(req.body);
+
+        /*
         var rand_name = 'Product_' + Math.floor((Math.random() * 1000) + 1);
         var dummy_img = 'http://i.imgur.com/6zQAymt.jpg';
         var dummy_user = 'dummy user id';
 
-        var item = new ProductModel();
+
         //all fake data
         item.name = rand_name;
         item.vendor_id = mongoose.Types.ObjectId(req.body.vendor_id);
@@ -85,7 +91,7 @@ var Products = {
                   }
                 ]
             }];
-
+*/
         item.save(function (err) {
             if (err) res.send(err);
             res.json({message: "product created"});

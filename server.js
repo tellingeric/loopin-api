@@ -26,7 +26,7 @@ app.all('/*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   // Set custom headers for CORS
-  res.header('Access-Control-Allow-Headers', 'Content-type,Accept');
+  res.header('Access-Control-Allow-Headers', 'Content-type,Accept,x-access-token');
   if (req.method == 'OPTIONS') {
     res.status(200).end();
   } else {
@@ -45,6 +45,13 @@ app.all('/api/*', [require('./app/middlewares/validateRequest')]);
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/', require('./app/routes'));
+
+
+// public
+// app.set('view engine', 'ejs'); // set up ejs for templating
+
+// app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
 // =============================================================================
 app.set('port', process.env.PORT || 3000);

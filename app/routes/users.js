@@ -53,6 +53,19 @@ var Users = {
                   expiresIn: '24h' // in seconds
                 });
                 res.status(200).json({ success: true, token: token });
+
+                // 
+                // res.format({
+                //   json: function(){
+                //     res.status(200).json({ success: true, token: token });
+                //   },
+                //
+                //   html: function(){
+                //     res.render('index.ejs');
+                //   }
+                //
+                // })
+
               } else {
                 res.status(401).json({ success: false, message: 'Authentication failed. Passwords did not match.' });
               }
