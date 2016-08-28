@@ -35,6 +35,7 @@ app.all('/*', function(req, res, next) {
 });
 
 app.use(passport.initialize());
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // Auth Middleware - This will check if the token is valid
 // Only the requests that start with /api/* will be checked for the token.

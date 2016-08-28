@@ -9,7 +9,7 @@ var Users = {
         console.log(req.body);
         if(!req.body.account_type && (!req.body.email || !req.body.password)){
           res.status(400).json({ success: false, message: 'Please enter email and password.' });
-        } 
+        }
         var user = new UserModel({
           username: req.body.username,
           email: req.body.email
@@ -54,7 +54,7 @@ var Users = {
                 });
                 res.status(200).json({ success: true, token: token });
 
-                // 
+                //
                 // res.format({
                 //   json: function(){
                 //     res.status(200).json({ success: true, token: token });

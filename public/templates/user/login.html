@@ -26,24 +26,27 @@
     				<h2 class="mdl-card__title-text">LooIn-API</h2>
     			</div>
     	  	<div class="mdl-card__supporting-text">
-    				<form action="/login" method="POST">
+
+    				<form action="/login" method="POST" onSubmit="return Redirect_Login()">
 
     					<div class="mdl-textfield mdl-js-textfield">
-    						<input class="mdl-textfield__input" type="text" id="username" />
+    						<input class="mdl-textfield__input" type="text" id="username" name="username"/>
     						<label class="mdl-textfield__label" for="username">Username</label>
     					</div>
 
     					<div class="mdl-textfield mdl-js-textfield">
-    						<input class="mdl-textfield__input" type="password" id="password" />
+    						<input class="mdl-textfield__input" type="password" id="password" name="password" />
     						<label class="mdl-textfield__label" for="password">Password</label>
     					</div>
 
-              <div class="mdl-card__actions ">
-        				<input type="submit" value="Log in" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
-        			</div>
+
+              <div class="mdl-card__actions">
+                <button type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Log in</button>
+              </div>
 
     				</form>
     			</div>
+
 
     		</div>
     	</main>

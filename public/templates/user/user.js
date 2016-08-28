@@ -10,3 +10,10 @@ xmlhttp.onreadystatechange = function() {
 xmlhttp.open("POST", "/login", true);
 xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 xmlhttp.send();
+
+
+
+function Redirect_Login() {
+  window.location.assign("/index.html");
+  return false;
+}
