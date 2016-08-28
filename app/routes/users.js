@@ -38,7 +38,7 @@ var Users = {
 
     login: function(req, res){
         UserModel.findOne({
-          email: req.body.email
+          username: req.body.username
         }, function(err, user) {
           if (err) throw err;
 
