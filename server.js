@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
+mongoose.Promise = global.Promise;
 mongoose.connect(config.database);
 
 require('./app/config/passport')(passport);// pass passport for configuration

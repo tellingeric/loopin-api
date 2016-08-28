@@ -7,23 +7,33 @@ var Users = {
     create: function (req, res) {
 
         console.log(req.body);
-        if(!req.body.email || !req.body.password) {
+        if(!req.body.account_type && (!req.body.email || !req.body.password)){
           res.status(400).json({ success: false, message: 'Please enter email and password.' });
+        } 
+        var user = new UserModel({
+          user_name: req.body.user_name,
+          email: req.body.email
+        });
+        if(!req.body.account_type){
+            user.password = req.body.password
         } else {
-          var user = new UserModel({
-            email: req.body.email,
-            password: req.body.password
-          });
-
-          // Attempt to save the user
-          user.save(function(err) {
-            if (err) {
-              console.log(err);
-              return res.status(400).json({ success: false, message: 'Failed to create user:'});
-            }
-            res.status(201).json({ success: true, message: 'user created' });
-          });
+            user.account_type = req.body.account_type;
         }
+        if(req.body.type){
+          user.type = req.body.type;
+        }
+        //user.sessions.deviceid = req.body.deviceid;
+        //user.sessions.date = new Date();
+        user.sessions.push({ deviceid: req.body.deviceid, date: new Date()});
+
+        // Attempt to save the user
+        user.save(function(err) {
+          if (err) {
+            console.log(err);
+            return res.status(400).json({ success: false, message: 'Failed to create user:'});
+          }
+          res.status(201).json({ success: true, message: 'user created' });
+        });
     },
 
     login: function(req, res){

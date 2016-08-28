@@ -3,6 +3,12 @@ var Schema = mongoose.Schema;
 var bcrypt = require('bcryptjs');
 
 var UserSchema = new Schema({
+  user_name: {
+    type: String,
+    lowercase: true,
+    unique: true,
+    required: true
+  },
   email: {
     type: String,
     lowercase: true,
@@ -10,28 +16,35 @@ var UserSchema = new Schema({
     required: true
   },
   password: {
-    type: String,
-    required: true
+    type: String
   },
-  token: {
+  account_type: {
     type: String,
-    unique: false,
-  },
-  username: {
-    type: String,
-    unique: false,
+    enum: ['facebook', 'google', 'wechat', 'local'],
+    default: 'local'
   },
   type: {
     type: String,
     enum: ['customer', 'vendor', 'admin'],
     default: 'customer'
-  }
+  },
+  sessions:[{
+    _id:false,
+    deviceid: {
+      type: String,
+      required: true
+    },
+    date: {
+      type: Date,
+      default: Date.now 
+    }
+  }]
 });
 
 // Saves the user's password hashed (plain text password storage is not good)
 UserSchema.pre('save', function (next) {
   var user = this;
-  if (this.isModified('password') || this.isNew) {
+  if (user.password && (this.isModified('password') || this.isNew)) {
     bcrypt.genSalt(10, function (err, salt) {
       if (err) {
         return next(err);
