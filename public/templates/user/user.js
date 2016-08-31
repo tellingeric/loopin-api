@@ -1,19 +1,34 @@
-var xmlhttp = new XMLHttpRequest();
-var url = "/login";
+$( document ).ready(function() {
+    $("#loginForm").submit(function(e){
+        e.preventDefault();
+        // send ajax
+        $.ajax({
+            url: '/login', // url where to submit the request
+            type : "POST", // type of action POST || GET
+            dataType : 'json', // data type
+            data : $("#loginForm").serializeJSON(), // post data || get data
+            success : function(result) {
+                // you can see the result from the console
+                // tab of the developer tools
+                //console.log(result);
+                window.localStorage.setItem("loopin.access-token", result.token);
+                Redirect_Login();
 
-xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        var myArr = JSON.parse(xmlhttp.responseText);
-    }
-};
+            },
+            error: function(xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        });
 
-xmlhttp.open("POST", "/login", true);
-xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-xmlhttp.send();
+    });
+});
+
+
 
 
 
 function Redirect_Login() {
   window.location.assign("/index.html");
+    console.log(window.localStorage.getItem("loopin.access-token"));
   return false;
 }

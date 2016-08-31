@@ -1,0 +1,16 @@
+{
+  "name": "loopin-web",
+  "homepage": "https://github.com/tellingeric/loopin-api",
+  "authors": [
+    "Wenwei <caowenwei@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "UNLICENSED",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "tests"
+  ]
+}
