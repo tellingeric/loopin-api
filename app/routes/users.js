@@ -52,6 +52,11 @@ var Users = {
                 const token = jwt.sign(user, config.secret, {
                   expiresIn: '24h' // in seconds
                 });
+
+                //add an entry in user sessions.
+                user.sessions.push({ deviceid: req.body.deviceid, date: new Date()});
+                user.save();
+
                 res.status(200).json({ success: true, token: token });
 
                 //
