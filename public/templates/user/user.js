@@ -29,6 +29,5 @@ $( document ).ready(function() {
 
 function Redirect_Login() {
   window.location.assign("/index.html");
-    console.log(window.localStorage.getItem("loopin.access-token"));
   return false;
 }

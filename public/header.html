@@ -35,6 +35,12 @@
 <!-- JS -->
 <script src="lib/jquery/dist/jquery.js"></script>
 <script src="js/jquery.serializejson.min.js"></script>
+<script>
+  var token = window.localStorage.getItem("loopin.access-token");
+  if (window.location.pathname != '/templates/user/login.html' && (!token)){
+    window.location.assign("/templates/user/login.html");
+  }
+</script>
 
 <script src="css/mdl/material.min.js"></script>
 
