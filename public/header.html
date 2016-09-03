@@ -35,16 +35,29 @@
 <!-- JS -->
 <script src="lib/jquery/dist/jquery.js"></script>
 <script src="js/jquery.serializejson.min.js"></script>
+
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angular-animate/angular-animate.js"></script>
+<script src="node_modules/angular-aria/angular-aria.js"></script>
+<script src="node_modules/angular-material/angular-material.js"></script>
+<script src="lib/material-design-lite/material.min.js"></script>
+<script src="lib/material-design-lite/material.min.js"></script>
+
+
+
+<script src="js/app.js"></script>
+
+<script src="templates/user/user.js"></script>
+
+
+
+
 <script>
   var token = window.localStorage.getItem("loopin.access-token");
   if (window.location.pathname != '/templates/user/login.html' && (!token)){
     window.location.assign("/templates/user/login.html");
   }
 </script>
-
-<script src="css/mdl/material.min.js"></script>
-
-<script src="templates/user/user.js"></script>
 
 
 
