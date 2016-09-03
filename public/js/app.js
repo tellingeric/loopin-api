@@ -1,7 +1,15 @@
 angular.module( 'LoopIn-Web', [
   'ngMaterial',
+  'ngRoute',
   'ui.router'
  ])
+
+ .run(function($rootScope){
+       $rootScope.$on('$viewContentLoaded', function(event, next) {
+           componentHandler.upgradeAllRegistered();
+       });
+   })
+
 
   // .config(($mdIconProvider, $mdThemingProvider) => {
     // Register the user `avatar` icons
@@ -19,18 +27,32 @@ angular.module( 'LoopIn-Web', [
     //   .accentPalette('red');
   // })
 
-  .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+  .config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
       .state('login', {
         url:'/login',
-        templateUrl:'templates/user/login.html'
+        templateUrl:'templates/auth/login.html'
+      })
+
+      .state('dashboard', {
+        url:'/dashboard',
+        templateUrl:'templates/dashboard.html'
+      })
+
+      .state('dashboard.main', {
+        url: '/dashboard/main',
+        templateUrl: 'templates/dashboard/main.html'
+      })
+
+      .state('dashboard.user', {
+        url: '/dashboard/user',
+        templateUrl: 'templates/user/user.html'
       })
 
 
 
-
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/dashboard');
     // $urlRouterProvider.otherwise('/login');
 
   })

@@ -51,9 +51,7 @@ app.use('/', require('./app/routes'));
 // public
 // app.set('view engine', 'ejs'); // set up ejs for templating
 
-// app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/public'));
-// app.use(express.static(__dirname + '/www'));
 
 
 // =============================================================================
