@@ -1,7 +1,9 @@
 angular.module( 'LoopIn-Web', [
   'ngMaterial',
   'ngRoute',
-  'ui.router'
+  'ui.router',
+    'ngStorage',
+    'LoopIn-Web.user'
  ])
 
  .run(function($rootScope){
@@ -32,7 +34,7 @@ angular.module( 'LoopIn-Web', [
     $stateProvider
       .state('login', {
         url:'/login',
-        templateUrl:'templates/auth/login.html'
+        templateUrl:'templates/user/login.html'
       })
 
       .state('dashboard', {
@@ -56,3 +58,31 @@ angular.module( 'LoopIn-Web', [
     // $urlRouterProvider.otherwise('/login');
 
   })
+  .config(function ($httpProvider){
+
+
+  $httpProvider.interceptors.push(['$q', '$location', '$localStorage', '$injector', function($q, $location, $localStorage, $injector) {
+
+    console.log('interceptor');
+
+      return {
+        'request': function (config) {
+            config.headers = config.headers || {};
+            if ($localStorage.user && $localStorage.user.token) {
+                config.headers['x-access-token'] = $localStorage.user.token;
+            }
+            return config;
+        },
+        'responseError': function(response) {
+            if(response.status === 401 || response.status === 403) {
+              console.log('redirect to login');
+              // $location.path('/login');
+              $injector.get('$state').transitionTo('login');
+
+            }
+            return $q.reject(response);
+        }
+      };
+    }]);
+
+  });
