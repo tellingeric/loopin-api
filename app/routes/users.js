@@ -80,6 +80,22 @@ var Users = {
         });
     },
 
+    //If token expires, how to delete device_id
+    addnewdevice: function(req, res) {
+        UserModel.findOne({
+          username: req.body.username
+        }, function(err, user) {
+          if (err) throw err;
+
+          if (!user) {
+            res.status(401).json({ success: false, message: 'User not found.' });
+          } else {
+              user.devices.push({ device_token: req.body.device_token, date: new Date()});
+              user.save();
+          }
+        });
+    },
+
     logout: function(req, res) {
         UserModel.find(function (err, users) {
             if (err) res.send(err);
