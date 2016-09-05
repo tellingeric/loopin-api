@@ -12,7 +12,7 @@
     </style>
 
 
-    <div class="mdl-layout mdl-js-layout mdl-color--grey-100">
+    <div class="mdl-layout mdl-js-layout mdl-color--grey-100" ng-init="clearUserInfo()">
     	<main class="mdl-layout__content">
     		<div class="mdl-card mdl-shadow--6dp">
     			<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
@@ -20,15 +20,15 @@
     			</div>
     	  	<div class="mdl-card__supporting-text">
 
-    				<form action="" method="" id="loginForm">
+    				<form id="loginForm">
 
     					<div class="mdl-textfield mdl-js-textfield">
-    						<input class="mdl-textfield__input" type="text" id="username" name="username"/>
+    						<input class="mdl-textfield__input" type="text" id="username" name="username" ng-model="user.username"/>
     						<label class="mdl-textfield__label" for="username">Username</label>
     					</div>
 
     					<div class="mdl-textfield mdl-js-textfield">
-    						<input class="mdl-textfield__input" type="password" id="password" name="password" />
+    						<input class="mdl-textfield__input" type="password" id="password" name="password" ng-model="user.password"/>
     						<label class="mdl-textfield__label" for="password">Password</label>
     					</div>
 
@@ -36,7 +36,7 @@
               <div class="mdl-card__actions">
                 <!-- <button id="loginSubmit" type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Log in</button> -->
 
-                <button ui-sref="dashboard.main" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Log in</button>
+                <button ng-click="login()" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Log in</button>
 
 
               </div>

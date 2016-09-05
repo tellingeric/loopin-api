@@ -32,10 +32,6 @@ angular.module( 'LoopIn-Web', [
   .config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
-      .state('login', {
-        url:'/login',
-        templateUrl:'templates/user/login.html'
-      })
 
       .state('dashboard', {
         url:'/dashboard',
