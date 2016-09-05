@@ -2,7 +2,34 @@ var mongoose = require('mongoose');
 var ProductModel = require('../models/ProductModel');
 
 var Products = {
-    //getAll, getOne, createOne, deleteOne, updateOne
+
+    //createOne, getAll, getOne, deleteOne, updateOne
+    createOne: function (req, res) {
+
+        if(!req.body.name) {
+          res.status(400).json({ success: false, message: 'Product name is required.' });  
+        }
+        if(!req.body.vendor) {
+          res.status(400).json({ success: false, message: 'vendor is required.' });  
+        }
+        if(!req.body.created_by) {
+          res.status(400).json({ success: false, message: 'created_by is required.' });  
+        }
+
+        var product = new ProductModel();
+        product.name = req.body.name;
+        product.vendor = mongoose.Types.ObjectId(req.body.vendor);
+        product.created_by = mongoose.Types.ObjectId(req.body.created_by);
+        product.details = req.body.details;
+
+        product.save(function (err) {
+            if (err) {
+                console.log(err);
+                return res.status(400).json({ success: false, message: 'Failed to create product:'});
+            }
+            res.status(201).json({ success: true, message: 'product created' });
+        });
+    },
 
     getAll: function (req, res) {
         var order_by = req.query.order_by || 'name',
@@ -38,65 +65,6 @@ var Products = {
             });
 
         });
-    },
-
-    createOne: function (req, res) {
-        var item = new ProductModel(req.body);
-
-        /*
-        var rand_name = 'Product_' + Math.floor((Math.random() * 1000) + 1);
-        var dummy_img = 'http://i.imgur.com/6zQAymt.jpg';
-        var dummy_user = 'dummy user id';
-
-
-        //all fake data
-        item.name = rand_name;
-        item.vendor_id = mongoose.Types.ObjectId(req.body.vendor_id);
-        item.creator_user_id = dummy_user;
-        item.details = [{
-            description: 'Delicious Poop',
-            price: 9.97,
-            creator_user_id: dummy_user,
-            create_at: Date.now(),
-            img_url: dummy_img,
-            options: [
-              {
-                name : 'Spicy',
-                selections : ['Hot', 'Mild', 'Medium'],
-                isMultiple: false
-              },
-              {
-                name : 'Appetizer',
-                selections : ['cat', 'dog', 'cow'],
-                isMultiple: true
-              }
-            ]
-        },
-            {
-                description: 'Tasty Pee',
-                price: 5.97,
-                creator_user_id: dummy_user,
-                create_at: Date.now(),
-                img_url: dummy_img,
-                options: [
-                  {
-                    name : 'Spicy',
-                    selections : ['Hot', 'Mild', 'Medium'],
-                    isMultiple: false
-                  },
-                  {
-                    name : 'Appetizer',
-                    selections : ['cat', 'dog', 'cow'],
-                    isMultiple: true
-                  }
-                ]
-            }];
-*/
-        item.save(function (err) {
-            if (err) res.send(err);
-            res.json({message: "product created"});
-        });
-
     },
 
     deleteOne: function (req, res) {
