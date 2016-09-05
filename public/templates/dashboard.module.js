@@ -6,7 +6,7 @@ angular.module('LoopIn-Web.dashboard', [
     $stateProvider
       .state('dashboard', {
         url:'/dashboard',
-        cache: false,
+        abstract: true,
         templateUrl:'templates/dashboard.html',
         controller:'dashboardController'
       })

@@ -7,6 +7,7 @@ angular.module('LoopIn-Web.dashboard')
         $scope.getUser = function(){
             var token = ($localStorage.user)? ($localStorage.user.token || ''):'';
 
+            if ($localStorage.user) {$scope.user = $localStorage.user;}
             $http(
                 {
                     url: domain + api.me,
