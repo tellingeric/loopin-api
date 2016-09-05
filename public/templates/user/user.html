@@ -1,1 +1,15 @@
-<h1>USER MANAGEMENT</h1>
+<h1 ng-init="getAllUsers()">USER MANAGEMENT</h1>
+
+
+<div class="row">
+  <div class="col-md-6">
+
+    <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+      <tr ng-repeat="row in $data">
+        <td data-title="'Username'" filter="{username: 'text'}" sortable="'username'">{{row.username}}</td>
+        <td data-title="'Email'" filter="{email: 'text'}" sortable="'email'">{{row.email}}</td>
+      </tr>
+    </table>
+  </div>
+
+</div>

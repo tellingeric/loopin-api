@@ -1,6 +1,7 @@
 angular.module( 'LoopIn-Web', [
   'ngMaterial',
   'ngRoute',
+  'ngTable',
   'ui.router',
   'ui.bootstrap',
   'ngStorage',

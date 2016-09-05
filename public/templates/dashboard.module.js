@@ -16,11 +16,6 @@ angular.module('LoopIn-Web.dashboard', [
         templateUrl: 'templates/dashboard/main.html'
       })
 
-      .state('dashboard.user', {
-        url: '/user',
-        templateUrl: 'templates/user/user.html'
-      });
-
 
 
     });
