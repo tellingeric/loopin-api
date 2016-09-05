@@ -5,7 +5,7 @@ var Schema = mongoose.Schema,
 var EventSchema = new Schema({
     name : {type: String,requried: true},
     description : String,
-    creator_user_id: String, //should be an ObjectId, keep it simple for now
+    created_by: {type: Schema.Types.ObjectId, ref: 'User', required: true},  //should be an ObjectId, keep it simple for now
     eventDate : Date,
     active_from : Date,
     active_end : Date,
@@ -15,10 +15,10 @@ var EventSchema = new Schema({
       location : String,
       arrival_time : Date
     }],
-    vendor_id: {type: String, required: true},
+    vendor: {type: Schema.Types.ObjectId, ref: 'Vendor', required: true},
     products : [{
-      product_id : { type: Schema.Types.ObjectId, ref: 'Product' },
-      product_vid : { type: Schema.Types.ObjectId, ref: 'Product.details'},
+      product_id : { type: Schema.Types.ObjectId, ref: 'ProductModel' },
+      product_vid : { type: Schema.Types.ObjectId, ref: 'ProductModel.details'},
       unit_price : Number,
       num_sold: Number
     }]

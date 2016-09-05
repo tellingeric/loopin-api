@@ -1,7 +1,36 @@
 var VendorModel = require('../models/VendorModel');
 
 var Vendors = {
-    //getAll, getOne, createOne, deleteOne, updateOne
+    //createOne, getAll, getOne, deleteOne, updateOne
+
+    createOne: function (req, res) {
+        
+        if(!req.body.name) {
+          res.status(400).json({ success: false, message: 'Vendor name is required.' });  
+        }
+        if(!req.body.phone) {
+          res.status(400).json({ success: false, message: 'phone is required.' });  
+        }
+        if(!req.body.email) {
+          res.status(400).json({ success: false, message: 'email is required.' });  
+        }
+
+        var vendor = new VendorModel();
+        vendor.name = req.body.name;
+        vendor.address = req.body.address;
+        vendor.loc = req.body.loc;
+        vendor.email = req.body.email;
+        vendor.phone = req.body.phone;
+        vendor.type = req.body.type;
+
+        vendor.save(function (err) {
+            if (err) {
+                console.log(err);
+                return res.status(400).json({ success: false, message: 'Failed to create vendor:'});
+            }
+            res.status(201).json({ success: true, message: 'vendor created' });
+        });
+    },
 
     getAll: function (req, res) {
         var order_by = req.query.order_by || 'name',
@@ -60,42 +89,6 @@ var Vendors = {
             });
 
         });
-    },
-
-    createOne: function (req, res) {
-        var item = new VendorModel(req.body);
-
-        /*
-        var rand_name = 'Vendor_' + Math.floor((Math.random() * 1000) + 1);
-
-        //should move this function to utility
-        var getRandomInRange = function(from, to, fixed) {
-            return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
-            // .toFixed() returns string, so ' * 1' is a trick to convert to number
-        };
-
-
-        item.name = rand_name;
-
-        item.address = {
-            street1: "street1",
-            street2: "street2",
-            city: "city",
-            state: "State",
-            zipCode: "11111",
-            country: "US"
-        };
-        item.email = "test@gmail.com";
-        item.phone = "6316128465";
-        item.type = "RESTAURANTS";
-
-        item.loc = [getRandomInRange(-180,180,10),getRandomInRange(-90,90,10)];
-*/
-        item.save(function (err) {
-            if (err) res.send(err);
-            res.json({message: "vendor created"});
-        });
-
     },
 
     deleteOne: function (req, res) {

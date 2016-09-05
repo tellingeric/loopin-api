@@ -16,9 +16,9 @@ var OrderSchema = new Schema({
             zipCode : String,
             country : String
         },
-        buyer_user_id: {type: String, required: true},
+        buyer: {type: Schema.Types.ObjectId, ref: 'User', required: true},
         order_date: Date,
-        event_id: { type: Schema.Types.ObjectId, ref: 'Event' } //optional, may not be purchased from an event
+        event: { type: Schema.Types.ObjectId, ref: 'Event', required: true } //optional, may not be purchased from an event
     },
     {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}});
 
