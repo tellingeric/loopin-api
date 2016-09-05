@@ -2,9 +2,10 @@ angular.module( 'LoopIn-Web', [
   'ngMaterial',
   'ngRoute',
   'ui.router',
-    'ngStorage',
-    'LoopIn-Web.user',
-        'LoopIn-Web.dashboard'
+  'ui.bootstrap',
+  'ngStorage',
+  'LoopIn-Web.user',
+  'LoopIn-Web.dashboard'
  ])
 
  .run(function($rootScope){
@@ -32,21 +33,10 @@ angular.module( 'LoopIn-Web', [
 
   .config(function($stateProvider, $urlRouterProvider) {
 
-    $stateProvider
-
-      .state('dashboard.main', {
-        url: '/dashboard/main',
-        templateUrl: 'templates/dashboard/main.html'
-      })
-
-      .state('dashboard.user', {
-        url: '/dashboard/user',
-        templateUrl: 'templates/user/user.html'
-      });
 
 
 
-    $urlRouterProvider.otherwise('/dashboard');
+    $urlRouterProvider.otherwise('/dashboard/main');
     // $urlRouterProvider.otherwise('/login');
 
   })
