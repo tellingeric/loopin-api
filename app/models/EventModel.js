@@ -15,10 +15,10 @@ var EventSchema = new Schema({
       location : String,
       arrival_time : Date
     }],
-    vendor: {type: Schema.Types.ObjectId, ref: 'Vendor', required: true},
+    vendor: {type: Schema.Types.ObjectId, ref: 'Vendor'},
     products : [{
-      product_id : { type: Schema.Types.ObjectId, ref: 'ProductModel' },
-      product_vid : { type: Schema.Types.ObjectId, ref: 'ProductModel.details'},
+      product_id : { type: Schema.Types.ObjectId, ref: 'Product' },
+      product_vid : { type: Schema.Types.ObjectId, ref: 'Product.details'},
       unit_price : Number,
       num_sold: Number
     }]

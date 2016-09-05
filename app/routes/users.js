@@ -24,7 +24,7 @@ var Users = {
         }
         //user.sessions.deviceid = req.body.deviceid;
         //user.sessions.date = new Date();
-        user.sessions.push({ deviceid: req.body.deviceid, date: new Date()});
+        user.devices.push({ device_token: req.body.device_token, date: new Date()});
 
         // Attempt to save the user
         user.save(function(err) {
@@ -54,7 +54,7 @@ var Users = {
                 });
 
                 //add an entry in user sessions.
-                user.sessions.push({ deviceid: req.body.deviceid, date: new Date()});
+                user.devices.push({ device_token: req.body.device_token, date: new Date()});
                 user.save();
 
                 res.status(200).json({ success: true, token: token });
@@ -76,6 +76,13 @@ var Users = {
               }
             });
           }
+        });
+    },
+
+    logout: function(req, res) {
+        UserModel.find(function (err, users) {
+            if (err) res.send(err);
+            res.json(users);
         });
     },
 

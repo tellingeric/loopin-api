@@ -28,11 +28,9 @@ var UserSchema = new Schema({
     enum: ['customer', 'vendor', 'admin'],
     default: 'customer'
   },
-  sessions:[{
-    _id:false,
-    deviceid: {
-      type: String,
-      required: true
+  devices:[{
+    device_token: {
+      type: String
     },
     date: {
       type: Date,

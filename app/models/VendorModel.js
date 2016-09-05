@@ -18,8 +18,6 @@ var VendorSchema = new Schema({
     email : String,
     phone : String,
     type : String
-
-
     },
     {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }}
 );

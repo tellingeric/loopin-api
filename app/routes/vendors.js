@@ -4,16 +4,6 @@ var Vendors = {
     //createOne, getAll, getOne, deleteOne, updateOne
 
     createOne: function (req, res) {
-        
-        if(!req.body.name) {
-          res.status(400).json({ success: false, message: 'Vendor name is required.' });  
-        }
-        if(!req.body.phone) {
-          res.status(400).json({ success: false, message: 'phone is required.' });  
-        }
-        if(!req.body.email) {
-          res.status(400).json({ success: false, message: 'email is required.' });  
-        }
 
         var vendor = new VendorModel();
         vendor.name = req.body.name;

@@ -52,28 +52,6 @@ var Events = {
 
     createOneDelivery: function (req, res) {
         var delivery = new EventDeliveryScheduleModel(req.body);
-        /*
-        var now = Date.now();
-        //var time1 = new Date();
-        var future = new Date();
-        future.setDate(future.getDate()+365);
-
-
-        //test data
-
-
-        delivery.event_id = mongoose.Types.ObjectId('578aa723466e37bc1415d497');
-        delivery.active_from = now;
-        delivery.active_end = future;
-        delivery.arrival_time = future;
-
-        //should move this function to utility
-        var getRandomInRange = function(from, to, fixed) {
-            return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
-            // .toFixed() returns string, so ' * 1' is a trick to convert to number
-        };
-        delivery.loc = [getRandomInRange(-180,180,10),getRandomInRange(-90,90,10)];
-*/
         delivery.save(function(err) {
             if (err) 
             {
@@ -90,7 +68,6 @@ var Events = {
         //   unit_price: 99.99,
         //   num_sold: 999
         // }];
-
     },
 
     getAll: function (req, res) {
@@ -148,14 +125,13 @@ var Events = {
         }
         else
         {
-
             EventModel.find()
             .populate('products.product_id')
             .limit(limit_doc)
             .skip(skip_doc)
             .sort(order + order_by)
             .exec(function (err, items) {
-
+              console.log(JSON.stringify(items));
               items.forEach(function(item){
                 item.products.forEach(function(product){
                   var filteredDetail = product.product_id.details.filter(function(detail){
@@ -205,7 +181,6 @@ var Events = {
 
         });
     },
-
 
     deleteOne: function (req, res) {
         EventModel.remove({

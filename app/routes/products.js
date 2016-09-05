@@ -6,16 +6,6 @@ var Products = {
     //createOne, getAll, getOne, deleteOne, updateOne
     createOne: function (req, res) {
 
-        if(!req.body.name) {
-          res.status(400).json({ success: false, message: 'Product name is required.' });  
-        }
-        if(!req.body.vendor) {
-          res.status(400).json({ success: false, message: 'vendor is required.' });  
-        }
-        if(!req.body.created_by) {
-          res.status(400).json({ success: false, message: 'created_by is required.' });  
-        }
-
         var product = new ProductModel();
         product.name = req.body.name;
         product.vendor = mongoose.Types.ObjectId(req.body.vendor);

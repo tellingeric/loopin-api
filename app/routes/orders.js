@@ -26,28 +26,6 @@ var Orders = {
             }
             res.status(201).json({ success: true, message: 'order created' });
         });
-
-
-
-        /*
-        //test dummy data
-        var rand_name = 'Order_' + Math.floor((Math.random() * 1000) + 1);
-        var dummy_user = 'dummy user id';
-
-        var item = new OrderModel();
-        //all fake data
-        item.products = req.body.products;
-        item.delivery_address = {
-            street1: "street1",
-            street2: "street2",
-            city: "city",
-            state: "State",
-            zipCode: "11111",
-            country: "US"
-        };
-        item.buyer_user_id = dummy_user;
-        item.order_date = Date.now();
-        item.event_id = req.body.event_id;*/
     },
 
     getAll: function (req, res) {
