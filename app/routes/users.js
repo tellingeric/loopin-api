@@ -1,6 +1,7 @@
 var UserModel = require('../models/UserModel');
 var jwt = require('jsonwebtoken');
 var config = require('./../../config');
+var https = require('https');
 
 var Users = {
 
@@ -107,6 +108,62 @@ var Users = {
         });
     }
 
+    /*
+    ,pushNotify: function (req, res) {
+
+        UserModel.findOne({
+            username: req.body.username
+        }, function(err, user) {
+            if (err) throw err;
+
+            if (!user) {
+                res.status(401).json({ success: false, message: 'Username not found!' });
+            } else {
+                user.sessions.forEach(function(session){
+                    var token = session.deviceid;
+                    var postData =
+                    {
+                        "tokens": [token],
+                        "profile": "loopin_dev",
+                        "notification": {
+                        "message": req.body.message || "Loopin demo push!"
+                    }
+                    };
+
+                    var options = {
+                        host: 'api.ionic.io',
+                        path: '/push/notifications',
+                        headers: {'Content-Type': 'application/json', 'Authorization':'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3Y2VmZWQxOS00MGJhLTQ3ZmMtOGFjOS1mMTFhZGZhOGY5MWIifQ.VkfMQcKrhPoUcSSBWBwh4kbhfMufYeseNacMV4FGZv0'},
+                        method: 'POST',
+                        body: JSON.stringify(postData)
+
+                    };
+
+                    var callback = function(response) {
+                        var str = '';
+                        response.on('data', function (chunk) {
+                            str += chunk;
+                        });
+
+                        response.on('end', function () {
+                            console.log(str);
+                        });
+                    };
+
+                    var req = https.request(options, callback);
+                    req.end();
+                });
+            }
+        });
+
+        UserModel.remove({
+            _id: req.params.user_id
+        }, function (err, user) {
+            if (err) res.send(err);
+            res.json({message: "user deleted"})
+        });
+    }
+     */
 };
 
 module.exports = Users;
