@@ -17,12 +17,18 @@ angular.module('LoopIn-Web.dashboard')
                 .success(function(data, status, headers, config){
                     console.log('USER log in Successfully');
                     // token saved to local storage in controller
+                    $scope.user=data;
                     return data;
                 })
                 .error(function(data, status, headers, config){
                     console.log('USER log in failed');
                     return data;
                 });
+        };
+
+        $scope.logOut = function(){
+            $localStorage.user.token = '';
+            $state.go('login');
         };
 
     });
