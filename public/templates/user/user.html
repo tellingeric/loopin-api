@@ -1,15 +1,42 @@
 <h1 ng-init="getAllUsers()">USER MANAGEMENT</h1>
 
 
+
+
 <div class="row">
   <div class="col-md-6">
-
-    <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
-      <tr ng-repeat="row in $data">
-        <td data-title="'Username'" filter="{username: 'text'}" sortable="'username'">{{row.username}}</td>
-        <td data-title="'Email'" filter="{email: 'text'}" sortable="'email'">{{row.email}}</td>
+    <table ng-table="tableParams" class="table table-bordered table-hover table-condensed editable-table " ng-form="tableForm" disable-filter="isAdding" user-tracked-table="tableTracker">
+      <colgroup>
+        <col width="30%" />
+        <col width="50%" />
+        <col width="20%" />
+      </colgroup>
+      <tr ng-repeat="row in $data" ng-form="rowForm" user-tracked-table-row="row">
+        <td title="'Username'" filter="{username: 'text'}" sortable="'username'" ng-switch="row.isEditing" ng-class="username.$dirty ? 'bg-warning' : ''" ng-form="username" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.username}}</span>
+          <div class="controls" ng-class="username.$invalid && username.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="username" ng-model="row.username" class="editable-input form-control input-sm" required />
+          </div>
+        </td>
+        <td title="'Email'" filter="{email: 'text'}" sortable="'email'" ng-switch="row.isEditing" ng-class="email.$dirty ? 'bg-warning' : ''" ng-form="email" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.email}}</span>
+          <div class="controls" ng-class="email.$invalid && email.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="email" ng-model="row.email" class="editable-input form-control input-sm" required/>
+          </div>
+        </td>
+        <td>
+          <button class="btn btn-primary btn-sm" ng-click="save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
+          <button class="btn btn-default btn-sm" ng-click="cancel(row, rowForm)" ng-if="row.isEditing"><span class="glyphicon glyphicon-remove"></span></button>
+          <button class="btn btn-default btn-sm" ng-click="row.isEditing = true" ng-if="!row.isEditing"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-danger btn-sm" ng-click="del(row)" ng-if="!row.isEditing"><span class="glyphicon glyphicon-trash"></span></button>
+        </td>
       </tr>
     </table>
   </div>
+
+
+  <!-- <td data-title="'Username'" filter="{username: 'text'}" sortable="'username'">{{row.username}}</td> -->
+  <!-- <td data-title="'Email'" filter="{email: 'text'}" sortable="'email'">{{row.email}}</td> -->
+
 
 </div>
