@@ -44,11 +44,29 @@ angular.module('LoopIn-Web.user')
             )
             .success(function(data, status, headers, config){
                 console.log('USER GET ALL');
-                console.log(JSON.stringify(data));
+                // console.log(JSON.stringify(data));
                 return data;
             })
             .error(function(data, status, headers, config){
                 console.log('USER GET ALL failed');
+                return data;
+            })
+        },
+
+        deleteUser: function (user_id){
+          return $http(
+            {
+                url: domain + api.user_remove + user_id,
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            }
+            )
+            .success(function(data, status, headers, config){
+                console.log('USER DELETED ' + user_id);
+                return data;
+            })
+            .error(function(data, status, headers, config){
+                console.log('USER DELETE failed');
                 return data;
             })
         }

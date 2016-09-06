@@ -45,15 +45,17 @@ angular.module('LoopIn-Web.user')
     }
 
     $scope.del = function (row) {
-      _.remove($scope.tableParams.settings().dataset, function(item) {
-        return row === item;
-      });
-      $scope.tableParams.reload().then(function(data) {
-        if (data.length === 0 && $scope.tableParams.total() > 0) {
-          $scope.tableParams.page($scope.tableParams.page() - 1);
-          $scope.tableParams.reload();
-        }
-      });
+      UserService.deleteUser(row._id).success(function(data){
+        _.remove($scope.tableParams.settings().dataset, function(item) {
+          return row === item;
+        });
+        $scope.tableParams.reload().then(function(data) {
+          if (data.length === 0 && $scope.tableParams.total() > 0) {
+            $scope.tableParams.page($scope.tableParams.page() - 1);
+            $scope.tableParams.reload();
+          }
+        });
+      })
     }
 
     $scope.resetRow = function (row, rowForm){
