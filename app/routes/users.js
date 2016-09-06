@@ -51,7 +51,7 @@ var Users = {
               if (isMatch && !err) {
                 // Create token if the password matched and no error was thrown
                 const token = jwt.sign(user, config.secret, {
-                  expiresIn: '24h' // in seconds
+                  expiresIn: '7d'
                 });
 
                 //add an entry in user sessions.
