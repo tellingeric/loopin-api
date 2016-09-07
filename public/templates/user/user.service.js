@@ -69,9 +69,26 @@ angular.module('LoopIn-Web.user')
                 console.log('USER DELETE failed');
                 return data;
             })
+        },
+
+        updateUser: function(user) {
+            return $http(
+                {
+                    url: domain + api.user_update + user.user_id,
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    data: user
+                }
+            )
+                .success(function(data, status, headers, config){
+                    console.log('USER UPDATED ' + user.user_id);
+                    return data;
+                })
+                .error(function(data, status, headers, config){
+                    console.log('USER UPDATE failed');
+                    return data;
+                })
         }
-
-
 
 
 

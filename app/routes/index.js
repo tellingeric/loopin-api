@@ -19,6 +19,7 @@ router.post('/login', Users.login);
 router.post('/addnewdevice', Users.addnewdevice);
 router.delete('/api/users/:user_id', Users.remove);
 router.get('/api/me', jsonParser, Users.getUser);
+router.put('/api/users/:user_id', Users.updateOne);
 
 // VENDORS
 router.get('/api/vendors', Vendors.getAll);

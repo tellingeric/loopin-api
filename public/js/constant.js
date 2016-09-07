@@ -10,6 +10,7 @@ angular.module('LoopIn-Web.constant', [])
         'events' : 'api/events',
         'me':'api/me',
         'user_getAll': 'api/users',
-        'user_remove': 'api/users/'
+        'user_remove': 'api/users/',
+        'user_update': 'api/users/'
 
     });

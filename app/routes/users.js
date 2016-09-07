@@ -122,6 +122,22 @@ var Users = {
             if (err) res.send(err);
             res.json({message: "user deleted"})
         });
+    },
+
+    updateOne: function (req, res) {
+        UserModel.findById(req.params.user_id, function (err, item) {
+            if (err) res.send(err);
+
+            for (prop in req.body) {
+                item[prop] = req.body[prop];
+            }
+
+            item.save(function (err) {
+                if (err) res.send(err);
+                res.json({message: "user updated"});
+            });
+
+        });
     }
 
     /*
