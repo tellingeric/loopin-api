@@ -43,7 +43,7 @@ angular.module('LoopIn-Web.user')
             row.isEditing = false;
             rowForm.$setPristine();
             //self.tableTracker.untrack(row);
-            for ( let i in $scope.originalData){
+            for ( var i in $scope.originalData){
                 if($scope.originalData[i]._id === row._id){
                     return $scope.originalData[i]
                 }
@@ -52,8 +52,18 @@ angular.module('LoopIn-Web.user')
         };
 
         $scope.save = function (row, rowForm) {
+            //UserService.updateUser
+
             var originalRow = $scope.resetRow(row, rowForm);
-            angular.extend(originalRow, row);
+
+            UserService.updateUser(row).success(function (data) {
+                    angular.extend(originalRow, row);
+                })
+                .error(function (err) {
+                    angular.extend(row, originalRow);
+                    console.log(err);
+                });
+
         };
 
         $scope.cancel = function (row, rowForm) {

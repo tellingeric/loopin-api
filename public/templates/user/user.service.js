@@ -74,14 +74,14 @@ angular.module('LoopIn-Web.user')
         updateUser: function(user) {
             return $http(
                 {
-                    url: domain + api.user_update + user.user_id,
+                    url: domain + api.user_update + user._id,
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     data: user
                 }
             )
                 .success(function(data, status, headers, config){
-                    console.log('USER UPDATED ' + user.user_id);
+                    console.log('USER UPDATED ' + user._id);
                     return data;
                 })
                 .error(function(data, status, headers, config){
