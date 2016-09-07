@@ -45,9 +45,10 @@ var Products = {
         ProductModel.findById(req.params.product_id, function (err, item) {
             if (err) res.send(err);
 
-            for (prop in req.body) {
-                item[prop] = req.body[prop];
-            }
+            ProductModel.schema.eachPath(function(path) {
+                //console.log(path);
+                if(req.body[path]) {item[path] = req.body[path];}
+            });
 
             item.save(function (err) {
                 if (err) res.send(err);
