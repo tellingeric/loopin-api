@@ -43,6 +43,20 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // are sure that authentication is not needed
 app.all('/api/*', [require('./app/middlewares/validateRequest')]);
 
+//rate limiter
+var RateLimit = require('express-rate-limit');
+
+app.enable('trust proxy'); // only if you're behind a reverse proxy (Heroku, Bluemix, AWS if you use an ELB, custom Nginx setup, etc)
+
+var apiLimiter = new RateLimit({
+  windowMs: 1*60*1000, //ms
+  max: 100,
+  delayMs: 0 // disabled
+});
+
+// only apply to requests that begin with /api/
+app.use('/api/', apiLimiter);
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/', require('./app/routes'));
