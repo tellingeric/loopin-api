@@ -1,0 +1,71 @@
+<h1 ng-init="getAll()">EVENT MANAGEMENT</h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <table ng-table="tableParams" class="table table-bordered table-hover table-condensed editable-table " ng-form="tableForm" disable-filter="isAdding" user-tracked-table="tableTracker">
+      <colgroup>
+        <col width="30%" />
+        <col width="50%" />
+        <col width="20%" />
+      </colgroup>
+      <tr ng-repeat="row in $data" ng-form="rowForm" user-tracked-table-row="row">
+        <td title="'Name'" filter="{name: 'text'}" sortable="'name'" ng-switch="row.isEditing" ng-class="name.$dirty ? 'bg-warning' : ''" ng-form="name" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.name}}</span>
+          <div class="controls" ng-class="name.$invalid && name.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="name" ng-model="row.name" class="editable-input form-control input-sm" required />
+          </div>
+        </td>
+        <td title="'Description'" filter="{description: 'text'}" sortable="'description'" ng-switch="row.isEditing" ng-class="description.$dirty ? 'bg-warning' : ''" ng-form="description" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.description}}</span>
+          <div class="controls" ng-class="description.$invalid && description.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="description" ng-model="row.description" class="editable-input form-control input-sm" required />
+          </div>
+        </td>
+        <td title="'Delivery_schedule'" filter="{delivery_schedule: 'text'}" sortable="'delivery_schedule'" ng-switch="row.isEditing" ng-class="delivery_schedule.$dirty ? 'bg-warning' : ''" ng-form="delivery_schedule" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.delivery_schedule}}</span>
+          <div class="controls" ng-class="delivery_schedule.$invalid && delivery_schedule.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="delivery_schedule" ng-model="row.delivery_schedule" class="editable-input form-control input-sm" required />
+          </div>
+        </td>
+        <td title="'Products'" filter="{products: 'text'}" sortable="'products'" ng-switch="row.isEditing" ng-class="products.$dirty ? 'bg-warning' : ''" ng-form="products" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.products}}</span>
+          <div class="controls" ng-class="products.$invalid && products.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="products" ng-model="row.products" class="editable-input form-control input-sm" required />
+          </div>
+        </td>
+        <td>
+          <button class="btn btn-primary btn-sm" ng-click="save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
+          <button class="btn btn-default btn-sm" ng-click="cancel(row, rowForm)" ng-if="row.isEditing"><span class="glyphicon glyphicon-remove"></span></button>
+          <button class="btn btn-default btn-sm" ng-click="row.isEditing = true" ng-if="!row.isEditing"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-danger btn-sm" ng-click="del(row)" ng-if="!row.isEditing"><span class="glyphicon glyphicon-trash"></span></button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+  <!-- <td data-title="'Username'" filter="{username: 'text'}" sortable="'username'">{{row.username}}</td> -->
+  <!-- <td data-title="'Email'" filter="{email: 'text'}" sortable="'email'">{{row.email}}</td> -->
+<!--
+name : {type: String,requried: true},
+         description : String,
+         created_by: {type: Schema.Types.ObjectId, ref: 'User', required: true},  //should be an ObjectId, keep it simple for now
+         eventDate : Date,
+         active_from : Date,
+         active_end : Date,
+         cancellable : Boolean,
+         img_url: String,
+         delivery_schedule : [{
+         location : String,
+         arrival_time : Date
+         }],
+         vendor: {type: Schema.Types.ObjectId, ref: 'Vendor'},
+         products : [{
+         product_id : { type: Schema.Types.ObjectId, ref: 'Product' },
+         product_vid : { type: Schema.Types.ObjectId, ref: 'Product.details'},
+         unit_price : Number,
+         num_sold: Number
+         }]
+-->
+
+</div>

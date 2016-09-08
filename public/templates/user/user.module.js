@@ -1,6 +1,7 @@
 angular.module('LoopIn-Web.user', [
   'ngTable',
-  'LoopIn-Web.constant'
+  'LoopIn-Web.constant',
+    'LoopIn-Web.utility'
 
 ])
 

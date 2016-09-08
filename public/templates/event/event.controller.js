@@ -1,17 +1,17 @@
-angular.module('LoopIn-Web.vendor')
-    .controller('vendorController', function ($scope, $state, $localStorage, VendorService, NgTableParams, UtilityService) {
+angular.module('LoopIn-Web.event')
+    .controller('eventController', function ($scope, $state, $localStorage, EventService, NgTableParams, UtilityService) {
 
         //$scope.user = {};
-        $scope.vendors = [];
-        $scope.originalData = angular.copy($scope.vendors);
+        $scope.events = [];
+        $scope.originalData = angular.copy($scope.events);
         //$scope.showing = true;
-        $scope.tableParams = new NgTableParams({}, {dataset: $scope.vendors});
+        $scope.tableParams = new NgTableParams({}, {dataset: $scope.events});
 
         $scope.getAll = function () {
-            VendorService.getAll().success(function (data) {
-                $scope.vendors = data;
-                $scope.tableParams.settings({dataset: $scope.vendors});
-                $scope.originalData = angular.copy($scope.vendors);
+            EventService.getAll().success(function (data) {
+                $scope.events = data;
+                $scope.tableParams.settings({dataset: $scope.events});
+                $scope.originalData = angular.copy($scope.events);
             });
 
         };
@@ -32,9 +32,9 @@ angular.module('LoopIn-Web.vendor')
             //UserService.updateUser
 
             var originalRow = $scope.resetRow(row, rowForm);
-            VendorService.updateOne(row).success(function (data) {
+            EventService.updateOne(row).success(function (data) {
                     angular.extend(originalRow, row);
-                    UtilityService.showToast('success', row._id + ' saved!');
+                    UtilityService.showToast('success', row._id + ' saved!')
 
                 })
                 .error(function (err) {
@@ -52,7 +52,7 @@ angular.module('LoopIn-Web.vendor')
         };
 
         $scope.del = function (row) {
-            VendorService.deleteOne(row._id).success(function (data) {
+            EventService.deleteOne(row._id).success(function (data) {
                 _.remove($scope.tableParams.settings().dataset, function (item) {
                     return row === item;
                 });

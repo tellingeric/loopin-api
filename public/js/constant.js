@@ -14,7 +14,14 @@ angular.module('LoopIn-Web.constant', [])
         'user_update': 'api/users/',
         'vendor_getAll': 'api/vendors',
         'vendor_remove': 'api/vendors/',
-        'vendor_update': 'api/vendors/'
+        'vendor_update': 'api/vendors/',
+        'event_getAll': 'api/events',
+        'event_remove': 'api/events/',
+        'event_update': 'api/events/'
 
 
+    })
+
+    .constant('uiSettings', {
+        'toastDelay': 500
     });

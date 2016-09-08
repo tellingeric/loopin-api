@@ -1,6 +1,6 @@
 angular.module('LoopIn-Web.user')
 
-    .service('UserService', function ($localStorage, $http, domain, api) {
+    .service('UserService', function ($localStorage, $http, domain, api,UtilityService) {
 
         var initLocalStorage = function () {
             if (!($localStorage.user)) {
@@ -27,6 +27,7 @@ angular.module('LoopIn-Web.user')
                     .success(function (data, status, headers, config) {
                         console.log('USER log in Successfully');
                         // token saved to local storage in controller
+                        UtilityService.showToast('success', 'User ' + username +' logged in successfully');
                         return data;
                     })
                     .error(function (data, status, headers, config) {

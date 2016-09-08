@@ -11,6 +11,7 @@ angular.module('LoopIn-Web', [
         'ui.bootstrap',
         'LoopIn-Web.user',
         'LoopIn-Web.vendor',
+        'LoopIn-Web.event',
         'LoopIn-Web.dashboard'
     ])
 
