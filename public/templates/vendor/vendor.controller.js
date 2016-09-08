@@ -33,7 +33,7 @@ angular.module('LoopIn-Web.vendor')
             //UserService.updateUser
 
             var originalRow = $scope.resetRow(row, rowForm);
-
+            row.address = JSON.parse(row.address);
             VendorService.updateOne(row).success(function (data) {
                     angular.extend(originalRow, row);
                 })

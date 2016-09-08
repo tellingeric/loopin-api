@@ -23,6 +23,9 @@ angular.module('LoopIn-Web.vendor')
                     .success(function (data, status, headers, config) {
                         console.log('Vendor GET ALL');
                         // console.log(JSON.stringify(data));
+                        _.forEach(data, function(value){
+                          value.address = JSON.stringify(value.address);
+                        });
                         return data;
                     })
                     .error(function (data, status, headers, config) {
