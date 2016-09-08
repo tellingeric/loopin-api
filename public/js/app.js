@@ -1,34 +1,35 @@
-angular.module( 'LoopIn-Web', [
-  'ngMaterial',
-  'ngRoute',
-  'ngAnimate',
-  'ngSanitize',
-  'ngStorage',
-  'ngTable',
-  'ngToast',
-  'ui.router',
-  'ui.bootstrap',
-  'LoopIn-Web.user',
-  'LoopIn-Web.vendor',
-  'LoopIn-Web.dashboard'
- ])
+angular.module('LoopIn-Web', [
+        'ngMaterial',
+        'ngRoute',
+        'ngAnimate',
+        'ngSanitize',
+        'ngStorage',
+        'ngTable',
+        'ngToast',
+        'angular-loading-bar',
+        'ui.router',
+        'ui.bootstrap',
+        'LoopIn-Web.user',
+        'LoopIn-Web.vendor',
+        'LoopIn-Web.dashboard'
+    ])
 
- .run(function($rootScope){
-       $rootScope.$on('$viewContentLoaded', function(event, next) {
-           componentHandler.upgradeAllRegistered();
-       });
-   })
+    .run(function ($rootScope) {
+        $rootScope.$on('$viewContentLoaded', function (event, next) {
+            componentHandler.upgradeAllRegistered();
+        });
+    })
 
-   .config(['ngToastProvider', function(ngToast) {
-       ngToast.configure({
-         // verticalPosition: 'bottom',
-         // horizontalPosition: 'center'
-         animation: 'fade'
-       });
-     }])
+    .config(['ngToastProvider', function (ngToast) {
+        ngToast.configure({
+            // verticalPosition: 'bottom',
+            // horizontalPosition: 'center'
+            animation: 'fade'
+        });
+    }])
 
 
-  // .config(($mdIconProvider, $mdThemingProvider) => {
+    // .config(($mdIconProvider, $mdThemingProvider) => {
     // Register the user `avatar` icons
     // $mdIconProvider
     //   .defaultIconSet("./assets/svg/avatars.svg", 128)
@@ -42,42 +43,40 @@ angular.module( 'LoopIn-Web', [
     // $mdThemingProvider.theme('default')
     //   .primaryPalette('brown')
     //   .accentPalette('red');
-  // })
+    // })
 
-  .config(function($stateProvider, $urlRouterProvider) {
-
-
+    .config(function ($stateProvider, $urlRouterProvider) {
 
 
-    $urlRouterProvider.otherwise('/dashboard/main');
-    // $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/dashboard/main');
+        // $urlRouterProvider.otherwise('/login');
 
-  })
-  .config(function ($httpProvider){
+    })
+    .config(function ($httpProvider) {
 
 
-  $httpProvider.interceptors.push(['$q', '$location', '$localStorage', '$injector', function($q, $location, $localStorage, $injector) {
+        $httpProvider.interceptors.push(['$q', '$location', '$localStorage', '$injector', function ($q, $location, $localStorage, $injector) {
 
-    console.log('interceptor');
+            console.log('interceptor');
 
-      return {
-        'request': function (config) {
-            config.headers = config.headers || {};
-            if ($localStorage.user && $localStorage.user.token) {
-                config.headers['x-access-token'] = $localStorage.user.token;
-            }
-            return config;
-        },
-        'responseError': function(response) {
-            if(response.status === 401 || response.status === 403) {
-              console.log('redirect to login');
-              // $location.path('/login');
-              $injector.get('$state').transitionTo('login');
+            return {
+                'request': function (config) {
+                    config.headers = config.headers || {};
+                    if ($localStorage.user && $localStorage.user.token) {
+                        config.headers['x-access-token'] = $localStorage.user.token;
+                    }
+                    return config;
+                },
+                'responseError': function (response) {
+                    if (response.status === 401 || response.status === 403) {
+                        console.log('redirect to login');
+                        // $location.path('/login');
+                        $injector.get('$state').transitionTo('login');
 
-            }
-            return $q.reject(response);
-        }
-      };
-    }]);
+                    }
+                    return $q.reject(response);
+                }
+            };
+        }]);
 
-  });
+    });
