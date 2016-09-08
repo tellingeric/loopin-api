@@ -3,6 +3,7 @@ angular.module('LoopIn-Web.event')
 
         //$scope.user = {};
         $scope.events = [];
+        $scope.selectedRow = {};
         $scope.originalData = angular.copy($scope.events);
         //$scope.showing = true;
         $scope.tableParams = new NgTableParams({}, {dataset: $scope.events});
@@ -18,6 +19,7 @@ angular.module('LoopIn-Web.event')
 
         $scope.resetRow = function (row, rowForm) {
             row.isEditing = false;
+            $scope.selectedRow = {};
             rowForm.$setPristine();
             //self.tableTracker.untrack(row);
             for ( var i in $scope.originalData){
@@ -50,6 +52,11 @@ angular.module('LoopIn-Web.event')
             var originalRow = $scope.resetRow(row, rowForm);
             angular.extend(row, originalRow);
         };
+
+        $scope.edit = function(row){
+          row.isEditing = true;
+          $scope.selectedRow = row;
+        }
 
         $scope.del = function (row) {
             EventService.deleteOne(row._id).success(function (data) {
