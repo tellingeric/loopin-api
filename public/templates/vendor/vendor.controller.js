@@ -1,5 +1,5 @@
 angular.module('LoopIn-Web.vendor')
-    .controller('vendorController', function ($scope, $state, $localStorage, VendorService, NgTableParams) {
+    .controller('vendorController', function ($scope, $state, $localStorage, $timeout, VendorService, NgTableParams, ngToast) {
 
         //$scope.user = {};
         $scope.vendors = [];
@@ -7,6 +7,17 @@ angular.module('LoopIn-Web.vendor')
         //$scope.showing = true;
         $scope.tableParams = new NgTableParams({}, {dataset: $scope.vendors});
 
+        $scope.showToast = function(type, msg){
+          $timeout(function() {
+            ngToast.create({
+              className: type,
+              content: msg,
+              dismissOnTimeout: true,
+              dismissButton: true,
+              dismissOnClick: true
+            });
+          }, 500);
+        }
 
         $scope.getAll = function () {
             VendorService.getAll().success(function (data) {
@@ -33,12 +44,15 @@ angular.module('LoopIn-Web.vendor')
             //UserService.updateUser
 
             var originalRow = $scope.resetRow(row, rowForm);
-            row.address = JSON.parse(row.address);
             VendorService.updateOne(row).success(function (data) {
                     angular.extend(originalRow, row);
+                    $scope.showToast('success', row._id + ' saved!')
+
                 })
                 .error(function (err) {
                     angular.extend(row, originalRow);
+                    $scope.showToast('warning', row._id + ' failed! err')
+
                     console.log(err);
                 });
 
@@ -60,6 +74,9 @@ angular.module('LoopIn-Web.vendor')
                         $scope.tableParams.reload();
                     }
                 });
+
+                $scope.showToast('danger', row._id + ' deleted!')
+
             })
         };
 

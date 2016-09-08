@@ -1,10 +1,13 @@
 angular.module( 'LoopIn-Web', [
   'ngMaterial',
   'ngRoute',
+  'ngAnimate',
+  'ngSanitize',
+  'ngStorage',
   'ngTable',
+  'ngToast',
   'ui.router',
   'ui.bootstrap',
-  'ngStorage',
   'LoopIn-Web.user',
   'LoopIn-Web.vendor',
   'LoopIn-Web.dashboard'
@@ -15,6 +18,14 @@ angular.module( 'LoopIn-Web', [
            componentHandler.upgradeAllRegistered();
        });
    })
+
+   .config(['ngToastProvider', function(ngToast) {
+       ngToast.configure({
+         // verticalPosition: 'bottom',
+         // horizontalPosition: 'center'
+         animation: 'fade'
+       });
+     }])
 
 
   // .config(($mdIconProvider, $mdThemingProvider) => {

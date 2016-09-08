@@ -53,6 +53,7 @@ angular.module('LoopIn-Web.vendor')
             },
 
             updateOne: function (item) {
+                item.address = JSON.parse(item.address);
                 return $http(
                     {
                         url: domain + api.vendor_update + item._id,
