@@ -11,6 +11,10 @@ angular.module('LoopIn-Web.constant', [])
         'me':'api/me',
         'user_getAll': 'api/users',
         'user_remove': 'api/users/',
-        'user_update': 'api/users/'
+        'user_update': 'api/users/',
+        'vendor_getAll': 'api/vendors',
+        'vendor_remove': 'api/vendors/',
+        'vendor_update': 'api/vendors/'
+
 
     });

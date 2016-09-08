@@ -6,6 +6,7 @@ angular.module( 'LoopIn-Web', [
   'ui.bootstrap',
   'ngStorage',
   'LoopIn-Web.user',
+  'LoopIn-Web.vendor',
   'LoopIn-Web.dashboard'
  ])
 

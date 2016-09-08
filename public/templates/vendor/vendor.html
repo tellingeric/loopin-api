@@ -1,0 +1,60 @@
+<h1 ng-init="getAll()">VENDOR MANAGEMENT</h1>
+
+
+
+
+<div class="row">
+  <div class="col-md-6">
+    <table ng-table="tableParams" class="table table-bordered table-hover table-condensed editable-table " ng-form="tableForm" disable-filter="isAdding" user-tracked-table="tableTracker">
+      <colgroup>
+        <col width="30%" />
+        <col width="50%" />
+        <col width="20%" />
+      </colgroup>
+      <tr ng-repeat="row in $data" ng-form="rowForm" user-tracked-table-row="row">
+        <td title="'Name'" filter="{name: 'text'}" sortable="'name'" ng-switch="row.isEditing" ng-class="name.$dirty ? 'bg-warning' : ''" ng-form="name" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.name}}</span>
+          <div class="controls" ng-class="name.$invalid && name.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="name" ng-model="row.name" class="editable-input form-control input-sm" required />
+          </div>
+        </td>
+        <td title="'Email'" filter="{email: 'text'}" sortable="'email'" ng-switch="row.isEditing" ng-class="email.$dirty ? 'bg-warning' : ''" ng-form="email" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.email}}</span>
+          <div class="controls" ng-class="email.$invalid && email.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="email" ng-model="row.email" class="editable-input form-control input-sm" required/>
+          </div>
+        </td>
+        <td title="'Phone'" filter="{phone: 'text'}" sortable="'phone'" ng-switch="row.isEditing" ng-class="phone.$dirty ? 'bg-warning' : ''" ng-form="phone" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.phone}}</span>
+          <div class="controls" ng-class="phone.$invalid && phone.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="phone" ng-model="row.phone" class="editable-input form-control input-sm" required/>
+          </div>
+        </td>
+        <td title="'Address'" filter="{address: 'text'}" sortable="'address'" ng-switch="row.isEditing" ng-class="address.$dirty ? 'bg-warning' : ''" ng-form="address" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.address}}</span>
+          <div class="controls" ng-class="address.$invalid && address.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="address" ng-model="row.address" class="editable-input form-control input-sm" required/>
+          </div>
+        </td>
+        <td title="'Loc'" filter="{loc: 'text'}" sortable="'loc'" ng-switch="row.isEditing" ng-class="loc.$dirty ? 'bg-warning' : ''" ng-form="loc" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.loc}}</span>
+          <div class="controls" ng-class="loc.$invalid && loc.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="loc" ng-model="row.loc" class="editable-input form-control input-sm" required/>
+          </div>
+        </td>
+        <td>
+          <button class="btn btn-primary btn-sm" ng-click="save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
+          <button class="btn btn-default btn-sm" ng-click="cancel(row, rowForm)" ng-if="row.isEditing"><span class="glyphicon glyphicon-remove"></span></button>
+          <button class="btn btn-default btn-sm" ng-click="row.isEditing = true" ng-if="!row.isEditing"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-danger btn-sm" ng-click="del(row)" ng-if="!row.isEditing"><span class="glyphicon glyphicon-trash"></span></button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+  <!-- <td data-title="'Username'" filter="{username: 'text'}" sortable="'username'">{{row.username}}</td> -->
+  <!-- <td data-title="'Email'" filter="{email: 'text'}" sortable="'email'">{{row.email}}</td> -->
+
+
+</div>
