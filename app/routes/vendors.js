@@ -1,5 +1,6 @@
 var VendorModel = require('../models/VendorModel');
 var Functions = require('../utilities/functions');
+var _ = require('lodash');
 
 var Vendors = {
     //createOne, getAll, getOne, deleteOne, updateOne
@@ -106,7 +107,11 @@ var Vendors = {
 
             VendorModel.schema.eachPath(function(path) {
                 //console.log(path);
-                if(req.body[path]) {item[path] = req.body[path];}
+
+                if (_.has(req.body, path)){
+                  _.set(item, path, _.get(req.body, path));
+                }
+                //if(req.body[path]) {item[path] = req.body[path];}
             });
 
             item.save(function (err) {

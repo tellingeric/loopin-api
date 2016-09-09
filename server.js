@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var config = require('./config');
 var passport = require('passport');
+var _ = require('lodash');
+
 
 //==============================================
 var app = express();
