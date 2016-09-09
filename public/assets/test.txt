@@ -1,0 +1,2 @@
+Hello, static asset.
+Note: git ignore /public/assets in prod.

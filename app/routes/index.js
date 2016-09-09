@@ -2,14 +2,15 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var passport = require('passport');
-var bodyParser = require('body-parser')
-var jsonParser = bodyParser.json()
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
 
 var Users = require('./users');
 var Events = require('./events');
 var Vendors = require('./vendors');
 var Products = require('./products');
 var Orders = require('./orders');
+var Assets = require('./assets');
 
 
 // USERS
@@ -51,11 +52,27 @@ router.get('/api/orders/:order_id', Orders.getOne);
 router.put('/api/orders/:order_id', Orders.updateOne);
 router.delete('/api/orders/:order_id', Orders.deleteOne);
 
-//DEBUG ROUTES, MUST REMOVE IN PRODUCTION
+
+// Assets
+
+//router.post('/api/orders', Orders.createOne);
+//upload
+
+
+//Note: Get, update only touches db record, not file. Delete will delete file(s) too.
+router.get('/api/assets', Assets.getAll);
+router.get('/api/assets/:order_id', Assets.getOne);
+router.put('/api/assets/:order_id', Assets.updateOne);
+router.delete('/api/assets/:order_id', Assets.deleteOne);
+
+
+
+//DEBUG ROUTES, MUST REMOVE IN PRODUCTION !!!
 router.delete('/api/vendors', Vendors.deleteAll);
 router.delete('/api/products', Products.deleteAll);
 router.delete('/api/events', Events.deleteAll);
 router.delete('/api/orders', Orders.deleteAll);
+router.delete('/api/assets', Assets.deleteAll);
 
 router.post('/api/eventdeliveries', Events.createOneDelivery);
 

@@ -17,7 +17,10 @@ angular.module('LoopIn-Web.constant', [])
         'vendor_update': 'api/vendors/',
         'event_getAll': 'api/events',
         'event_remove': 'api/events/',
-        'event_update': 'api/events/'
+        'event_update': 'api/events/',
+        'asset_getAll': 'api/assets',
+        'asset_remove': 'api/assets/',
+        'asset_update': 'api/assets/'
 
 
     })
