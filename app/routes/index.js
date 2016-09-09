@@ -58,7 +58,7 @@ router.delete('/api/orders/:order_id', Orders.deleteOne);
 //router.post('/api/orders', Orders.createOne);
 //upload
 
-
+router.post('/api/upload', Assets.upload);
 //Note: Get, update only touches db record, not file. Delete will delete file(s) too.
 router.get('/api/assets', Assets.getAll);
 router.get('/api/assets/:order_id', Assets.getOne);

@@ -3,6 +3,12 @@ var AssetModel = require('../models/AssetModel');
 var fse = require('fs-extra');
 var Assets = {
 
+    upload: function(req,res){
+        console.log(req);
+        res.send('test ok');
+    },
+
+
     //createOne, getAll, getOne, deleteOne, updateOne
     createOne: function (inputJson, res) { //don't expose this directly to a post route
 

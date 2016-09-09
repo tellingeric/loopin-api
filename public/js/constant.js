@@ -1,7 +1,7 @@
 angular.module('LoopIn-Web.constant', [])
 
-    .constant('domain', 'http://loopin-api.herokuapp.com/')
-    // .constant('domain', 'http://localhost:3000/')
+    //.constant('domain', 'http://loopin-api.herokuapp.com/')
+     .constant('domain', 'http://localhost:3000/')
 
 
     .constant('api', {
@@ -20,7 +20,8 @@ angular.module('LoopIn-Web.constant', [])
         'event_update': 'api/events/',
         'asset_getAll': 'api/assets',
         'asset_remove': 'api/assets/',
-        'asset_update': 'api/assets/'
+        'asset_update': 'api/assets/',
+        'upload': 'api/upload'
 
 
     })

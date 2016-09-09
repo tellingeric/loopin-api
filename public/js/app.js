@@ -12,6 +12,8 @@ angular.module('LoopIn-Web', [
         'LoopIn-Web.user',
         'LoopIn-Web.vendor',
         'LoopIn-Web.event',
+        'LoopIn-Web.upload',
+        'LoopIn-Web.asset',
         'LoopIn-Web.dashboard'
     ])
 
