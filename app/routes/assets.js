@@ -3,12 +3,6 @@ var AssetModel = require('../models/AssetModel');
 var fse = require('fs-extra');
 var Assets = {
 
-    upload: function(req,res){
-        console.log(req);
-        res.send('test ok');
-    },
-
-
     //createOne, getAll, getOne, deleteOne, updateOne
     createOne: function (inputJson, res) { //don't expose this directly to a post route
 
@@ -40,7 +34,7 @@ var Assets = {
     },
 
     getAll: function (req, res) {
-        var order_by = req.query.order_by || 'filename',
+        var order_by = req.query.order_by || 'orig_filename',
             order = req.query.order || '',
             limit_doc = req.query.limit || 0,
             skip_doc = req.query.skip || 0;
@@ -78,12 +72,14 @@ var Assets = {
     },
 
     deleteOne: function (req, res) {
-        AssetModel.remove({
+        AssetModel.findOneAndRemove({
             _id: req.params.asset_id
         }, function (err, item) {
             if (err) {res.send(err);}
             else {
-                fse.remove(__dirname + item.path, function(err){
+                //console.log(item);
+                //console.log('');
+                fse.remove('./' + item.path, function(err){
                     if (err) {res.send(err);}
                     else {
                         res.json({message: "asset db record and file deleted"});

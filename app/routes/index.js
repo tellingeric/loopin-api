@@ -12,6 +12,12 @@ var Vendors = require('./vendors');
 var Products = require('./products');
 var Orders = require('./orders');
 var Assets = require('./assets');
+var AssetModel = require('../models/AssetModel');
+
+// Load Chance
+var Chance = require('chance');
+// Instantiate Chance so it can be used
+var chance = new Chance();
 
 
 // USERS
@@ -58,65 +64,58 @@ router.delete('/api/orders/:order_id', Orders.deleteOne);
 
 //router.post('/api/orders', Orders.createOne);
 //upload
-
-var storage =   multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, './public/assets');
-    },
-    filename: function (req, file, callback) {
-        callback(null,Date.now()+file.originalname);
-    }
-});
-
-var upload = multer(
-    {
-        storage : storage,
-        limits: {
-            fileSize: 20 * 1024 * 1024
-        }
-    }).any();
-
-/*
-var upload = multer({
-    dest: '../public/assets/',
-    rename: function (fieldname, filename) {
-        console.log(fieldname + ' ### ' + filename);
-        return fieldname;
-    },
-    onFileUploadStart: function (file) {
-        console.log(file.originalname + ' is starting ...');
-    },
-    ,
-    onFileUploadComplete: function (file) {
-        console.log(file.fieldname + ' uploaded to  ' + file.path);
-    }
-});*/
-
 router.post('/api/upload',function(req,res){
+
+    var user = req.decoded._doc;
+
+    var storage =   multer.diskStorage({
+        destination: function (req, file, callback) {
+            callback(null, './public/assets');
+        },
+        filename: function (req, file, callback) {
+            callback(null, user._id + '_' + Date.now() + '_' +  chance.hash({length: 4}) + '_' + file.originalname);
+        }
+    });
+
+    var upload = multer(
+        {
+            storage : storage,
+            limits: {
+                fileSize: 20 * 1024 * 1024
+            }
+        }).any();
 
     upload(req,res,function(err) {
         if(err) {
             return res.end("Error uploading file.");
         }
-        res.end("File is uploaded");
+        else {
+            var file = req.files[0];
+
+            var item = new AssetModel();
+            item.orig_filename = file.originalname;
+            item.filetype = file.mimetype;
+            item.unique_filename = file.filename;
+            item.path = file.path;
+            item.size = Number(file.size);
+            item.created_by = user._id;
+
+            item.save(function (err) {
+                if (err) {
+                    console.log(err);
+                    return res.status(400).json({ success: false, message: 'File uploaded, but failed to create asset db record.'});
+                }
+                res.status(201).json({ success: true, message: 'File uploaded, and Asset db record created' });
+            });
+        }
     });
 });
-/*
-router.post('/api/upload', upload.any(), function(req, res) {
-    // Here you can check `Object.keys(req.files).length`
-    // or for specific fields like `req.files.imageField`
-
-    console.log(req.files);
-
-    res.json({message: "File uploaded"});
-});*/
 
 //Note: Get, update only touches db record, not file. Delete will delete file(s) too.
 router.get('/api/assets', Assets.getAll);
-router.get('/api/assets/:order_id', Assets.getOne);
-router.put('/api/assets/:order_id', Assets.updateOne);
-router.delete('/api/assets/:order_id', Assets.deleteOne);
-
+router.get('/api/assets/:asset_id', Assets.getOne);
+router.put('/api/assets/:asset_id', Assets.updateOne);
+router.delete('/api/assets/:asset_id', Assets.deleteOne);
 
 
 //DEBUG ROUTES, MUST REMOVE IN PRODUCTION !!!

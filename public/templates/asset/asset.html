@@ -9,10 +9,10 @@
         <col width="20%" />
       </colgroup>
       <tr ng-repeat="row in $data" ng-form="rowForm" user-tracked-table-row="row">
-        <td title="'Filename'" filter="{filename: 'text'}" sortable="'filename'" ng-switch="row.isEditing" ng-class="filename.$dirty ? 'bg-warning' : ''" ng-form="filename" user-tracked-table-cell>
-          <span ng-switch-default class="editable-text">{{row.filename}}</span>
-          <div class="controls" ng-class="filename.$invalid && filename.$dirty ? 'has-error' : ''" ng-switch-when="true">
-            <input type="text" name="filename" ng-model="row.filename" class="editable-input form-control input-sm" required />
+        <td title="'Orig Filename'" filter="{orig_filename: 'text'}" sortable="'orig_filename'" ng-switch="row.isEditing" ng-class="orig_filename.$dirty ? 'bg-warning' : ''" ng-form="orig_filename" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.orig_filename}}</span>
+          <div class="controls" ng-class="orig_filename.$invalid && orig_filename.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="orig_filename" ng-model="row.orig_filename" class="editable-input form-control input-sm" required />
           </div>
         </td>
 
