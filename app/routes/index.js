@@ -4,6 +4,7 @@ var jwt = require('jsonwebtoken');
 var passport = require('passport');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
+var multer = require('multer');
 
 var Users = require('./users');
 var Events = require('./events');
@@ -58,7 +59,58 @@ router.delete('/api/orders/:order_id', Orders.deleteOne);
 //router.post('/api/orders', Orders.createOne);
 //upload
 
-router.post('/api/upload', Assets.upload);
+var storage =   multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, './public/assets');
+    },
+    filename: function (req, file, callback) {
+        callback(null,Date.now()+file.originalname);
+    }
+});
+
+var upload = multer(
+    {
+        storage : storage,
+        limits: {
+            fileSize: 20 * 1024 * 1024
+        }
+    }).any();
+
+/*
+var upload = multer({
+    dest: '../public/assets/',
+    rename: function (fieldname, filename) {
+        console.log(fieldname + ' ### ' + filename);
+        return fieldname;
+    },
+    onFileUploadStart: function (file) {
+        console.log(file.originalname + ' is starting ...');
+    },
+    ,
+    onFileUploadComplete: function (file) {
+        console.log(file.fieldname + ' uploaded to  ' + file.path);
+    }
+});*/
+
+router.post('/api/upload',function(req,res){
+
+    upload(req,res,function(err) {
+        if(err) {
+            return res.end("Error uploading file.");
+        }
+        res.end("File is uploaded");
+    });
+});
+/*
+router.post('/api/upload', upload.any(), function(req, res) {
+    // Here you can check `Object.keys(req.files).length`
+    // or for specific fields like `req.files.imageField`
+
+    console.log(req.files);
+
+    res.json({message: "File uploaded"});
+});*/
+
 //Note: Get, update only touches db record, not file. Delete will delete file(s) too.
 router.get('/api/assets', Assets.getAll);
 router.get('/api/assets/:order_id', Assets.getOne);

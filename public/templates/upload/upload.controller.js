@@ -9,6 +9,7 @@ angular.module('LoopIn-Web.upload')
             //withCredentials: true
         });
 
+
             // FILTERS
 
             uploader.filters.push({
