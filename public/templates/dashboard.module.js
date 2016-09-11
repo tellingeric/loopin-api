@@ -11,11 +11,4 @@ angular.module('LoopIn-Web.dashboard', [
         controller:'dashboardController'
       })
 
-      .state('dashboard.main', {
-        url: '/main',
-        templateUrl: 'templates/dashboard/main.html'
-      })
-
-
-
     });

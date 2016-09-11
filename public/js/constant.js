@@ -21,6 +21,7 @@ angular.module('LoopIn-Web.constant', [])
         'asset_getAll': 'api/assets',
         'asset_remove': 'api/assets/',
         'asset_update': 'api/assets/',
+        'stats_getStats': 'api/stats',
         'upload': 'api/upload'
 
 

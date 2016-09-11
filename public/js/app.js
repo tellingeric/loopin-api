@@ -14,7 +14,8 @@ angular.module('LoopIn-Web', [
         'LoopIn-Web.event',
         'LoopIn-Web.upload',
         'LoopIn-Web.asset',
-        'LoopIn-Web.dashboard'
+        'LoopIn-Web.dashboard',
+        'LoopIn-Web.main'
     ])
 
     .run(function ($rootScope) {

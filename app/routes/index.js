@@ -13,6 +13,7 @@ var Products = require('./products');
 var Orders = require('./orders');
 var Assets = require('./assets');
 var AssetModel = require('../models/AssetModel');
+var Stats = require('./stats');
 
 // Load Chance
 var Chance = require('chance');
@@ -116,6 +117,9 @@ router.get('/api/assets', Assets.getAll);
 router.get('/api/assets/:asset_id', Assets.getOne);
 router.put('/api/assets/:asset_id', Assets.updateOne);
 router.delete('/api/assets/:asset_id', Assets.deleteOne);
+
+//STATS
+router.get('/api/stats', Stats.getStats);
 
 
 //DEBUG ROUTES, MUST REMOVE IN PRODUCTION !!!
