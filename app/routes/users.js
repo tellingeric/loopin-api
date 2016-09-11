@@ -38,6 +38,37 @@ var Users = {
     },
 
     login: function(req, res){
+
+
+      //  login
+
+      //  if req.headers[x-access-type] == 'local'
+      //         proceed the normal procedures
+      //   else
+       //
+      //       if req.headers[x-access-type] not in ['facebook', 'google', ....]
+      //         render '403'
+      //       end
+       //
+      //      check if the token is valid
+      //      token will be generated from the client side (ionic)
+      //       passport.authenticate('auth/' + req.headers[x-access-type], )
+      //
+      // UserModel.find(profile_id, function(err, user){
+      //   if(err)
+      //   var u = new UserModel()
+      //   u.save
+      //
+      //   else {
+      //     res.render({success: ' successs', token: token})
+      //   }
+      // })
+      //       redirect ({success})
+       //
+      //   end
+
+
+
         UserModel.findOne({
           username: req.body.username
         }, function(err, user) {

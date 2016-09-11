@@ -6,10 +6,10 @@ var Orders = {
     createOne: function (req, res) {
 
         if(!req.body.buyer) {
-          res.status(400).json({ success: false, message: 'buyer name is required.' });  
+          res.status(400).json({ success: false, message: 'buyer name is required.' });
         }
         if(!req.body.event) {
-          res.status(400).json({ success: false, message: 'event is required.' });  
+          res.status(400).json({ success: false, message: 'event is required.' });
         }
 
         var order = new OrderModel();
@@ -38,6 +38,10 @@ var Orders = {
             if (err) res.send(err);
             res.json(items);
         });
+
+    },
+
+    getOpenOrders: function(req, res){
 
     },
 
