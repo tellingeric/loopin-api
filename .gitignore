@@ -29,3 +29,4 @@ fabric.properties
 
 
 public/assets/*
+!public/assets/placeholder.txt
