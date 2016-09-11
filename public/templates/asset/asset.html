@@ -1,7 +1,7 @@
 <h1 ng-init="getAll()">ASSET MANAGEMENT</h1>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-10">
     <table ng-table="tableParams" class="table table-bordered table-hover table-condensed editable-table " ng-form="tableForm" disable-filter="isAdding" user-tracked-table="tableTracker">
       <colgroup>
         <col width="30%" />
@@ -27,6 +27,7 @@
             <input type="text" name="filetype" ng-model="row.filetype" class="editable-input form-control input-sm" required />
           </div>
         </td>
+
         <td title="'path'" filter="{path: 'text'}" sortable="'path'" ng-switch="row.isEditing" ng-class="path.$dirty ? 'bg-warning' : ''" ng-form="path" user-tracked-table-cell>
           <span ng-switch-default class="editable-text">{{row.path}}</span>
           <div class="controls" ng-class="path.$invalid && path.$dirty ? 'has-error' : ''" ng-switch-when="true">
@@ -44,6 +45,9 @@
           <div class="controls" ng-class="created_by.$invalid && created_by.$dirty ? 'has-error' : ''" ng-switch-when="true">
             <input type="text" name="created_by" ng-model="row.created_by" class="editable-input form-control input-sm" required />
           </div>
+        </td>
+        <td title="'img'" user-tracked-table-cell>
+          <div><img ng-src="{{row.path}}" alt="preview" height="42" width="42"></div>
         </td>
         <!--
          item.orig_filename = file.originalname;
