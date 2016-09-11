@@ -10,6 +10,9 @@ angular.module('LoopIn-Web.asset')
         $scope.getAll = function () {
             AssetService.getAll().success(function (data) {
                 $scope.assets = data;
+                $scope.assets.forEach(function(entry){
+                    entry.rel_url = entry.path.replace('public/','');
+                });
                 $scope.tableParams.settings({dataset: $scope.assets});
                 $scope.originalData = angular.copy($scope.assets);
             });
