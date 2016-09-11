@@ -1,11 +1,10 @@
 <div ng-init="getStats()" class="mdl-grid demo-content">
-
   <!-- TABLE -->
   <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
     <thead>
       <tr>
-        <th class="mdl-data-table__cell--non-numeric">Stats</th>
-        <th>Number</th>
+        <th class="mdl-data-table__cell--non-numeric">Entity</th>
+        <th>Count</th>
         <th>Who sucks</th>
       </tr>
     </thead>
@@ -16,13 +15,28 @@
         <td>Eric</td>
       </tr>
       <tr>
-        <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
-        <td>0</td>
+        <td class="mdl-data-table__cell--non-numeric">Vendors</td>
+        <td>{{stats.numOfVendors}}</td>
         <td>Eric</td>
       </tr>
       <tr>
-        <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
-        <td></td>
+        <td class="mdl-data-table__cell--non-numeric">Products</td>
+        <td>{{stats.numOfProducts}}</td>
+        <td>Eric</td>
+      </tr>
+      <tr>
+        <td class="mdl-data-table__cell--non-numeric">Events</td>
+        <td>{{stats.numOfEvents}}</td>
+        <td>Eric</td>
+      </tr>
+      <tr>
+        <td class="mdl-data-table__cell--non-numeric">Orders</td>
+        <td>{{stats.numOfOrders}}</td>
+        <td>Eric</td>
+      </tr>
+      <tr>
+        <td class="mdl-data-table__cell--non-numeric">Assets</td>
+        <td>{{stats.numOfAssets}}</td>
         <td>Eric</td>
       </tr>
     </tbody>
