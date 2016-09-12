@@ -156,7 +156,7 @@ var Users = {
         }
       ], function(err) {
         if (err) return next(err);
-        res.status(200).json({ success: true, message: 'Mail sent!' });
+        res.json({ success: true, message: 'Mail sent!' });
       });
     },
 
@@ -167,7 +167,6 @@ var Users = {
             if (!user) {
               return res.json({ success: false, message: 'Password reset token is invalid or has expired.' });
               //return res.redirect('back');
-              return;
             }
 
             user.password = req.body.password;
@@ -202,7 +201,8 @@ var Users = {
           });
         }
       ], function(err) {
-        res.redirect('/');
+        //res.redirect('/');
+        res.json({ success: true, message: 'Password reset!' });
       });
 
 
