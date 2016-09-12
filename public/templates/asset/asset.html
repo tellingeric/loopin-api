@@ -21,19 +21,6 @@
             <input type="text" name="unique_filename" ng-model="row.unique_filename" class="editable-input form-control input-sm" required />
           </div>
         </td>
-        <td title="'filetype'" filter="{filetype: 'text'}" sortable="'filetype'" ng-switch="row.isEditing" ng-class="filetype.$dirty ? 'bg-warning' : ''" ng-form="filetype" user-tracked-table-cell>
-          <span ng-switch-default class="editable-text">{{row.filetype}}</span>
-          <div class="controls" ng-class="filetype.$invalid && filetype.$dirty ? 'has-error' : ''" ng-switch-when="true">
-            <input type="text" name="filetype" ng-model="row.filetype" class="editable-input form-control input-sm" required />
-          </div>
-        </td>
-
-        <td title="'path'" filter="{path: 'text'}" sortable="'path'" ng-switch="row.isEditing" ng-class="path.$dirty ? 'bg-warning' : ''" ng-form="path" user-tracked-table-cell>
-          <span ng-switch-default class="editable-text">{{row.path}}</span>
-          <div class="controls" ng-class="path.$invalid && path.$dirty ? 'has-error' : ''" ng-switch-when="true">
-            <input type="text" name="path" ng-model="row.path" class="editable-input form-control input-sm" required />
-          </div>
-        </td>
         <td title="'size'" filter="{size: 'text'}" sortable="'size'" ng-switch="row.isEditing" ng-class="size.$dirty ? 'bg-warning' : ''" ng-form="size" user-tracked-table-cell>
           <span ng-switch-default class="editable-text">{{row.size}}</span>
           <div class="controls" ng-class="size.$invalid && size.$dirty ? 'has-error' : ''" ng-switch-when="true">
