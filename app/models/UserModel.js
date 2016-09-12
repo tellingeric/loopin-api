@@ -36,7 +36,9 @@ var UserSchema = new Schema({
       type: Date,
       default: Date.now 
     }
-  }]
+  }],
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 });
 
 // Saves the user's password hashed (plain text password storage is not good)

@@ -14,6 +14,7 @@ var Orders = require('./orders');
 var Assets = require('./assets');
 var AssetModel = require('../models/AssetModel');
 var Stats = require('./stats');
+var UserModel = require('../models/UserModel');
 
 // Load Chance
 var Chance = require('chance');
@@ -25,10 +26,12 @@ var chance = new Chance();
 router.get('/api/users', Users.getAll);
 router.post('/register', Users.create);
 router.post('/login', Users.login);
-router.post('/addnewdevice', Users.addnewdevice);
+router.post('/forgetPassword', Users.forgetPassword);
+router.post('/addnewdevice', Users.addNewDevice);
 router.delete('/api/users/:user_id', Users.remove);
 router.get('/api/me', jsonParser, Users.getUser);
 router.put('/api/users/:user_id', Users.updateOne);
+router.get('/reset/:token', Users.reset);
 
 // VENDORS
 router.get('/api/vendors', Vendors.getAll);
