@@ -153,6 +153,69 @@ var Users = {
       });
     },
 
+    validatePasswordResetToken :function(req, res) {
+      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+        if (!user) {
+          req.flash('error', 'Password reset token is invalid or has expired.');
+          return res.redirect('/forgot');
+        }
+        res.render('reset', {
+          user: req.user
+        });
+      });
+    },
+
+    resetPassword: function(req, res) {
+      async.waterfall([
+        function(done) {
+          UserModel.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+            if (!user) {
+              return res.json({ success: false, message: 'Password reset token is invalid or has expired.' });
+              //return res.redirect('back');
+            }
+
+            user.password = req.body.password;
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
+
+            user.save(function(err) {
+              if (err) {
+                console.log(err);
+                return res.json({ success: false, message: 'Failed to rset password:'});
+              }
+              console.log("password: " + user.password);
+              console.log("username: " + user.username);
+              res.json({ success: true, message: 'password reset!' });
+              done(err, user);
+            });
+          });
+        },
+        function(user, done) {
+          var smtpTransport = nodemailer.createTransport('SMTP', {
+            service: 'Gmail',
+            auth: {
+              user: 'yummyt.test@gmail.com',
+              pass: 'yummy_tt'
+            }
+          });
+          var mailOptions = {
+            to: user.email,
+            from: 'yummyt.test@gmail.com',
+            subject: 'Your password has been changed',
+            text: 'Hello,\n\n' +
+              'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+          };
+          smtpTransport.sendMail(mailOptions, function(err) {
+            //req.flash('success', 'Success! Your password has been changed.');
+            done(err);
+          });
+        }
+      ], function(err) {
+        //res.redirect('/');
+        //res.json({ success: true, message: 'Password reset!' });
+        return err;
+      });
+    },
     //If token expires, how to delete device_id
     addNewDevice: function(req, res) {
         UserModel.findOne({
