@@ -3,25 +3,39 @@ var Schema = mongoose.Schema;
 var bcrypt = require('bcryptjs');
 
 var UserSchema = new Schema({
-  username: {
-    type: String,
-    lowercase: true,
-    unique: true,
-    required: true
+
+  local: {
+      username: {
+        type: String,
+        lowercase: true,
+        unique: true
+      },
+      password: {
+        type: String
+      }
+  },
+  facebook: {
+      id           : String,
+      email        : String,
+      name         : String,
+      token        : String
+  },
+  google: {
+      id           : String,
+      email        : String,
+      name         : String,
+      token        : String
+  },
+  wechat: {
+      id           : String,
+      displayName  : String,
+      username     : String,
+      token        : String
   },
   email: {
     type: String,
     lowercase: true,
-    unique: true,
-    required: true
-  },
-  password: {
-    type: String
-  },
-  account_type: {
-    type: String,
-    enum: ['facebook', 'google', 'wechat', 'local'],
-    default: 'local'
+    unique: true
   },
   type: {
     type: String,
@@ -69,5 +83,8 @@ UserSchema.methods.comparePassword = function(pw, cb) {
     cb(null, isMatch);
   });
 };
+
+
+
 
 module.exports = mongoose.model('User', UserSchema);

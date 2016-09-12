@@ -8,6 +8,46 @@ var Users = {
     create: function (req, res) {
 
         console.log(req.body);
+        var user = new UserModel();
+        switch(req.body.account_type) {
+
+            case "local":
+                user.local.username = req.body.username;
+                user.local.password = req.body.password;
+                user.email = req.body.password;
+                break;
+            case "facebook":
+                user.facebook.id = req.body.id;
+                user.facebook.username = req.body.username;
+                user.facebook.displayname = req.body.displayname;
+                user.facebook.token = req.body.token;
+                user.facebook.email = req.body.email;
+                break;
+            case "google":
+                user.google.id = req.body.id;
+                user.google.username = req.body.username;
+                user.google.displayname = req.body.displayname;
+                user.google.token = req.body.token;
+                user.facebook.email = req.body.email;
+                break;
+            case "wechat":
+                user.wechat.id = req.body.id;
+                user.wechat.username = req.body.username;
+                user.wechat.displayname = req.body.displayname;
+                user.wechat.token = req.body.token;
+                break;
+        }
+        user.devices.push({ device_token: req.body.device_token, date: new Date()});
+
+        // Attempt to save the user
+        user.save(function(err) {
+          if (err) {
+            console.log(err);
+            return res.status(400).json({ success: false, message: 'Failed to create user:'});
+          }
+          res.status(201).json({ success: true, message: 'user created' });
+        });
+/*        
         if(!req.body.account_type && (!req.body.email || !req.body.password)){
           res.status(400).json({ success: false, message: 'Please enter email and password.' });
         }
@@ -26,18 +66,15 @@ var Users = {
         //user.sessions.deviceid = req.body.deviceid;
         //user.sessions.date = new Date();
         user.devices.push({ device_token: req.body.device_token, date: new Date()});
-
-        // Attempt to save the user
-        user.save(function(err) {
-          if (err) {
-            console.log(err);
-            return res.status(400).json({ success: false, message: 'Failed to create user:'});
-          }
-          res.status(201).json({ success: true, message: 'user created' });
-        });
+*/
     },
-
+    
     login: function(req, res){
+
+        if login_type == local
+        else if thirdparty
+            
+
         UserModel.findOne({
           username: req.body.username
         }, function(err, user) {
@@ -54,23 +91,7 @@ var Users = {
                   expiresIn: '24h' // in seconds
                 });
 
-                //add an entry in user sessions.
-                user.devices.push({ device_token: req.body.device_token, date: new Date()});
-                user.save();
-
                 res.status(200).json({ success: true, token: token });
-
-                //
-                // res.format({
-                //   json: function(){
-                //     res.status(200).json({ success: true, token: token });
-                //   },
-                //
-                //   html: function(){
-                //     res.render('index.ejs');
-                //   }
-                //
-                // })
 
               } else {
                 res.status(401).json({ success: false, message: 'Authentication failed. Passwords did not match.' });
@@ -80,8 +101,33 @@ var Users = {
         });
     },
 
+    linkAccount: function(req, res){
+        
+    },
+
+    unLinkAccount: function(req, res){
+        
+    },
+
     //If token expires, how to delete device_id
-    addnewdevice: function(req, res) {
+    addNewDevice: function(req, res) {
+        UserModel.findOne({
+          username: req.body.username
+        }, function(err, user) {
+          if (err) throw err;
+
+          if (!user) {
+            console.log("username" + req.body.username);
+            res.status(401).json({ success: false, message: 'User not found.' });
+          } else {
+              user.devices.push({ device_token: req.body.device_token, date: new Date()});
+              user.save();
+              res.status(200).json({ success: true, message: 'token added' });
+          }
+        });
+    },
+
+    logout: function(req, res) {
         UserModel.findOne({
           username: req.body.username
         }, function(err, user) {
@@ -90,16 +136,31 @@ var Users = {
           if (!user) {
             res.status(401).json({ success: false, message: 'User not found.' });
           } else {
-              user.devices.push({ device_token: req.body.device_token, date: new Date()});
-              user.save();
-          }
-        });
-    },
+            var idx = user.devices.indexOf(req.body.device_token);
+            if (idx !== -1) {
+                // remove it from the array.
+                user.devices.splice(idx, 1);
+                // save the doc
+                user.save(function(error) {
+                    if (error) {
+                        console.log(error);
+                        res.send(null, 500);
+                    } else {
+                        // send the records
+                        res.status(200).json({ success: true, message: 'token added' });
+                    }
+                });
+                // stop here, otherwise 404
+                //return;
+            } else {
+              res.status(401).json({ success: false, message: 'Failed to delete token.' });
+            }
 
-    logout: function(req, res) {
-        UserModel.find(function (err, users) {
-            if (err) res.send(err);
-            res.json(users);
+              //user.devices.pull({ device_token: req.body.device_token });
+              //user.devices.push({ device_token: req.body.device_token, date: new Date()});
+              //user.save();
+              //res.status(200).json({ success: true, message: 'token deleted' });
+          }
         });
     },
 
