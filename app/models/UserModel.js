@@ -18,11 +18,6 @@ var UserSchema = new Schema({
   password: {
     type: String
   },
-  account_type: {
-    type: String,
-    enum: ['facebook', 'google', 'wechat', 'local'],
-    default: 'local'
-  },
   type: {
     type: String,
     enum: ['customer', 'vendor', 'admin'],

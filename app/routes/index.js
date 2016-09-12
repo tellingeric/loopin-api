@@ -5,6 +5,9 @@ var passport = require('passport');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var multer = require('multer');
+var async = require('async');
+var crypto = require('crypto');
+var nodemailer = require('nodemailer');
 
 var Users = require('./users');
 var Events = require('./events');
@@ -57,9 +60,14 @@ router.post('/reset/:token', function(req, res) {
             user.resetPasswordExpires = undefined;
 
             user.save(function(err) {
-              req.logIn(user, function(err) {
-                done(err, user);
-              });
+              if (err) {
+                console.log(err);
+                return res.json({ success: false, message: 'Failed to rset password:'});
+              }
+              console.log("password: " + user.password);
+              console.log("username: " + user.username);
+              res.json({ success: true, message: 'password reset!' });
+              done(err, user);
             });
           });
         },
@@ -79,13 +87,14 @@ router.post('/reset/:token', function(req, res) {
               'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
           };
           smtpTransport.sendMail(mailOptions, function(err) {
-            req.flash('success', 'Success! Your password has been changed.');
+            //req.flash('success', 'Success! Your password has been changed.');
             done(err);
           });
         }
       ], function(err) {
         //res.redirect('/');
-        res.json({ success: true, message: 'Password reset!' });
+        //res.json({ success: true, message: 'Password reset!' });
+        return err;
       });
   });
 

@@ -11,21 +11,14 @@ var Users = {
     create: function (req, res) {
 
         console.log(req.body);
-        if(!req.body.account_type && (!req.body.email || !req.body.password)){
-          res.status(400).json({ success: false, message: 'Please enter email and password.' });
+        if(!req.body.email || !req.body.username || !req.body.password ){
+          res.status(400).json({ success: false, message: 'Please enter username, email and password.' });
         }
         var user = new UserModel({
           username: req.body.username,
-          email: req.body.email
+          email: req.body.email,
+          password: req.body.password
         });
-        if(!req.body.account_type){
-            user.password = req.body.password
-        } else {
-            user.account_type = req.body.account_type;
-        }
-        if(req.body.type){
-          user.type = req.body.type;
-        }
         // Attempt to save the user
         user.save(function(err) {
           if (err) {
@@ -88,7 +81,7 @@ var Users = {
                 user.devices.push({ device_token: req.body.device_token, date: new Date()});
                 user.save();
 
-                res.status(200).json({ success: true, token: token });
+                res.json({ success: true, token: token });
 
                 //
                 // res.format({
@@ -103,7 +96,7 @@ var Users = {
                 // })
 
               } else {
-                res.status(401).json({ success: false, message: 'Authentication failed. Passwords did not match.' });
+                res.json({ success: false, message: 'Authentication failed. Passwords did not match.' });
               }
             });
           }
@@ -157,65 +150,6 @@ var Users = {
       ], function(err) {
         if (err) return next(err);
         res.json({ success: true, message: 'Mail sent!' });
-      });
-    },
-
-    reset: function(req, res) {
-      async.waterfall([
-        function(done) {
-          UserModel.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-            if (!user) {
-              return res.json({ success: false, message: 'Password reset token is invalid or has expired.' });
-              //return res.redirect('back');
-            }
-
-            user.password = req.body.password;
-            user.resetPasswordToken = undefined;
-            user.resetPasswordExpires = undefined;
-
-            user.save(function(err) {
-              req.logIn(user, function(err) {
-                done(err, user);
-              });
-            });
-          });
-        },
-        function(user, done) {
-          var smtpTransport = nodemailer.createTransport('SMTP', {
-            service: 'Gmail',
-            auth: {
-              user: 'yummyt.test@gmail.com',
-              pass: 'yummy_tt'
-            }
-          });
-          var mailOptions = {
-            to: user.email,
-            from: 'yummyt.test@gmail.com',
-            subject: 'Your password has been changed',
-            text: 'Hello,\n\n' +
-              'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
-          };
-          smtpTransport.sendMail(mailOptions, function(err) {
-            req.flash('success', 'Success! Your password has been changed.');
-            done(err);
-          });
-        }
-      ], function(err) {
-        //res.redirect('/');
-        res.json({ success: true, message: 'Password reset!' });
-      });
-
-
-      UserModel.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-        if (!user) {
-            return res.json({ success: false, message: 'Password reset token is invalid or has expired.' });
-            //return res.redirect('/forgot');
-        }
-        console.log("hehehehehee");
-
-        res.render('reset', {
-          user: req.user
-        });
       });
     },
 
