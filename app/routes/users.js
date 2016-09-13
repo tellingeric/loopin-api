@@ -2,7 +2,7 @@ var UserModel = require('../models/UserModel');
 var jwt = require('jsonwebtoken');
 var config = require('./../../config');
 var https = require('https');
-var async = require('async');
+var waterfall = require('async/waterfall');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 
@@ -104,7 +104,7 @@ var Users = {
     },
 
     forgetPassword: function(req, res, next) {
-      async.waterfall([
+      waterfall([
         function(done) {
           crypto.randomBytes(20, function(err, buf) {
             var token = buf.toString('hex');
@@ -166,7 +166,7 @@ var Users = {
     },
 
     resetPassword: function(req, res) {
-      async.waterfall([
+      waterfall([
         function(done) {
           UserModel.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
             if (!user) {

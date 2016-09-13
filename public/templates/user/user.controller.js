@@ -12,14 +12,14 @@ angular.module('LoopIn-Web.user')
             $scope.showing = false;
 
             UserService.login($scope.user.username, $scope.user.password).success(function (data) {
-                    $localStorage.user.token = data.token;
-                    $localStorage.user.username = $scope.user.username;
-                    $state.go('dashboard.main');
-                    $scope.showing = true;
+                    if (data.success){
+                      $localStorage.user.token = data.token;
+                      $localStorage.user.username = $scope.user.username;
+                      $state.go('dashboard.main');
+                      $scope.showing = true;
+                    }
                 })
                 .error(function (data) {
-                    window.alert('Wrong credentials!');
-
                     $scope.showing = true;
                 })
 

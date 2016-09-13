@@ -10,7 +10,7 @@
   "author": "loopin",
   "license": "UNLICENSED",
   "dependencies": {
-    "async-waterfall": "^0.1.5",
+    "async": "^2.0.1",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
     "chance": "^1.0.4",

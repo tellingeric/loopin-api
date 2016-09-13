@@ -25,13 +25,22 @@ angular.module('LoopIn-Web.user')
                     }
                 )
                     .success(function (data, status, headers, config) {
-                        console.log('USER log in Successfully');
-                        // token saved to local storage in controller
-                        UtilityService.showToast('success', 'User ' + username +' logged in successfully');
+                        if (data.success) {
+                          console.log('USER log in Successfully');
+                          // token saved to local storage in controller
+                          UtilityService.showToast('success', 'User ' + username +' logged in successfully');
+                        }
+                        else {
+                          console.log(data.message);
+                          // token saved to local storage in controller
+                          UtilityService.showToast('warning', data.message);
+
+                        }
                         return data;
                     })
                     .error(function (data, status, headers, config) {
                         console.log('USER log in failed');
+                        UtilityService.showToast('warning', data.message);
                         return data;
                     })
 
