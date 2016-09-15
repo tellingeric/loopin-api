@@ -28,5 +28,5 @@ crashlytics-build.properties
 fabric.properties
 
 
-public/assets/*
-!public/assets/placeholder.txt
+# public/assets/*
+# !public/assets/placeholder.txt
