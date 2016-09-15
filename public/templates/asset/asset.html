@@ -9,24 +9,26 @@
         <col width="20%" />
       </colgroup>
       <tr ng-repeat="row in $data" ng-form="rowForm" user-tracked-table-row="row">
-        <td title="'orig_filename'" filter="{orig_filename: 'text'}" sortable="'orig_filename'" ng-switch="row.isEditing" ng-class="orig_filename.$dirty ? 'bg-warning' : ''" ng-form="orig_filename" user-tracked-table-cell>
-          <span ng-switch-default class="editable-text">{{row.orig_filename}}</span>
-          <div class="controls" ng-class="orig_filename.$invalid && orig_filename.$dirty ? 'has-error' : ''" ng-switch-when="true">
-            <input type="text" name="orig_filename" ng-model="row.orig_filename" class="editable-input form-control input-sm" required />
+        <td title="'path'" filter="{path: 'text'}" sortable="'path'" ng-switch="row.isEditing" ng-class="path.$dirty ? 'bg-warning' : ''" ng-form="path" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.path}}</span>
+          <div class="controls" ng-class="path.$invalid && path.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="path" ng-model="row.path" class="editable-input form-control input-sm" required />
           </div>
         </td>
-        <td title="'unique_filename'" filter="{unique_filename: 'text'}" sortable="'unique_filename'" ng-switch="row.isEditing" ng-class="unique_filename.$dirty ? 'bg-warning' : ''" ng-form="unique_filename" user-tracked-table-cell>
-          <span ng-switch-default class="editable-text">{{row.unique_filename}}</span>
-          <div class="controls" ng-class="unique_filename.$invalid && unique_filename.$dirty ? 'has-error' : ''" ng-switch-when="true">
-            <input type="text" name="unique_filename" ng-model="row.unique_filename" class="editable-input form-control input-sm" required />
+        <td title="'description'" filter="{description: 'text'}" sortable="'description'" ng-switch="row.isEditing" ng-class="description.$dirty ? 'bg-warning' : ''" ng-form="description" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.description}}</span>
+          <div class="controls" ng-class="description.$invalid && description.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="description" ng-model="row.description" class="editable-input form-control input-sm" required />
           </div>
         </td>
+        <!--
         <td title="'size'" filter="{size: 'text'}" sortable="'size'" ng-switch="row.isEditing" ng-class="size.$dirty ? 'bg-warning' : ''" ng-form="size" user-tracked-table-cell>
           <span ng-switch-default class="editable-text">{{row.size}}</span>
           <div class="controls" ng-class="size.$invalid && size.$dirty ? 'has-error' : ''" ng-switch-when="true">
             <input type="text" name="size" ng-model="row.size" class="editable-input form-control input-sm" required />
           </div>
         </td>
+        -->
         <td title="'created_by'" filter="{created_by: 'text'}" sortable="'created_by'" ng-switch="row.isEditing" ng-class="created_by.$dirty ? 'bg-warning' : ''" ng-form="created_by" user-tracked-table-cell>
           <span ng-switch-default class="editable-text">{{row.created_by}}</span>
           <div class="controls" ng-class="created_by.$invalid && created_by.$dirty ? 'has-error' : ''" ng-switch-when="true">
@@ -34,7 +36,7 @@
           </div>
         </td>
         <td title="'img'" user-tracked-table-cell>
-          <div><img ng-src="{{row.rel_url}}" alt="preview" height="42" width="42"></div>
+          <div><img ng-src="{{row.rel_url}}" alt="preview" height="100" width="100"></div>
         </td>
         <!--
          item.orig_filename = file.originalname;
