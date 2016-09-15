@@ -15,6 +15,7 @@ var ProductSchema = new Schema({
     created_by: {type: Schema.Types.ObjectId, required: true},//assuming saving every change as a 'version'; only needs 'create', no 'update'
     create_at: Date,
     img_url: String,
+    img_path: String, //internal, assets uploaded to server
     options: [{
       name: String,
       selections: [String],

@@ -10,7 +10,8 @@ var EventSchema = new Schema({
     active_from : Date,
     active_end : Date,
     cancellable : Boolean,
-    img_url: String,
+    img_url: String, //assume this is external
+    img_path: String, //internal, assets uploaded to server
     delivery_schedule : [{
       location : String,
       arrival_time : Date

@@ -39,6 +39,15 @@
             <input type="text" name="loc" ng-model="row.loc" class="editable-input form-control input-sm" required/>
           </div>
         </td>
+        <td title="'img_path'" filter="{img_path: 'text'}" sortable="'img_path'" ng-switch="row.isEditing" ng-class="img_path.$dirty ? 'bg-warning' : ''" ng-form="img_path" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.img_path}}</span>
+          <div class="controls" ng-class="img_path.$invalid && img_path.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="img_path" ng-model="row.img_path" class="editable-input form-control input-sm" required />
+          </div>
+        </td>
+        <td title="'img'" user-tracked-table-cell>
+          <div><img ng-src="{{row.rel_url}}" alt="preview" height="100" width="100"></div>
+        </td>
         <td>
           <button class="btn btn-primary btn-sm" ng-click="save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
           <button class="btn btn-default btn-sm" ng-click="cancel(row, rowForm)" ng-if="row.isEditing"><span class="glyphicon glyphicon-remove"></span></button>

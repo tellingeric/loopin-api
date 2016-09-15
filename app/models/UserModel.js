@@ -33,7 +33,8 @@ var UserSchema = new Schema({
     }
   }],
   resetPasswordToken: String,
-  resetPasswordExpires: Date
+  resetPasswordExpires: Date,
+  img_path: String //internal, assets uploaded to server
 });
 
 // Saves the user's password hashed (plain text password storage is not good)

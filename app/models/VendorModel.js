@@ -17,7 +17,8 @@ var VendorSchema = new Schema({
     },
     email : String,
     phone : String,
-    type : String
+    type : String,
+    img_path: String //internal, assets uploaded to server
     },
     {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }}
 );
