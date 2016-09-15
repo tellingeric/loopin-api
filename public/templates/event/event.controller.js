@@ -11,6 +11,9 @@ angular.module('LoopIn-Web.event')
         $scope.getAll = function () {
             EventService.getAll().success(function (data) {
                 $scope.events = data;
+                $scope.events.forEach(function(entry){
+                    entry.rel_url = (entry.img_path)?entry.img_path.replace('public/',''):'';
+                });
                 $scope.tableParams.settings({dataset: $scope.events});
                 $scope.originalData = angular.copy($scope.events);
             });

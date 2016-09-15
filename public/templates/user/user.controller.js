@@ -33,6 +33,9 @@ angular.module('LoopIn-Web.user')
         $scope.getAllUsers = function () {
             UserService.getAll().success(function (data) {
                 $scope.users = data;
+                $scope.users.forEach(function(entry){
+                    entry.rel_url = (entry.img_path)?entry.img_path.replace('public/',''):'';
+                });
                 $scope.tableParams.settings({dataset: $scope.users});
                 $scope.originalData = angular.copy($scope.users);
             });

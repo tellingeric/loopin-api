@@ -24,6 +24,7 @@
             <input type="text" name="email" ng-model="row.email" class="editable-input form-control input-sm" required/>
           </div>
         </td>
+
         <td>
           <button class="btn btn-primary btn-sm" ng-click="save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
           <button class="btn btn-default btn-sm" ng-click="cancel(row, rowForm)" ng-if="row.isEditing"><span class="glyphicon glyphicon-remove"></span></button>
