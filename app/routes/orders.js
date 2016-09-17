@@ -17,7 +17,6 @@ var Orders = {
         order.delivery_address = req.body.delivery_address;
         order.buyer = req.body.buyer;
         order.order_date = req.body.order_date;
-        order.event = req.body.event;
 
         order.save(function (err) {
             if (err) {
