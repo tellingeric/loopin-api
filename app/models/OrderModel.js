@@ -5,6 +5,10 @@ var OrderSchema = new Schema({
         products: [{
             product_id: {type: String, required: true},
             product_vid: {type: String, required: true},
+            options: [{
+                name: String,
+                selections: [String],
+                isMultiple: Boolean}],
             unitPrice: Number,
             num_sold: Number
         }],

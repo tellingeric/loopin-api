@@ -65,6 +65,7 @@ router.delete('/api/events/:event_id', Events.deleteOne);
 router.get('/api/orders', Orders.getAll);
 router.post('/api/orders', Orders.createOne);
 router.get('/api/orders/:order_id', Orders.getOne);
+router.get('/api/orders/byUser/:user_id', Orders.getByUser);
 router.put('/api/orders/:order_id', Orders.updateOne);
 router.delete('/api/orders/:order_id', Orders.deleteOne);
 

@@ -45,6 +45,18 @@ var Orders = {
 
     },
 
+    getByUser: function(req, res){
+        var order_by = req.query.order_by || 'order_date',
+            order = req.query.order || '',
+            limit_doc = req.query.limit || 0,
+            skip_doc = req.query.skip || 0;
+
+        OrderModel.find({buyer: req.params.user_id}).limit(limit_doc).skip(skip_doc).sort(order + order_by).exec(function (err, items) {
+            if (err) res.send(err);
+            res.json(items);
+        });
+    },
+
     getOne: function (req, res) {
         OrderModel.findById(req.params.order_id, function (err, item) {
             if (err) res.send(err);
