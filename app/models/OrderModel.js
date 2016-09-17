@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 var OrderSchema = new Schema({
         products: [{
-            product_id: {type: String, required: true},
-            product_vid: {type: String, required: true},
+            product_id : { type: Schema.Types.ObjectId, ref: 'Product' },
+            product_vid : { type: Schema.Types.ObjectId, ref: 'Product.details'},
             options: [{
                 name: String,
                 selections: [String],
