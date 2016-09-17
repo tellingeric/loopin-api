@@ -9,8 +9,9 @@ var OrderSchema = new Schema({
                 name: String,
                 selections: [String],
                 isMultiple: Boolean}],
-            unitPrice: Number,
-            num_sold: Number
+            unit_price: Number,
+            num_sold: Number,
+            event: { type: Schema.Types.ObjectId, ref: 'Event'} //optional, may not be purchased from an event
         }],
         delivery_address : {
             street1 : String,
@@ -21,8 +22,7 @@ var OrderSchema = new Schema({
             country : String
         },
         buyer: {type: Schema.Types.ObjectId, ref: 'User', required: true},
-        order_date: Date,
-        event: { type: Schema.Types.ObjectId, ref: 'Event', required: true } //optional, may not be purchased from an event
+        order_date: Date
     },
     {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}});
 
