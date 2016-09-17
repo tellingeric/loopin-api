@@ -9,13 +9,8 @@ var Orders = {
         if(!req.body.buyer) {
           res.status(400).json({ success: false, message: 'buyer name is required.' });
         }
-        if(!req.body.event) {
-          res.status(400).json({ success: false, message: 'event is required.' });
-        }
 
         var order = new OrderModel();
-
-
 
         OrderModel.schema.eachPath(function(path) {
             //console.log(path);
