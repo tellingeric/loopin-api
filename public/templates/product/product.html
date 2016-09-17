@@ -1,0 +1,55 @@
+<h1 ng-init="getAll()">PRODUCT MANAGEMENT</h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <table ng-table="tableParams" class="table table-bordered table-hover table-condensed editable-table " ng-form="tableForm" disable-filter="isAdding" user-tracked-table="tableTracker">
+      <colgroup>
+        <col width="30%" />
+        <col width="50%" />
+        <col width="20%" />
+      </colgroup>
+      <tr ng-repeat="row in $data" ng-form="rowForm" user-tracked-table-row="row">
+        <td title="'Name'" filter="{name: 'text'}" sortable="'name'" ng-switch="row.isEditing" ng-class="name.$dirty ? 'bg-warning' : ''" ng-form="name" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.name}}</span>
+          <div class="controls" ng-class="name.$invalid && name.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="name" ng-model="row.name" class="editable-input form-control input-sm" required />
+          </div>
+        </td>
+        <td title="Vendor" filter="{vendor: 'text'}" sortable="'vendor'" ng-switch="row.isEditing" ng-class="vendor.$dirty ? 'bg-warning' : ''" ng-form="vendor" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.vendor}}</span>
+          <div class="controls" ng-class="vendor.$invalid && vendor.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="vendor" ng-model="row.vendor" class="editable-input form-control input-sm" required/>
+          </div>
+        </td>
+        <td title="'Created_by'" filter="{created_by: 'text'}" sortable="'created_by'" ng-switch="row.isEditing" ng-class="created_by.$dirty ? 'bg-warning' : ''" ng-form="created_by" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.created_by}}</span>
+          <div class="controls" ng-class="created_by.$invalid && created_by.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="created_by" ng-model="row.created_by" class="editable-input form-control input-sm" required/>
+          </div>
+        </td>
+        <td title="'Details'" filter="{details: 'text'}" sortable="'details'" ng-switch="row.isEditing" ng-class="details.$dirty ? 'bg-warning' : ''" ng-form="details" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.details}}</span>
+          <div class="controls" ng-class="details.$invalid && details.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="details" ng-model="row.details" class="editable-input form-control input-sm" required/>
+          </div>
+        </td>
+
+        <td title="'img'" user-tracked-table-cell>
+          <div><img ng-src="{{row.rel_url}}" alt="preview" height="100" width="100"></div>
+        </td>
+        <td>
+          <button class="btn btn-primary btn-sm" ng-click="save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
+          <button class="btn btn-default btn-sm" ng-click="cancel(row, rowForm)" ng-if="row.isEditing"><span class="glyphicon glyphicon-remove"></span></button>
+          <button class="btn btn-default btn-sm" ng-click="row.isEditing = true" ng-if="!row.isEditing"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-danger btn-sm" ng-click="del(row)" ng-if="!row.isEditing"><span class="glyphicon glyphicon-trash"></span></button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+  <!-- <td data-title="'Username'" filter="{username: 'text'}" sortable="'username'">{{row.username}}</td> -->
+  <!-- <td data-title="'Email'" filter="{email: 'text'}" sortable="'email'">{{row.email}}</td> -->
+
+
+</div>
