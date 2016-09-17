@@ -6,10 +6,6 @@ var Orders = {
 
     createOne: function (req, res) {
 
-        if(!req.body.buyer) {
-          res.status(400).json({ success: false, message: 'buyer name is required.' });
-        }
-
         var order = new OrderModel();
 
         OrderModel.schema.eachPath(function(path) {

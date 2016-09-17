@@ -11,10 +11,6 @@ var Users = {
 
     create: function (req, res) {
 
-        console.log(req.body);
-        if(!req.body.email || !req.body.username || !req.body.password ){
-          res.status(400).json({ success: false, message: 'Please enter username, email and password.' });
-        }
         var user = new UserModel({
           username: req.body.username,
           email: req.body.email,
