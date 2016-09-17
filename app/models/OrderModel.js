@@ -9,7 +9,7 @@ var OrderSchema = new Schema({
                 name: String,
                 selections: [String],
                 isMultiple: Boolean}],
-            unitPrice: Number,
+            unit_price: Number,
             num_sold: Number,
             event: { type: Schema.Types.ObjectId, ref: 'Event'} //optional, may not be purchased from an event
         }],
