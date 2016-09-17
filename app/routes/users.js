@@ -5,6 +5,7 @@ var https = require('https');
 var waterfall = require('async/waterfall');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
+var _ = require('lodash');
 
 var Users = {
 
@@ -25,7 +26,11 @@ var Users = {
             console.log(err);
             return res.status(400).json({ success: false, message: 'Failed to create user:'});
           }
-          res.status(201).json({ success: true, message: 'user created' });
+          const token = jwt.sign(user, config.secret, {
+            expiresIn: '7d'
+          });
+          res.json({ success: true, message: 'user created', token: token });
+          //res.status(201).json({ success: true, message: 'user created' });
         });
     },
 
@@ -58,9 +63,6 @@ var Users = {
       //       redirect ({success})
        //
       //   end
-
-
-
         UserModel.findOne({
           username: req.body.username
         }, function(err, user) {
@@ -78,23 +80,9 @@ var Users = {
                 });
 
                 //add an entry in user sessions.
-                user.devices.push({ device_token: req.body.device_token, date: new Date()});
-                user.save();
-
+                //user.devices.push({ device_token: req.body.device_token, date: new Date()});
+                //user.save();
                 res.json({ success: true, token: token });
-
-                //
-                // res.format({
-                //   json: function(){
-                //     res.status(200).json({ success: true, token: token });
-                //   },
-                //
-                //   html: function(){
-                //     res.render('index.ejs');
-                //   }
-                //
-                // })
-
               } else {
                 res.json({ success: false, message: 'Authentication failed. Passwords did not match.' });
               }
@@ -228,14 +216,29 @@ var Users = {
           } else {
               user.devices.push({ device_token: req.body.device_token, date: new Date()});
               user.save();
+              res.json({ success: true, message: 'Devide added!' });
           }
         });
     },
 
     logout: function(req, res) {
-        UserModel.find(function (err, users) {
-            if (err) res.send(err);
-            res.json(users);
+        UserModel.findOne({
+          username: req.body.username
+        }, function (err, user) {
+          if (err) res.send(err);
+          var index = _.findIndex(user.devices, function(o) { return o.device_token == req.body.device_token; });
+          //console.log('index:' + index);
+          if(index == -1){
+            res.json({ success: true, message: 'Devide not found!' });
+          }
+          else
+          {
+            _.remove(user.devices, function(n) {
+              return n == index;
+            });
+            user.save();
+            res.json({ success: true, message: 'Devide removed!' });
+          }
         });
     },
 
