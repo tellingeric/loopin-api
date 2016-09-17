@@ -13,10 +13,17 @@ var Orders = {
         }
 
         var order = new OrderModel();
-        order.products = req.body.products;
-        order.delivery_address = req.body.delivery_address;
-        order.buyer = req.body.buyer;
-        order.order_date = req.body.order_date;
+
+
+
+        OrderModel.schema.eachPath(function(path) {
+            //console.log(path);
+
+            if (_.has(req.body, path)){
+                _.set(order, path, _.get(req.body, path));
+            }
+            //if(req.body[path]) {item[path] = req.body[path];}
+        });
 
         order.save(function (err) {
             if (err) {
