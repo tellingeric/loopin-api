@@ -1,4 +1,5 @@
 var OrderModel = require('../models/OrderModel');
+var _ = require('lodash');
 
 var Orders = {
     //createOne, getAll, getOne, deleteOne, updateOne
