@@ -13,6 +13,7 @@ angular.module('LoopIn-Web', [
         'LoopIn-Web.vendor',
         'LoopIn-Web.event',
         'LoopIn-Web.product',
+        'LoopIn-Web.order',
         'LoopIn-Web.upload',
         'LoopIn-Web.asset',
         'LoopIn-Web.dashboard',

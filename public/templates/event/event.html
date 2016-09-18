@@ -1,16 +1,13 @@
 <h1 ng-init="getAll()">EVENT MANAGEMENT</h1>
 
-<div class="col-md-7">
-
-
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-11">
     <table ng-table="tableParams" class="table table-bordered table-hover table-condensed editable-table " ng-form="tableForm" disable-filter="isAdding" user-tracked-table="tableTracker">
       <colgroup>
         <col width="10%" />
-        <col width="20%" />
-        <!-- <col width="30%" />
-        <col width="30%" /> -->
+        <col width="30%" />
+        <col width="40%" />
+        <col width="10%" />
         <col width="10%" />
       </colgroup>
       <tr ng-repeat="row in $data" ng-form="rowForm" user-tracked-table-row="row">
@@ -56,7 +53,6 @@
       </tr>
     </table>
   </div>
-</div>
 
   <!-- <td data-title="'Username'" filter="{username: 'text'}" sortable="'username'">{{row.username}}</td> -->
   <!-- <td data-title="'Email'" filter="{email: 'text'}" sortable="'email'">{{row.email}}</td> -->

@@ -1,12 +1,15 @@
 <h1 ng-init="getAll()">PRODUCT MANAGEMENT</h1>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-11">
     <table ng-table="tableParams" class="table table-bordered table-hover table-condensed editable-table " ng-form="tableForm" disable-filter="isAdding" user-tracked-table="tableTracker">
       <colgroup>
-        <col width="30%" />
-        <col width="50%" />
-        <col width="20%" />
+        <col width="10%" />
+        <col width="10%" />
+        <col width="10%" />
+        <col width="40%" />
+        <col width="15%" />
+        <col width="15%" />
       </colgroup>
       <tr ng-repeat="row in $data" ng-form="rowForm" user-tracked-table-row="row">
         <td title="'Name'" filter="{name: 'text'}" sortable="'name'" ng-switch="row.isEditing" ng-class="name.$dirty ? 'bg-warning' : ''" ng-form="name" user-tracked-table-cell>
@@ -15,7 +18,7 @@
             <input type="text" name="name" ng-model="row.name" class="editable-input form-control input-sm" required />
           </div>
         </td>
-        <td title="Vendor" filter="{vendor: 'text'}" sortable="'vendor'" ng-switch="row.isEditing" ng-class="vendor.$dirty ? 'bg-warning' : ''" ng-form="vendor" user-tracked-table-cell>
+        <td title="'Vendor'" filter="{vendor: 'text'}" sortable="'vendor'" ng-switch="row.isEditing" ng-class="vendor.$dirty ? 'bg-warning' : ''" ng-form="vendor" user-tracked-table-cell>
           <span ng-switch-default class="editable-text">{{row.vendor}}</span>
           <div class="controls" ng-class="vendor.$invalid && vendor.$dirty ? 'has-error' : ''" ng-switch-when="true">
             <input type="text" name="vendor" ng-model="row.vendor" class="editable-input form-control input-sm" required/>
