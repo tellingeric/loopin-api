@@ -17,7 +17,8 @@ angular.module('LoopIn-Web', [
         'LoopIn-Web.upload',
         'LoopIn-Web.asset',
         'LoopIn-Web.dashboard',
-        'LoopIn-Web.main'
+        'LoopIn-Web.main',
+        'LoopIn-Web.utility'
     ])
 
     .run(function ($rootScope) {
@@ -61,7 +62,7 @@ angular.module('LoopIn-Web', [
     .config(function ($httpProvider) {
 
 
-        $httpProvider.interceptors.push(['$q', '$location', '$localStorage', '$injector', function ($q, $location, $localStorage, $injector) {
+        $httpProvider.interceptors.push(['$q', '$location', '$localStorage', '$injector', 'UtilityService',function ($q, $location, $localStorage, $injector, UtilityService) {
 
             console.log('interceptor');
 
@@ -78,6 +79,7 @@ angular.module('LoopIn-Web', [
                         console.log('redirect to login');
                         // $location.path('/login');
                         $injector.get('$state').transitionTo('login');
+                        UtilityService.showToast('danger', response.data.message);
 
                     }
                     return $q.reject(response);
