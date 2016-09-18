@@ -21,7 +21,7 @@ var Users = {
         user.save(function(err) {
           if (err) {
             console.log(err);
-            return res.status(400).json({ success: false, message: 'Failed to create user:'});
+            return res.status(400).json({ success: false, message: 'Failed to create user.'});
           }
           const token = jwt.sign(user, config.secret, {
             expiresIn: '7d'
@@ -218,16 +218,26 @@ var Users = {
         });
     },
     getUserLocation: function (req, res) {
-        UserModel.findById(req.params.user_id, function (err, item) {
+        UserModel.findById(req.params.user_id, function (err, user) {
             if (err) res.send(err);
-            res.json(item);
+
+            res.json(user.loc);
         });
     },
 
     saveUserLocation: function (req, res) {
-        UserModel.findById(req.params.user_id, function (err, item) {
+        UserModel.findById(req.params.user_id, function (err, user) {
             if (err) res.send(err);
-            res.json(item);
+
+            user.loc = req.body.loc;
+            user.save(function(err) {
+              if (err) {
+                console.log(err);
+                return res.status(400).json({ success: false, message: 'Failed to save location.'});
+              }
+              res.json({ success: true, message: 'location saved' });
+              //res.status(201).json({ success: true, message: 'user created' });
+            });
         });
     },
 
