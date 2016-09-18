@@ -1,0 +1,54 @@
+<h1 ng-init="getAll()">ORDER MANAGEMENT</h1>
+
+<div class="row">
+  <div class="col-md-11">
+    <table ng-table="tableParams" class="table table-bordered table-hover table-condensed editable-table " ng-form="tableForm" disable-filter="isAdding" user-tracked-table="tableTracker">
+      <colgroup>
+        <col width="30%" />
+        <col width="30%" />
+        <col width="10%" />
+        <col width="10%" />
+        <col width="20%" />
+      </colgroup>
+      <tr ng-repeat="row in $data" ng-form="rowForm" user-tracked-table-row="row">
+        <td title="'products'" filter="{products: 'text'}" sortable="'products'" ng-switch="row.isEditing" ng-class="products.$dirty ? 'bg-warning' : ''" ng-form="products" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.products}}</span>
+          <div class="controls" ng-class="products.$invalid && products.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" products="products" ng-model="row.products" class="editable-input form-control input-sm" required />
+          </div>
+        </td>
+        <td title="'delivery_address'" filter="{delivery_address: 'text'}" sortable="'delivery_address'" ng-switch="row.isEditing" ng-class="delivery_address.$dirty ? 'bg-warning' : ''" ng-form="delivery_address" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.delivery_address}}</span>
+          <div class="controls" ng-class="delivery_address.$invalid && delivery_address.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" delivery_address="delivery_address" ng-model="row.delivery_address" class="editable-input form-control input-sm" required />
+          </div>
+        </td>
+        <td title="'buyer'" filter="{buyer: 'text'}" sortable="'buyer'" ng-switch="row.isEditing" ng-class="buyer.$dirty ? 'bg-warning' : ''" ng-form="buyer" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.buyer}}</span>
+          <div class="controls" ng-class="buyer.$invalid && buyer.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" buyer="buyer" ng-model="row.buyer" class="editable-input form-control input-sm" required />
+          </div>
+        </td>
+        <td title="'order_date'" filter="{order_date: 'text'}" sortable="'order_date'" ng-switch="row.isEditing" ng-class="order_date.$dirty ? 'bg-warning' : ''" ng-form="order_date" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.order_date}}</span>
+          <div class="controls" ng-class="order_date.$invalid && order_date.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" order_date="order_date" ng-model="row.order_date" class="editable-input form-control input-sm" required />
+          </div>
+        </td>
+        <td>
+          <button class="btn btn-primary btn-sm" ng-click="save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
+          <button class="btn btn-default btn-sm" ng-click="cancel(row, rowForm)" ng-if="row.isEditing"><span class="glyphicon glyphicon-remove"></span></button>
+          <button class="btn btn-default btn-sm" ng-click="row.isEditing = true" ng-if="!row.isEditing"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-danger btn-sm" ng-click="del(row)" ng-if="!row.isEditing"><span class="glyphicon glyphicon-trash"></span></button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+
+  <!-- <td data-title="'Username'" filter="{username: 'text'}" sortable="'username'">{{row.username}}</td> -->
+  <!-- <td data-title="'Email'" filter="{email: 'text'}" sortable="'email'">{{row.email}}</td> -->
+
+
+</div>

@@ -1,23 +1,21 @@
 var OrderModel = require('../models/OrderModel');
+var _ = require('lodash');
 
 var Orders = {
     //createOne, getAll, getOne, deleteOne, updateOne
 
     createOne: function (req, res) {
 
-        if(!req.body.buyer) {
-          res.status(400).json({ success: false, message: 'buyer name is required.' });
-        }
-        if(!req.body.event) {
-          res.status(400).json({ success: false, message: 'event is required.' });
-        }
-
         var order = new OrderModel();
-        order.products = req.body.products;
-        order.delivery_address = req.body.delivery_address;
-        order.buyer = req.body.buyer;
-        order.order_date = req.body.order_date;
-        order.event = req.body.event;
+
+        OrderModel.schema.eachPath(function(path) {
+            //console.log(path);
+
+            if (_.has(req.body, path)){
+                _.set(order, path, _.get(req.body, path));
+            }
+            //if(req.body[path]) {item[path] = req.body[path];}
+        });
 
         order.save(function (err) {
             if (err) {
@@ -43,6 +41,18 @@ var Orders = {
 
     getOpenOrders: function(req, res){
 
+    },
+
+    getByUser: function(req, res){
+        var order_by = req.query.order_by || 'order_date',
+            order = req.query.order || '',
+            limit_doc = req.query.limit || 0,
+            skip_doc = req.query.skip || 0;
+
+        OrderModel.find({buyer: req.params.user_id}).limit(limit_doc).skip(skip_doc).sort(order + order_by).exec(function (err, items) {
+            if (err) res.send(err);
+            res.json(items);
+        });
     },
 
     getOne: function (req, res) {

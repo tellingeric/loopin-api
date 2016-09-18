@@ -8,15 +8,6 @@ var Events = {
 
     createOne: function (req, res) {
 
-        if(!req.body.name) {
-          res.status(400).json({ success: false, message: 'event name is required.' });  
-        }
-        if(!req.body.vendor) {
-          res.status(400).json({ success: false, message: 'cendor is required.' });  
-        }
-        if(!req.body.created_by) {
-          res.status(400).json({ success: false, message: 'created_by is required.' });  
-        }
         var event = new EventModel();
         event.name = req.body.name;
         event.description = req.body.description;

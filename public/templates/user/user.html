@@ -4,12 +4,14 @@
 
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-11">
     <table ng-table="tableParams" class="table table-bordered table-hover table-condensed editable-table " ng-form="tableForm" disable-filter="isAdding" user-tracked-table="tableTracker">
       <colgroup>
-        <col width="30%" />
-        <col width="50%" />
         <col width="20%" />
+        <col width="20%" />
+        <col width="30%" />
+        <col width="15%" />
+        <col width="15%" />
       </colgroup>
       <tr ng-repeat="row in $data" ng-form="rowForm" user-tracked-table-row="row">
         <td title="'Username'" filter="{username: 'text'}" sortable="'username'" ng-switch="row.isEditing" ng-class="username.$dirty ? 'bg-warning' : ''" ng-form="username" user-tracked-table-cell>
