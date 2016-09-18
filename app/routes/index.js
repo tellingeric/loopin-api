@@ -19,6 +19,8 @@ var AssetModel = require('../models/AssetModel');
 var Stats = require('./stats');
 var UserModel = require('../models/UserModel');
 
+var requireRole = require('../middlewares/requireRole');
+
 // Load Chance
 var Chance = require('chance');
 // Instantiate Chance so it can be used
@@ -44,7 +46,7 @@ router.post('/api/vendors', Vendors.createOne);
 router.post('/api/vendors/random', Vendors.random);
 router.get('/api/vendors/:vendor_id', Vendors.getOne);
 router.put('/api/vendors/:vendor_id', Vendors.updateOne);
-router.delete('/api/vendors/:vendor_id', Vendors.deleteOne);
+router.delete('/api/vendors/:vendor_id', requireRole('admin'), Vendors.deleteOne);
 
 // PRODUCTS
 router.get('/api/products', Products.getAll);
