@@ -203,20 +203,50 @@ var Users = {
     },
     //If token expires, how to delete device_id
     addNewDevice: function(req, res) {
-        UserModel.findOne({
-          username: req.body.username
-        }, function(err, user) {
-          if (err) throw err;
+        UserModel.findById(req.params.user_id, function(err, user) {
+          if (err) res.send(err);
 
           if (!user) {
             res.status(401).json({ success: false, message: 'User not found.' });
           } else {
-              user.devices.push({ device_token: req.body.device_token, date: new Date()});
-              user.save();
-              res.json({ success: true, message: 'Devide added!' });
+
+              var index = _.findIndex(user.devices, function(o) { return o.device_token == req.body.device_token; });
+              //console.log('index:' + index);
+              if(index != -1){
+                res.json({ success: true, message: 'Device exsits!' });
+              }
+              else
+              {
+                user.devices.push({ device_token: req.body.device_token, date: new Date()});
+                user.save();
+                res.json({ success: true, message: 'Device added!' });
+              }
           }
         });
     },
+
+    logout: function(req, res) {
+        UserModel.findOne({
+          username: req.body.username
+        }, function (err, user) {
+          if (err) res.send(err);
+          var index = _.findIndex(user.devices, function(o) { return o.device_token == req.body.device_token; });
+          //console.log('index:' + index);
+          if(index == -1){
+            res.json({ success: true, message: 'Device not found!' });
+          }
+          else
+          {
+            _.pull(user.devices, function(o) { return o.device_token == req.body.device_token; });
+            //_.remove(user.devices, function(n) {
+            //  return n == index;
+            //});
+            user.save();
+            res.json({ success: true, message: 'Device removed!' });
+          }
+        });
+    },
+
     getUserLocation: function (req, res) {
         UserModel.findById(req.params.user_id, function (err, user) {
             if (err) res.send(err);
@@ -238,28 +268,6 @@ var Users = {
               res.json({ success: true, message: 'location saved' });
               //res.status(201).json({ success: true, message: 'user created' });
             });
-        });
-    },
-
-    logout: function(req, res) {
-        UserModel.findOne({
-          username: req.body.username
-        }, function (err, user) {
-          if (err) res.send(err);
-          var index = _.findIndex(user.devices, function(o) { return o.device_token == req.body.device_token; });
-          //console.log('index:' + index);
-          if(index == -1){
-            res.json({ success: true, message: 'Devide not found!' });
-          }
-          else
-          {
-            _.pull(user.devices, function(o) { return o.device_token == req.body.device_token; });
-            //_.remove(user.devices, function(n) {
-            //  return n == index;
-            //});
-            user.save();
-            res.json({ success: true, message: 'Devide removed!' });
-          }
         });
     },
 
