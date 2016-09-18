@@ -125,9 +125,8 @@ var Users = {
             to: user.email,
             from: 'yummyt.test@gmail.com',
             subject: 'Loopin Account Password Reset',
-            text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-              'The passcode is:\n' + token + '\n\n' +
-              'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+            text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n' +
+              'The passcode is: '+ token +'.   If you did not request this, please ignore this email and your password will remain unchanged.\n'
           };
           smtpTransport.sendMail(mailOptions, function(err) {
             console.log("email sent!!!");
