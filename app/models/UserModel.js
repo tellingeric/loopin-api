@@ -32,6 +32,12 @@ var UserSchema = new Schema({
       default: Date.now 
     }
   }],
+  loc:{
+      type: [Number], //longtitude, latitude
+      index: '2d' //create geospatial index
+  },
+  passcode: String,
+  passcodeExpires: Date,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   img_path: String //internal, assets uploaded to server

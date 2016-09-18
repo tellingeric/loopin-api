@@ -24,7 +24,6 @@ var Chance = require('chance');
 // Instantiate Chance so it can be used
 var chance = new Chance();
 
-
 // USERS
 router.get('/api/users', Users.getAll);
 router.post('/register', Users.create);
@@ -37,6 +36,8 @@ router.get('/api/me', jsonParser, Users.getUser);
 router.put('/api/users/:user_id', Users.updateOne);
 router.get('/reset/:token', Users.validatePasswordResetToken);
 router.post('/reset/:token', Users.resetPassword);
+router.get('/user/location/:user_id', Users.getUserLocation);
+router.put('/user/location/:user_id', Users.saveUserLocation);
 
 // VENDORS
 router.get('/api/vendors', Vendors.getAll);

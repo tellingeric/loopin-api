@@ -14,7 +14,8 @@ var Users = {
         var user = new UserModel({
           username: req.body.username,
           email: req.body.email,
-          password: req.body.password
+          password: req.body.password,
+          loc: req.body.loc
         });
         // Attempt to save the user
         user.save(function(err) {
@@ -89,11 +90,14 @@ var Users = {
 
     forgetPassword: function(req, res, next) {
       waterfall([
-        function(done) {
-          crypto.randomBytes(20, function(err, buf) {
-            var token = buf.toString('hex');
-            done(err, token);
-          });
+        function(done, err) {
+          var token = Math.floor(Math.random() * 899999 + 100000);
+          console.log("random_number:" + token);
+          done(err, token);
+          //crypto.randomBytes(20, function(err, buf) {
+          //  var token = buf.toString('hex');
+          //  done(err, token);
+          //});
         },
         function(token, done) {
           UserModel.findOne({ email: req.body.email }, function(err, user) {
@@ -101,8 +105,8 @@ var Users = {
               return res.json({ success: false, message: 'No account with that email address exists.' });
             }
 
-            user.resetPasswordToken = token;
-            user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+            user.passcode = token;
+            user.passcodeExpires = Date.now() + 3600000; // 1 hour
 
             user.save(function(err) {
               done(err, token, user);
@@ -122,8 +126,7 @@ var Users = {
             from: 'yummyt.test@gmail.com',
             subject: 'Loopin Account Password Reset',
             text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-              'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-              'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+              'The passcode is:\n' + token + '\n\n' +
               'If you did not request this, please ignore this email and your password will remain unchanged.\n'
           };
           smtpTransport.sendMail(mailOptions, function(err) {
@@ -138,29 +141,27 @@ var Users = {
     },
 
     validatePasswordResetToken :function(req, res) {
-      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+      UserModel.findOne({ passcode: req.params.token, passcodeExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
-          req.flash('error', 'Password reset token is invalid or has expired.');
-          return res.redirect('/forgot');
+          return res.json({ success: false, message: 'Passcode is invalid or has expired.' });
         }
-        res.render('reset', {
-          user: req.user
-        });
+
+        return res.json({ success: true, message: 'Passcode is validated.' });
       });
     },
 
     resetPassword: function(req, res) {
       waterfall([
         function(done) {
-          UserModel.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+          UserModel.findOne({ passcode: req.params.token, passcodeExpires: { $gt: Date.now() } }, function(err, user) {
             if (!user) {
-              return res.json({ success: false, message: 'Password reset token is invalid or has expired.' });
+              return res.json({ success: false, message: 'Passcode is invalid or has expired.' });
               //return res.redirect('back');
             }
 
             user.password = req.body.password;
-            user.resetPasswordToken = undefined;
-            user.resetPasswordExpires = undefined;
+            user.passcode = undefined;
+            user.passcodeExpires = undefined;
 
             user.save(function(err) {
               if (err) {
@@ -214,6 +215,19 @@ var Users = {
               user.save();
               res.json({ success: true, message: 'Devide added!' });
           }
+        });
+    },
+    getUserLocation: function (req, res) {
+        UserModel.findById(req.params.user_id, function (err, item) {
+            if (err) res.send(err);
+            res.json(item);
+        });
+    },
+
+    saveUserLocation: function (req, res) {
+        UserModel.findById(req.params.user_id, function (err, item) {
+            if (err) res.send(err);
+            res.json(item);
         });
     },
 
