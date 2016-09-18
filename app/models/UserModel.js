@@ -38,8 +38,6 @@ var UserSchema = new Schema({
   },
   passcode: String,
   passcodeExpires: Date,
-  resetPasswordToken: String,
-  resetPasswordExpires: Date,
   img_path: String //internal, assets uploaded to server
 });
 

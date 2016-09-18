@@ -6,6 +6,7 @@ var waterfall = require('async/waterfall');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var _ = require('lodash');
+var mongoose = require('mongoose');
 
 var Users = {
 
@@ -227,13 +228,20 @@ var Users = {
     logout: function(req, res) {
         UserModel.findById(req.params.user_id, function(err, user) {
           if (err) res.send(err);
+
           var index = _.findIndex(user.devices, function(o) { return o.device_token == req.body.device_token; });
           if(index == -1){
-            res.json({ success: true, message: 'Device not found!' });
+            res.json({ success: false, message: 'Device not found!' });
           }
           else
           {
-            var temp = _.pullAt(user.devices, index);
+            console.log(user.devices[index]._id);
+            //user.update({ _id : user.devices[index]._id},
+            //           { $pull : {'user.devices' : { '_id' : mongoose.Types.ObjectId(user.devices[index]._id) } } }
+            //           );
+
+            _.pullAt(user.devices, index);
+            //console.log(user.devices);
             //user.devices = temp;
             //_.pull(user.devices, function(o) { return o.device_token == req.body.device_token; });
             //var temp = _.remove(user.devices, function(n) {
@@ -244,7 +252,7 @@ var Users = {
                 console.log(err);
               }
               else {
-                res.json({ success: true, message: 'Device removed!'});
+                res.json({ success: true, message: 'Device removed!' + user.devices});
               }
             });
           }
