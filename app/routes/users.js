@@ -226,23 +226,28 @@ var Users = {
     },
 
     logout: function(req, res) {
-        UserModel.findOne({
-          username: req.body.username
-        }, function (err, user) {
+        UserModel.findById(req.params.user_id, function(err, user) {
           if (err) res.send(err);
           var index = _.findIndex(user.devices, function(o) { return o.device_token == req.body.device_token; });
-          //console.log('index:' + index);
           if(index == -1){
             res.json({ success: true, message: 'Device not found!' });
           }
           else
           {
-            _.pull(user.devices, function(o) { return o.device_token == req.body.device_token; });
-            //_.remove(user.devices, function(n) {
+            var temp = _.pullAt(user.devices, index);
+            //user.devices = temp;
+            //_.pull(user.devices, function(o) { return o.device_token == req.body.device_token; });
+            //var temp = _.remove(user.devices, function(n) {
             //  return n == index;
             //});
-            user.save();
-            res.json({ success: true, message: 'Device removed!' });
+            user.save(function(err){
+              if (err){
+                console.log(err);
+              }
+              else {
+                res.json({ success: true, message: 'Device removed!'});
+              }
+            });
           }
         });
     },
