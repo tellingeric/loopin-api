@@ -233,9 +233,10 @@ var Users = {
           }
           else
           {
-            _.remove(user.devices, function(n) {
-              return n == index;
-            });
+            _.pull(user.devices, function(o) { return o.device_token == req.body.device_token; });
+            //_.remove(user.devices, function(n) {
+            //  return n == index;
+            //});
             user.save();
             res.json({ success: true, message: 'Devide removed!' });
           }
