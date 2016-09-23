@@ -47,7 +47,7 @@ router.post('/api/vendors', Vendors.createOne);
 router.post('/api/vendors/random', Vendors.random);
 router.get('/api/vendors/:vendor_id', Vendors.getOne);
 router.put('/api/vendors/:vendor_id', Vendors.updateOne);
-router.delete('/api/vendors/:vendor_id', requireRole('admin'), Vendors.deleteOne);
+router.delete('/api/vendors/:vendor_id', requireRole(['admin']), Vendors.deleteOne);
 
 // PRODUCTS
 router.get('/api/products', Products.getAll);
