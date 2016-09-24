@@ -16,6 +16,7 @@ var ProductSchema = new Schema({
     create_at: Date,
     img_url: String,
     img_path: String, //internal, assets uploaded to server
+    img_relative_url: String,
     options: [{
       name: String,
       selections: [String],

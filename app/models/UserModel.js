@@ -38,7 +38,8 @@ var UserSchema = new Schema({
   },
   passcode: String,
   passcodeExpires: Date,
-  img_path: String //internal, assets uploaded to server
+  img_path: String, //internal, assets uploaded to server
+  img_relative_url: String
 });
 
 // Saves the user's password hashed (plain text password storage is not good)
