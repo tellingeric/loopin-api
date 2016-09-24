@@ -110,6 +110,7 @@ router.post('/api/upload',function(req,res){
             item.filetype = file.mimetype;
             item.unique_filename = file.filename;
             item.path = file.path;
+            item.relative_url = file.path.replace('public/','');
             item.size = Number(file.size);
             item.created_by = user._id;
 

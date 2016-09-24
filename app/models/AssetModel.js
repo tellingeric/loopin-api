@@ -7,6 +7,7 @@ var AssetSchema = new Schema({
     filetype: {type:String, required: true},
     unique_filename: {type:String, required: true},
     path: String, //e.g. /assets/abcd.jpg, only used if the asset is uploaded to our server
+    relative_url: String, //path without '/public'
     full_url: String, //e.g. http://imgur.com/xyz/abcd.jpg, only used if the asset is external
     description: {type: String},
     size: Number,
