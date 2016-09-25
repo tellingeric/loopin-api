@@ -47,8 +47,9 @@ var Products = {
             if (err) res.send(err);
 
             ProductModel.schema.eachPath(function(path) {
-                //console.log(path);
-                if(req.body[path]) {item[path] = req.body[path];}
+                if (_.has(req.body, path)){
+                    _.set(item, path, _.get(req.body, path));
+                }
             });
 
             item.save(function (err) {
