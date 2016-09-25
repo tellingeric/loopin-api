@@ -26,10 +26,10 @@
             <input type="text" name="email" ng-model="row.email" class="editable-input form-control input-sm" required/>
           </div>
         </td>
-        <td title="'img_path'" filter="{img_path: 'text'}" sortable="'img_path'" ng-switch="row.isEditing" ng-class="img_path.$dirty ? 'bg-warning' : ''" ng-form="img_path" user-tracked-table-cell>
-          <span ng-switch-default class="editable-text">{{row.img_path}}</span>
-          <div class="controls" ng-class="img_path.$invalid && img_path.$dirty ? 'has-error' : ''" ng-switch-when="true">
-            <input type="text" name="img_path" ng-model="row.img_path" class="editable-input form-control input-sm" required />
+        <td title="'img_relative_url'" filter="{img_relative_url: 'text'}" sortable="'img_relative_url'" ng-switch="row.isEditing" ng-class="img_relative_url.$dirty ? 'bg-warning' : ''" ng-form="img_relative_url" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.img_relative_url}}</span>
+          <div class="controls" ng-class="img_relative_url.$invalid && img_relative_url.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="img_relative_url" ng-model="row.img_relative_url" class="editable-input form-control input-sm" required />
           </div>
         </td>
         <td title="'img'" user-tracked-table-cell>
