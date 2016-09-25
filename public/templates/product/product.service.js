@@ -15,7 +15,7 @@ angular.module('LoopIn-Web.product')
                         console.log('Product GET ALL');
                         // console.log(JSON.stringify(data));
                         _.forEach(data, function(value){
-                            value.rel_url = (value.details && value.details[0].img_path)?value.details[0].img_path.replace('public/',''):'';
+                            value.rel_url = value.details[0].img_relative_url;
                           value.details = JSON.stringify(value.details);
                         });
                         return data;

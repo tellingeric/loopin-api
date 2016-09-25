@@ -33,7 +33,7 @@
           </div>
         </td>
         <td title="'img'" user-tracked-table-cell>
-          <div><img ng-src="{{row.rel_url}}" alt="preview" height="100" width="100"></div>
+          <div><img ng-src="{{row.img_relative_url}}" alt="preview" height="100" width="100"></div>
         </td>
         <td>
           <button class="btn btn-primary btn-sm" ng-click="save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>

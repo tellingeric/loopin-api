@@ -10,9 +10,7 @@ angular.module('LoopIn-Web.vendor')
         $scope.getAll = function () {
             VendorService.getAll().success(function (data) {
                 $scope.vendors = data;
-                $scope.vendors.forEach(function(entry){
-                    entry.rel_url = (entry.img_path)?entry.img_path.replace('public/',''):'';
-                });
+
                 $scope.tableParams.settings({dataset: $scope.vendors});
                 $scope.originalData = angular.copy($scope.vendors);
             });
