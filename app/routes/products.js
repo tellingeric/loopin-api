@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var ProductModel = require('../models/ProductModel');
+var _ = require('lodash');
 
 var Products = {
 

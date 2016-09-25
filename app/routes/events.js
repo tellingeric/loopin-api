@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var EventModel = require('../models/EventModel');
 var EventDeliveryScheduleModel = require('../models/EventDeliveryScheduleModel');
 var ProductModel = require('../models/ProductModel');
+var _ = require('lodash');
 
 var Events = {
     //createOne, getAll, getOne, deleteOne, updateOne

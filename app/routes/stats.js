@@ -4,6 +4,7 @@ var ProductModel = require('../models/ProductModel');
 var EventModel = require('../models/EventModel');
 var OrderModel = require('../models/OrderModel');
 var AssetModel = require('../models/AssetModel');
+var _ = require('lodash');
 
 var Stats = {
 

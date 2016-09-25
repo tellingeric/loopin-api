@@ -20,6 +20,7 @@ var Stats = require('./stats');
 var UserModel = require('../models/UserModel');
 
 var requireRole = require('../middlewares/requireRole');
+var _ = require('lodash');
 
 // Load Chance
 var Chance = require('chance');

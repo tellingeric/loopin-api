@@ -17,6 +17,12 @@
             <input type="text" name="path" ng-model="row.path" class="editable-input form-control input-sm" required />
           </div>
         </td>
+        <td title="'relative_url'" filter="{relative_url: 'text'}" sortable="'relative_url'" ng-switch="row.isEditing" ng-class="relative_url.$dirty ? 'bg-warning' : ''" ng-form="relative_url" user-tracked-table-cell>
+          <span ng-switch-default class="editable-text">{{row.relative_url}}</span>
+          <div class="controls" ng-class="relative_url.$invalid && relative_url.$dirty ? 'has-error' : ''" ng-switch-when="true">
+            <input type="text" name="relative_url" ng-model="row.relative_url" class="editable-input form-control input-sm" required />
+          </div>
+        </td>
         <td title="'description'" filter="{description: 'text'}" sortable="'description'" ng-switch="row.isEditing" ng-class="description.$dirty ? 'bg-warning' : ''" ng-form="description" user-tracked-table-cell>
           <span ng-switch-default class="editable-text">{{row.description}}</span>
           <div class="controls" ng-class="description.$invalid && description.$dirty ? 'has-error' : ''" ng-switch-when="true">

@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var AssetModel = require('../models/AssetModel');
 var fse = require('fs-extra');
+var _ = require('lodash');
+
 var Assets = {
 
     //createOne, getAll, getOne, deleteOne, updateOne

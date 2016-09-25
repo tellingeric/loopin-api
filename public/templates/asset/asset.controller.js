@@ -35,7 +35,7 @@ angular.module('LoopIn-Web.asset')
 
             var originalRow = $scope.resetRow(row, rowForm);
             AssetService.updateOne(row).success(function (data) {
-                    row.address = JSON.stringify(row.address);
+                    //row.address = JSON.stringify(row.address);
                     angular.extend(originalRow, row);
                     UtilityService.showToast('success', row._id + ' saved!');
 
