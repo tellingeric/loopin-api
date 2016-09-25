@@ -54,8 +54,8 @@ var Events = {
         // testing data
 
         // item.products = [{
-        //   product_id: mongoose.Types.ObjectId('578aa723466e37bc1415d497'),
-        //   product_vid: mongoose.Types.ObjectId('578aa4487861d1d40fa674f2'),
+        //   product: mongoose.Types.ObjectId('578aa723466e37bc1415d497'),
+        //   p_vid: mongoose.Types.ObjectId('578aa4487861d1d40fa674f2'),
         //   unit_price: 99.99,
         //   num_sold: 999
         // }];
@@ -96,17 +96,17 @@ var Events = {
                     return item.event_id;
                 });
 
-                EventModel.find().where('_id').in(event_ids).populate('products.product_id').exec(function(err,items){
+                EventModel.find().where('_id').in(event_ids).populate('products.product').exec(function(err,items){
                     if (err) {
                         return res.send(err);
                     }
 
                     items.forEach(function(item){
                         item.products.forEach(function(product){
-                            var filteredDetail = product.product_id.details.filter(function(detail){
-                                return detail._id.equals(product.product_vid);
+                            var filteredDetail = product.product.details.filter(function(detail){
+                                return detail._id.equals(product.p_vid);
                                 });
-                            product.product_id.details = filteredDetail.shift();
+                            product.product.details = filteredDetail.shift();
                         });
                     });
                     res.json(items);
@@ -117,7 +117,7 @@ var Events = {
         else
         {
             EventModel.find()
-            .populate('products.product_id')
+            .populate('products.product')
             .limit(limit_doc)
             .skip(skip_doc)
             .sort(order + order_by)
@@ -125,10 +125,10 @@ var Events = {
               console.log(JSON.stringify(items));
               items.forEach(function(item){
                 item.products.forEach(function(product){
-                  var filteredDetail = product.product_id.details.filter(function(detail){
-                    return detail._id.equals(product.product_vid);
+                  var filteredDetail = product.product.details.filter(function(detail){
+                    return detail._id.equals(product.p_vid);
                   });
-                  product.product_id.details = filteredDetail.shift();
+                  product.product.details = filteredDetail.shift();
                 });
               });
 
@@ -142,14 +142,14 @@ var Events = {
     getOne: function (req, res) {
         EventModel.findById(req.params.event_id)
         .populate({
-          path: 'products.product_id'
+          path: 'products.product'
         })
         .exec(function (err, item) {
           item.products.forEach(function(product){
-          var filteredDetail = product.product_id.details.filter(function(detail){
-            return detail._id.equals(product.product_vid);
+          var filteredDetail = product.product.details.filter(function(detail){
+            return detail._id.equals(product.p_vid);
           });
-          product.product_id.details = filteredDetail.shift();
+          product.product.details = filteredDetail.shift();
         });
 
         if (err) res.send(err);

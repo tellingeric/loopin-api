@@ -19,8 +19,8 @@ var EventSchema = new Schema({
     }],
     vendor: {type: Schema.Types.ObjectId, ref: 'Vendor'},
     products : [{
-      product_id : { type: Schema.Types.ObjectId, ref: 'Product' },
-      product_vid : { type: Schema.Types.ObjectId, ref: 'Product.details'},
+      product : { type: Schema.Types.ObjectId, ref: 'Product' },
+      p_vid : { type: Schema.Types.ObjectId, ref: 'Product.details'},
       unit_price : Number,
       num_sold: Number
     }]
