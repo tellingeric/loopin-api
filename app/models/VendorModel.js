@@ -24,5 +24,12 @@ var VendorSchema = new Schema({
     {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }}
 );
 
+VendorSchema.virtual('events', {
+    ref: 'Event', // The model to use
+    localField: '_id', // Find people where `localField`
+    foreignField: 'vendor' // is equal to `foreignField`
+});
+
+VendorSchema.options.toJSON = { virtuals: true };
 
 module.exports = mongoose.model('Vendor', VendorSchema);

@@ -77,7 +77,7 @@ var Vendors = {
                     $near: coords,
                     $maxDistance: maxDistance
                 }
-            }).limit(limit_doc).skip(skip_doc).exec(function(err, items) {
+            }).limit(limit_doc).skip(skip_doc).populate('events').exec(function(err, items) {
                 if (err) {
                     return res.send(err);
                 }
@@ -87,7 +87,7 @@ var Vendors = {
         }
         else
         {
-            VendorModel.find().limit(limit_doc).skip(skip_doc).sort(order + order_by).exec(function (err, items) {
+            VendorModel.find().limit(limit_doc).skip(skip_doc).sort(order + order_by).populate('events').exec(function (err, items) {
                 if (err) res.send(err);
                 res.json(items);
             });
