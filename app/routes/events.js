@@ -97,7 +97,12 @@ var Events = {
                     return item.event_id;
                 });
 
-                EventModel.find().where('_id').in(event_ids).populate('products.product').exec(function(err,items){
+                EventModel.find()
+                    .where('_id')
+                    .in(event_ids)
+                    .populate('products.product')
+                    .lean() //http://stackoverflow.com/questions/31824054/cannot-delete-json-element
+                    .exec(function(err,items){
                     if (err) {
                         return res.send(err);
                     }
@@ -122,8 +127,9 @@ var Events = {
             .limit(limit_doc)
             .skip(skip_doc)
             .sort(order + order_by)
+            .lean() //http://stackoverflow.com/questions/31824054/cannot-delete-json-element
             .exec(function (err, items) {
-              console.log(JSON.stringify(items));
+              if (err) res.send(err);
               items.forEach(function(item){
                 item.products.forEach(function(product){
                   var filteredDetail = product.product.details.filter(function(detail){
@@ -132,8 +138,6 @@ var Events = {
                   product.product.details = filteredDetail.shift();
                 });
               });
-
-              if (err) res.send(err);
               res.json(items);
             });
         }
