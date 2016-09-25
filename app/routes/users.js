@@ -18,6 +18,9 @@ var Users = {
           password: req.body.password,
           loc: req.body.loc
         });
+
+        if (req.body.device_token) user.devices.push({ device_token: req.body.device_token, date: new Date()});
+
         // Attempt to save the user
         user.save(function(err) {
           if (err) {
@@ -78,8 +81,8 @@ var Users = {
                 });
 
                 //add an entry in user sessions.
-                //user.devices.push({ device_token: req.body.device_token, date: new Date()});
-                //user.save();
+                if (req.body.device_token) user.devices.push({ device_token: req.body.device_token, date: new Date()});
+                user.save();
                 res.json({ success: true, token: token });
               } else {
                 res.json({ success: false, message: 'Authentication failed. Passwords did not match.' });
@@ -203,7 +206,7 @@ var Users = {
     },
     //If token expires, how to delete device_id
     addNewDevice: function(req, res) {
-        UserModel.findById(req.params.user_id, function(err, user) {
+        UserModel.findById(req.decoded._doc._id, function(err, user) {
           if (err) res.send(err);
 
           if (!user) {
@@ -226,8 +229,10 @@ var Users = {
     },
 
     logout: function(req, res) {
-        UserModel.findById(req.params.user_id, function(err, user) {
-          if (err) res.send(err);
+        UserModel.findById(req.decoded._doc._id, function(err, user) {
+          if (err)
+            return res.send(err);
+            
 
           var index = _.findIndex(user.devices, function(o) { return o.device_token == req.body.device_token; });
           if(index == -1){
@@ -235,18 +240,8 @@ var Users = {
           }
           else
           {
-            console.log(user.devices[index]._id);
-            //user.update({ _id : user.devices[index]._id},
-            //           { $pull : {'user.devices' : { '_id' : mongoose.Types.ObjectId(user.devices[index]._id) } } }
-            //           );
+            user.devices.splice(index,1);
 
-            _.pullAt(user.devices, index);
-            //console.log(user.devices);
-            //user.devices = temp;
-            //_.pull(user.devices, function(o) { return o.device_token == req.body.device_token; });
-            //var temp = _.remove(user.devices, function(n) {
-            //  return n == index;
-            //});
             user.save(function(err){
               if (err){
                 console.log(err);

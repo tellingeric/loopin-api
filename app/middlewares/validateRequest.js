@@ -57,6 +57,7 @@ module.exports = function(req, res, next) {
         // verifies secret and checks exp
         jwt.verify(token, config.secret, function(err, decoded) {
           if (err) {
+            console.log(JSON.stringify(err));
               return res.status(403).send({
                     success: false,
                     message: 'Failed to authenticate token.'
