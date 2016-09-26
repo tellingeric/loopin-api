@@ -149,6 +149,7 @@ var Events = {
         .populate({
           path: 'products.product'
         })
+        .lean()
         .exec(function (err, item) {
           item.products.forEach(function(product){
           var filteredDetail = product.product.details.filter(function(detail){

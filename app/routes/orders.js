@@ -32,8 +32,16 @@ var Orders = {
             limit_doc = req.query.limit || 0,
             skip_doc = req.query.skip || 0;
 
-        OrderModel.find().limit(limit_doc).skip(skip_doc).sort(order + order_by).exec(function (err, items) {
+        OrderModel.find().limit(limit_doc).skip(skip_doc).sort(order + order_by).populate('products.product').lean().exec(function (err, items) {
             if (err) res.send(err);
+            items.forEach(function(item){
+                item.products.forEach(function(product){
+                    var filteredDetail = product.product.details.filter(function(detail){
+                        return detail._id.equals(product.p_vid);
+                    });
+                    product.product.details = filteredDetail.shift();
+                });
+            });
             res.json(items);
         });
 
@@ -49,17 +57,37 @@ var Orders = {
             limit_doc = req.query.limit || 0,
             skip_doc = req.query.skip || 0;
 
-        OrderModel.find({buyer: req.params.user_id}).limit(limit_doc).skip(skip_doc).sort(order + order_by).exec(function (err, items) {
+        OrderModel.find({buyer: req.params.user_id}).limit(limit_doc).skip(skip_doc).sort(order + order_by).populate('products.product').lean().exec(function (err, items) {
             if (err) res.send(err);
+            items.forEach(function(item){
+                item.products.forEach(function(product){
+                    var filteredDetail = product.product.details.filter(function(detail){
+                        return detail._id.equals(product.p_vid);
+                    });
+                    product.product.details = filteredDetail.shift();
+                });
+            });
             res.json(items);
         });
     },
 
     getOne: function (req, res) {
-        OrderModel.findById(req.params.order_id, function (err, item) {
-            if (err) res.send(err);
-            res.json(item);
-        });
+        OrderModel.findById(req.params.order_id)
+            .populate({
+                path: 'products.product'
+            })
+            .lean()
+            .exec(function (err, item) {
+                item.products.forEach(function(product){
+                    var filteredDetail = product.product.details.filter(function(detail){
+                        return detail._id.equals(product.p_vid);
+                    });
+                    product.product.details = filteredDetail.shift();
+                });
+
+                if (err) res.send(err);
+                res.json(item);
+            });
     },
 
     updateOne: function (req, res) {
