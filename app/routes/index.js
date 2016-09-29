@@ -134,6 +134,7 @@ router.delete('/api/assets/:asset_id', Assets.deleteOne);
 
 //STATS
 router.get('/api/stats', Stats.getStats);
+router.get('/api/topEvents', Stats.getTopEvents);
 
 
 //DEBUG ROUTES, MUST REMOVE IN PRODUCTION !!!

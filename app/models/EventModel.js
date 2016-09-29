@@ -3,7 +3,7 @@ var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
 var EventSchema = new Schema({
-    name : {type: String,requried: true},
+    name : {type: String,required: true},
     description : String,
     created_by: {type: Schema.Types.ObjectId, ref: 'User', required: true},  //should be an ObjectId, keep it simple for now
     eventDate : Date,
