@@ -11,7 +11,8 @@ var OrderSchema = new Schema({
                 isMultiple: Boolean}],
             unit_price: Number,
             num_sold: Number,
-            event: { type: Schema.Types.ObjectId, ref: 'Event'} //optional, may not be purchased from an event
+            event: { type: Schema.Types.ObjectId, ref: 'Event'}, //optional, may not be purchased from an event
+            delivery : Schema.Types.ObjectId
         }],
         delivery_address : {
             street1 : String,

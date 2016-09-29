@@ -7,6 +7,7 @@ var ProductSchema = new Schema({
   name: {type: String, required: true},
   vendor: {type: Schema.Types.ObjectId, ref: 'Vendor', required: true},//should be an ObjectId, keep it simple for now
   created_by: {type: Schema.Types.ObjectId, ref: 'User'},
+  category : String,
   details: [{
       //vid: {type: String, required: true},
       //no need for this vid, Mongoose creates _id for each embedded document
