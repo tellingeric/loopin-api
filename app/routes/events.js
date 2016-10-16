@@ -10,17 +10,11 @@ var Events = {
     createOne: function (req, res) {
 
         var event = new EventModel();
-        event.name = req.body.name;
-        event.description = req.body.description;
-        event.eventDate = req.body.eventDate;
-        event.active_from = req.body.active_from;
-        event.active_end = req.body.active_end;
-        event.cancellable = req.body.cancellable;
-        event.imgur = req.body.imgur;
-        event.delivery_schedule = req.body.delivery_schedule;
-        event.vendor = mongoose.Types.ObjectId(req.body.vendor);
-        event.created_by = mongoose.Types.ObjectId(req.body.created_by);
-        event.products = req.body.products;
+		EventModel.schema.eachPath(function(path) {
+            if (_.has(req.body, path)){
+                _.set(order, path, _.get(req.body, path));
+            }
+        });
         event.save(function (err, saved) {
             if (err) res.send(err);
 

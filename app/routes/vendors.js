@@ -8,12 +8,11 @@ var Vendors = {
     createOne: function (req, res) {
 
         var vendor = new VendorModel();
-        vendor.name = req.body.name;
-        vendor.address = req.body.address;
-        vendor.loc = req.body.loc;
-        vendor.email = req.body.email;
-        vendor.phone = req.body.phone;
-        vendor.type = req.body.type;
+        VendorModel.schema.eachPath(function(path) {
+            if (_.has(req.body, path)){
+                _.set(order, path, _.get(req.body, path));
+            }
+        });
 
         vendor.save(function (err) {
             if (err) {

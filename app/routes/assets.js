@@ -19,8 +19,6 @@ var Assets = {
          created_by: {type: Schema.Types.ObjectId, ref: 'User'}
          */
         item.schema.eachPath(function(path) {
-            //console.log(path);
-
             if (_.has(inputJson, path)){
                 _.set(item, path, _.get(inputJson, path));
             }

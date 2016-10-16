@@ -8,10 +8,11 @@ var Products = {
     createOne: function (req, res) {
 
         var product = new ProductModel();
-        product.name = req.body.name;
-        product.vendor = mongoose.Types.ObjectId(req.body.vendor);
-        product.created_by = mongoose.Types.ObjectId(req.body.created_by);
-        product.details = req.body.details;
+        ProductModel.schema.eachPath(function(path) {
+            if (_.has(req.body, path)){
+                _.set(order, path, _.get(req.body, path));
+            }
+        });
 
         product.save(function (err) {
             if (err) {

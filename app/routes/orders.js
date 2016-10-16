@@ -9,12 +9,9 @@ var Orders = {
         var order = new OrderModel();
 
         OrderModel.schema.eachPath(function(path) {
-            //console.log(path);
-
             if (_.has(req.body, path)){
                 _.set(order, path, _.get(req.body, path));
             }
-            //if(req.body[path]) {item[path] = req.body[path];}
         });
 
         order.save(function (err) {
